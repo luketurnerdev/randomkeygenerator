@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 const Metronome = () => {
     const [bpm, setBpm] = useState(120);
     const [isPlaying, setIsPlaying] = useState(false);
-    const [isChangingTempo, setIsChangingTempo] = useState(false);
     const [intervalFunction, setIntervalFunction] = useState(null);
 
     let click = new Audio("https://freesound.org/data/previews/54/54406_497386-lq.mp3");
