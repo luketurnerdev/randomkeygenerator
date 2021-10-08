@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
 import Countdown from 'react-countdown';
+import cSound from "./../../Sounds/Piano/CMajorPiano.mp3"
+import eSound from "./../../Sounds/Piano/EMajorPiano.mp3"
 // 1. Randomize every 10 seconds
 // 2. Add variable amount of seconds
 // validate this field
@@ -14,25 +16,55 @@ import Countdown from 'react-countdown';
 
 
 function Randomizer() {
-  const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
-  const modifiers = ["Major", "Minor"];
+  // const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+  const keys = ["C","E"];
+  // const modifiers = ["Major", "Minor"];
+  const modifiers = ["Major"];
   const [currentKey, setCurrentKey] = useState("C");
-  const [delayInSeconds, setDelayInSeconds] = useState(2);
-  const [currentModifier, setCurrentModifier] = useState(modifiers[0])
-  let ding = new Audio("https://freesound.org/data/previews/173/173932_3229685-lq.mp3")
-  ding.volume = 0.2;
+  const [upcomingKey,setUpcomingKey] = useState("");
+  const [upcomingMod,setUpcomingMod] = useState("");
+  const [delayInSeconds, setDelayInSeconds] = useState(3);
+  const [currentMod, setCurrentMod] = useState(modifiers[0])
+  const [volume, setVolume] = useState(0.4);
 
-  let cSound = new Audio("https://freesound.org/data/previews/234/234060_713972-lq.mp3");
-  cSound.volume = 0.3;
+  let CMajor = new Audio(cSound);
+  CMajor.volume = volume;
+  let EMajor = new Audio(eSound);
+  EMajor.volume = volume;
+
+  const playChord = chordString => {
+    console.log(chordString)
+    switch (chordString) {
+      case "CMajor": {
+        CMajor.play();
+        break;
+      }
+      case "EMajor": {
+        EMajor.play();
+        break;
+      }
+    }
+  }
 
   
-  const changeKeyRandomly = () => { 
-    let newKey = keys[Math.floor(Math.random() * keys.length)];
-    setCurrentKey(newKey)
+//   const changeKeyRandomly = () => { 
+//     // TODO stop all previous chords incase there is overlap
+
+
+//     let newKey = keys[Math.floor(Math.random() * keys.length)];
+//     setCurrentKey(newKey)
     
+//     let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
+//     setCurrentModifier(newMod)
+//     playChord(`${currentKey}${currentModifier}`)
+// }
+
+  const decideNewKey = () => {
+    let newKey = keys[Math.floor(Math.random() * keys.length)];
     let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
-    setCurrentModifier(newMod)
-}
+    setUpcomingKey(newKey)
+    setUpcomingMod(newMod)
+  } 
   
   const KeyDisplay = () => {
     return (
@@ -41,7 +73,11 @@ function Randomizer() {
           date={Date.now() + delayInSeconds * 1000}
           renderer={clockRenderer}
         />
-        <h1>{currentKey} {currentModifier}</h1>
+        <h1>{currentKey} {currentMod} </h1>
+        <br />
+        <br />
+        <br />
+        <span>Upcoming: {upcomingKey} {upcomingMod}</span>
 
       </>
     )
@@ -49,8 +85,16 @@ function Randomizer() {
 
   const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
     if (completed) {
-      changeKeyRandomly();
+      // Start timer over
       api.start();
+      // Play sound of new key
+      playChord(`${upcomingKey}${upcomingMod}`)
+      // Decide on next upcoming key
+      decideNewKey();
+      setCurrentKey(upcomingKey)
+      setCurrentMod(upcomingMod)
+      
+
       return <h1>App is Paused </h1>;
     } else {
       // Render a countdown
