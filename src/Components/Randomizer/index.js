@@ -16,19 +16,30 @@ import {chords} from "../../utils/musicImports";
 
 const Randomizer = () => {
   // chords["CMajor"].play()
-  // const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
-  const keys = ["C","E", "Db"];
+  const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+  // const keys = ["Ab", "A", "Bb", "C", "Db", "D"];
+  // const keys = ["C","Db"];
   // const modifiers = ["Major", "Minor"];
   const modifiers = ["Major"];
-  const [currentKey, setCurrentKey] = useState("C");
-  const [upcomingKey,setUpcomingKey] = useState("");
-  const [upcomingMod,setUpcomingMod] = useState("");
-  const [delayInSeconds, setDelayInSeconds] = useState(3);
-  const [currentMod, setCurrentMod] = useState(modifiers[0])
+  const [currentKey, setCurrentKey] = useState("G");
+  const [currentMod, setCurrentMod] = useState("Major");
+  const [upcomingKey,setUpcomingKey] = useState("G");
+  const [upcomingMod,setUpcomingMod] = useState("Major");
+  const [keyOrder, setKeyOrder] = useState("randomKey")
+  const [delayInSeconds, setDelayInSeconds] = useState(5);
+  // const [currentMod, setCurrentMod] = useState(modifiers[0])
   const [volume, setVolume] = useState(0.4);
 
+  /*
+
+  // Start of App (or when user presses play)
+  1. Upcoming key is set to something (G). Mod set to major for now. Chord should play straight away.
+  2. Upcoming key is changed based on mode. Countdown starts.
+  3. End of countdown, play upcoming key, and THEN change upcoming key. Restart countdown.
 
 
+
+  */
   
 
   //TODO:
@@ -39,39 +50,61 @@ const Randomizer = () => {
   
   //Allow user to choose flats or sharps
 
-  const playChord = chordString => {
-    console.log(chordString)
-    // switch (chordString) {
-    //   case "CMajor": {
-    //     CMajor.play();
-    //     break;
-    //   }
-    //   case "DbMajor": {
-    //     DbMajor.play();
-    //     break;
-    //   }
-    //   case "EMajor": {
-    //     EMajor.play();
-    //     break;
-    //   }
-    // }
+  const changeKeySequentially = (currentKey) => {
+    let index = keys.indexOf(currentKey);
+    let newKey;
+    if (index >= keys.length-1) {
+      newKey = keys[0]
+    }
+    else {
+      newKey = keys[index+1]
+    }
+
+    setUpcomingKey(newKey);
+    setUpcomingMod("Major")
+
   }
 
-  const decideNewKey = () => {
+  const changeKeyRandomly = () => {
     let newKey = keys[Math.floor(Math.random() * keys.length)];
     let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
     setUpcomingKey(newKey)
     setUpcomingMod(newMod)
+  }
+  const playChord = () => {
+    let current = `${upcomingKey}${upcomingMod}`;
+    current && chords[current].play()
+    setCurrentKey(upcomingKey);
+    setCurrentMod(upcomingMod);
+
+
+  }
+
+  const decideUpcomingKey = keyOrder => {
+    switch (keyOrder) {
+      case "randomKey": 
+        changeKeyRandomly()
+        break;
+
+      case "sequential":
+        changeKeySequentially(upcomingKey);
+        break;
+
+      default: {
+        break;
+      }
+    }
   } 
   
   const KeyDisplay = () => {
     return (
       <>
+      <h1>{currentKey}</h1>
         <Countdown 
           date={Date.now() + delayInSeconds * 1000}
           renderer={clockRenderer}
         />
-        <h1>{currentKey} {currentMod} </h1>
+        {/* <h1>{currentKey} {currentMod} </h1> */}
         <br />
         <br />
         <br />
@@ -81,21 +114,46 @@ const Randomizer = () => {
     )
   }
 
+  const ChangeOrderDisplay = () => {
+    const changeToRandom = () => {
+      if (keyOrder != "randomKey") {
+        changeKeyRandomly();
+        setKeyOrder("randomKey")
+      }
+    }
+    const changeToSequential = () => {
+      if (keyOrder != "sequential") {
+        console.log('set to seq currentkey: ' +currentKey)
+        console.log(upcomingKey)
+        changeKeySequentially(currentKey);
+        setKeyOrder("sequential")
+      }
+    }
+    // TODO: Clear the upcoming Chord when we change, and set to
+    return (
+      <div>
+      <h1>Key order: {keyOrder}</h1>
+      <button 
+      onClick={() => changeToRandom()}
+      >
+        {keyOrder === "randomKey" ? "Random [X]" : "Random"}
+      </button>
+      <button onClick={() => changeToSequential()}
+      >
+      {keyOrder === "sequential" ? "sequential [X]" : "sequential"}
+
+      </button>
+      </div>
+    )
+  }
+
   const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
     if (completed) {
-        // Start timer over
-        api.start();
-        // Play sound of new key
-        playChord(`${upcomingKey}${upcomingMod}`)
-  
-        // Decide on next upcoming key
-        decideNewKey();
-        setCurrentKey(upcomingKey)
-        
-        setCurrentMod(upcomingMod)
-
-        return <h1>App is paused</h1>
+      playChord();
+      decideUpcomingKey(keyOrder);
+      api.start();
+      return <h1>App is paused</h1>
       } 
       
       else {
@@ -110,26 +168,16 @@ const Randomizer = () => {
     }
   }
 
-  const test = () => {
-    let current = `${currentKey}${currentMod}`;
-    console.log(`${currentKey}${currentMod}`)
-    chords[current].play()
-  }
 
   return (
     <div className="App">
      <h1>Key Randomizer</h1> 
       <div>
         <KeyDisplay />
-        <p>{!currentKey && "null"}</p>
+        <ChangeOrderDisplay />
         <h5>Delay</h5>
-        <button onClick={() => test()}> Test </button>
+        <button onClick={() => changeKeySequentially()}> Test </button>
         <input type="number" onChange={e => changeDelay(e)} /> <span> seconds </span>
-        {/* <div>
-            <button onClick={() => decrementDelay(1)}>Down</button>
-            <p>{delayInSeconds}</p>
-            <button onClick={() => incrementDelay(1)}>Up</button>
-        </div> */}
         <h5>Seconds</h5>
       </div>
     </div>
