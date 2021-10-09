@@ -15,7 +15,6 @@ import {chords} from "../../utils/musicImports";
 
 
 const Randomizer = () => {
-  console.log(chords["CMajor"])
   // chords["CMajor"].play()
   // const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   const keys = ["C","E", "Db"];
@@ -85,7 +84,6 @@ const Randomizer = () => {
   const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
     if (completed) {
-        console.log('in completed')
         // Start timer over
         api.start();
         // Play sound of new key
@@ -112,6 +110,12 @@ const Randomizer = () => {
     }
   }
 
+  const test = () => {
+    let current = `${currentKey}${currentMod}`;
+    console.log(`${currentKey}${currentMod}`)
+    chords[current].play()
+  }
+
   return (
     <div className="App">
      <h1>Key Randomizer</h1> 
@@ -119,6 +123,7 @@ const Randomizer = () => {
         <KeyDisplay />
         <p>{!currentKey && "null"}</p>
         <h5>Delay</h5>
+        <button onClick={() => test()}> Test </button>
         <input type="number" onChange={e => changeDelay(e)} /> <span> seconds </span>
         {/* <div>
             <button onClick={() => decrementDelay(1)}>Down</button>
