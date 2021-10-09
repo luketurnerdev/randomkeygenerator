@@ -1,8 +1,6 @@
 import {useState, useEffect} from 'react';
 import Countdown from 'react-countdown';
-import cMajorSound from "./../../Sounds/Piano/CMajorPiano.mp3"
-import eMajorSound from "./../../Sounds/Piano/EMajorPiano.mp3"
-import dbMajorSound from "./../../Sounds/Piano/DbMajorPiano.mp3"
+import {chords} from "../../utils/musicImports";
 // 1. Randomize every 10 seconds
 // 2. Add variable amount of seconds
 // validate this field
@@ -17,7 +15,8 @@ import dbMajorSound from "./../../Sounds/Piano/DbMajorPiano.mp3"
 
 
 const Randomizer = () => {
-
+  console.log(chords["CMajor"])
+  // chords["CMajor"].play()
   // const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   const keys = ["C","E", "Db"];
   // const modifiers = ["Major", "Minor"];
@@ -29,14 +28,6 @@ const Randomizer = () => {
   const [currentMod, setCurrentMod] = useState(modifiers[0])
   const [volume, setVolume] = useState(0.4);
 
-  let CMajor = new Audio(cMajorSound);
-  CMajor.volume = volume;
-
-  let DbMajor = new Audio(dbMajorSound);
-  DbMajor.volume = volume;
-
-  let EMajor = new Audio(eMajorSound);
-  EMajor.volume = volume;
 
 
   
@@ -51,20 +42,20 @@ const Randomizer = () => {
 
   const playChord = chordString => {
     console.log(chordString)
-    switch (chordString) {
-      case "CMajor": {
-        CMajor.play();
-        break;
-      }
-      case "DbMajor": {
-        DbMajor.play();
-        break;
-      }
-      case "EMajor": {
-        EMajor.play();
-        break;
-      }
-    }
+    // switch (chordString) {
+    //   case "CMajor": {
+    //     CMajor.play();
+    //     break;
+    //   }
+    //   case "DbMajor": {
+    //     DbMajor.play();
+    //     break;
+    //   }
+    //   case "EMajor": {
+    //     EMajor.play();
+    //     break;
+    //   }
+    // }
   }
 
   const decideNewKey = () => {
