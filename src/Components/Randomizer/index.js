@@ -79,15 +79,22 @@ const Randomizer = () => {
 
   const playChord = () => {
     let current = `${upcomingKey}${upcomingMod}`;
-    console.log(current)
     if (current) {
       chords[current].play()
     }
     else {
-
       console.error('no chord found')
     }
     setCurrentKey(upcomingKey);
+  }
+
+  const stopChord = () => {
+    // find chord in list by name,
+    let currentChord = `${currentKey}${currentMod}`
+    console.log("Chord: " + currentChord)
+    console.log(chords[currentChord])
+    chords[currentChord].pause();
+    chords[currentChord].currentTime = 0;
   }
 
   const decideUpcomingKey = keyOrder => {
@@ -204,9 +211,15 @@ const Randomizer = () => {
   const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
     if (completed) {
+      // Stop any currently playing chord from overlapping
+      stopChord();
+      // Play upcoming (now current) chord
       playChord();
+
       decideUpcomingKey(keyOrder);
       setCurrentMod(upcomingMod)
+
+      //Restart clock
       api.start();
       return <h1>App is paused</h1>
       } 
