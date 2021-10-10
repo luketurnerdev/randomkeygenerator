@@ -13,6 +13,24 @@ import aMajorSound from "../Sounds/Piano/AMajorPiano.mp3";
 import bbMajorSound from "../Sounds/Piano/BbMajorPiano.mp3";
 import bMajorSound from "../Sounds/Piano/BMajorPiano.mp3";
 
+// Minor
+
+import cMinorSound from "../Sounds/Piano/CMinorPiano.mp3"
+import dbMinorSound from "../Sounds/Piano/DbMinorPiano.mp3";
+import dMinorSound from "../Sounds/Piano/DMinorPiano.mp3";
+import ebMinorSound from "../Sounds/Piano/EbMinorPiano.mp3";
+import eMinorSound from"../Sounds/Piano/EMinorPiano.mp3"
+import fMinorSound from "../Sounds/Piano/FMinorPiano.mp3";
+import gbMinorSound from "../Sounds/Piano/GbMinorPiano.mp3";
+import gMinorSound from "../Sounds/Piano/GMinorPiano.mp3";
+import abMinorSound from "../Sounds/Piano/AbMinorPiano.mp3";
+import aMinorSound from "../Sounds/Piano/AMinorPiano.mp3";
+import bbMinorSound from "../Sounds/Piano/BbMinorPiano.mp3";
+import bMinorSound from "../Sounds/Piano/BMinorPiano.mp3";
+
+// Defining Audio instances
+
+// Major
 const CMajor = new Audio(cMajorSound);
 CMajor.volume = 0.3;
 
@@ -49,6 +67,45 @@ EMajor.volume = 0.3;
 const BMajor = new Audio(bMajorSound);
 EMajor.volume = 0.3;
 
+
+// Minor
+
+const CMinor = new Audio(cMinorSound);
+CMinor.volume = 0.3;
+
+const DbMinor = new Audio(dbMinorSound);
+DbMinor.volume = 0.3;
+
+const DMinor = new Audio(dMinorSound);
+DbMinor.volume = 0.3;
+
+const EbMinor = new Audio(ebMinorSound);
+DbMinor.volume = 0.3;
+
+const EMinor = new Audio(eMinorSound);
+DbMinor.volume = 0.3;
+
+const FMinor = new Audio(fMinorSound);
+EMinor.volume = 0.3;
+
+const GbMinor = new Audio(gbMinorSound);
+EMinor.volume = 0.3;
+
+const GMinor = new Audio(gMinorSound);
+EMinor.volume = 0.3;
+
+const AbMinor = new Audio(abMinorSound);
+EMinor.volume = 0.3;
+
+const AMinor = new Audio(aMinorSound);
+EMinor.volume = 0.3;
+
+const BbMinor = new Audio(bbMinorSound);
+EMinor.volume = 0.3;
+
+const BMinor = new Audio(bMinorSound);
+EMinor.volume = 0.3;
+
 export const chords = {
     "CMajor": CMajor,
     "DbMajor": DbMajor,
@@ -62,5 +119,17 @@ export const chords = {
     "AMajor": AMajor,
     "BbMajor": BbMajor,
     "BMajor": BMajor,
+    "CMinor": CMinor,
+    "DbMinor": DbMinor,
+    "DMinor": DMinor,
+    "EbMinor": EbMinor,
+    "EMinor": EMinor,
+    "FMinor": FMinor,
+    "GbMinor": GbMinor,
+    "GMinor": GMinor,
+    "AbMinor": AbMinor,
+    "AMinor": AMinor,
+    "BbMinor": BbMinor,
+    "BMinor": BMinor,
 }
 
