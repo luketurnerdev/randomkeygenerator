@@ -15,16 +15,20 @@ import {chords} from "../../utils/musicImports";
 
 
 const Randomizer = () => {
-  const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   const modifiers = ["Major", "Minor"];
+  const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+  // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
   const [currentKey, setCurrentKey] = useState("G");
   const [upcomingKey,setUpcomingKey] = useState("Ab");
   const [currentMod, setCurrentMod] = useState("Minor");
   const [upcomingMod,setUpcomingMod] = useState("Major");
   const [randomizeMod, setRandomizeMod] = useState(false);
+  const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
   const [keyOrder, setKeyOrder] = useState("randomKey")
   const [delayInSeconds, setDelayInSeconds] = useState(3);
+  const [secondsLeft, setSecondsLeft] = useState(delayInSeconds);
+  const [loop, setLoop] = useState(true)
   const [volume, setVolume] = useState(0.4);
 
   /*
@@ -46,27 +50,27 @@ const Randomizer = () => {
   //Allow user to choose flats or sharps
 
   const changeKeySequentially = (currentKey) => {
-    let index = keys.indexOf(currentKey);
+    let index = currentKeyset.indexOf(currentKey);
     let newKey;
-    (index >= keys.length-1) ? newKey = keys[0] : newKey = keys[index+1]
+    (index >= currentKeyset.length-1) ? newKey = currentKeyset[0] : newKey = currentKeyset[index+1]
 
     setUpcomingKey(newKey);
     randomizeModIfEnabled();
   }
 
   const changeKeyRandomly = () => {
-    let newKey = keys[Math.floor(Math.random() * keys.length)];
+    let newKey = currentKeyset[Math.floor(Math.random() * currentKeyset.length)];
     setUpcomingKey(newKey)
     randomizeModIfEnabled();
   }
 
   const changeKeyInFifths = currentKey => {
-    let index = keys.indexOf(currentKey);
+    let index = currentKeyset.indexOf(currentKey);
     let newPos = index+7;
-    if (newPos > (keys.length-1)) {
-      newPos = (newPos-keys.length);
+    if (newPos > (currentKeyset.length-1)) {
+      newPos = (newPos-currentKeyset.length);
     }
-    setUpcomingKey(keys[newPos]);
+    setUpcomingKey(currentKeyset[newPos]);
     randomizeModIfEnabled();
   }
 
@@ -78,9 +82,10 @@ const Randomizer = () => {
   }
 
   const playChord = () => {
-    let current = `${upcomingKey}${upcomingMod}`;
-    if (current) {
-      chords[current].play()
+    let chord = chords[`${upcomingKey}${upcomingMod}`];
+    if (chord) {
+      chord.play();
+      chord.loop = loop;
     }
     else {
       console.error('no chord found')
@@ -91,8 +96,6 @@ const Randomizer = () => {
   const stopChord = () => {
     // find chord in list by name,
     let currentChord = `${currentKey}${currentMod}`
-    console.log("Chord: " + currentChord)
-    console.log(chords[currentChord])
     chords[currentChord].pause();
     chords[currentChord].currentTime = 0;
   }
@@ -141,7 +144,6 @@ const Randomizer = () => {
     }
     const changeToFifths = () => {
       if (keyOrder != "fifths") {
-        console.log('143')
         setKeyOrder("fifths")
         changeKeyRandomly(currentKey);
 
@@ -210,6 +212,7 @@ const Randomizer = () => {
 
   const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
+    // Every second, this re-renders, so we can track the seconds
     if (completed) {
       // Stop any currently playing chord from overlapping
       stopChord();
