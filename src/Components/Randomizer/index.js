@@ -22,11 +22,11 @@ const Randomizer = () => {
   const modifiers = ["Major", "Minor"];
   // const modifiers = ["Major"];
   const [currentKey, setCurrentKey] = useState("G");
-  const [currentMod, setCurrentMod] = useState("Minor");
+  const [currentMod, setCurrentMod] = useState("Major");
   const [upcomingKey,setUpcomingKey] = useState("Ab");
   const [upcomingMod,setUpcomingMod] = useState("Major");
   const [keyOrder, setKeyOrder] = useState("randomKey")
-  const [delayInSeconds, setDelayInSeconds] = useState(500);
+  const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [volume, setVolume] = useState(0.4);
 
   /*
@@ -61,8 +61,6 @@ const Randomizer = () => {
 
   const changeKeyRandomly = () => {
     let newKey = keys[Math.floor(Math.random() * keys.length)];
-    let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
-    setUpcomingMod("Minor")
     setUpcomingKey(newKey)
     console.log('set upcoming to ' +newKey)
   }
@@ -90,7 +88,6 @@ const Randomizer = () => {
       console.error('no chord found')
     }
     setCurrentKey(upcomingKey);
-    setCurrentMod(upcomingMod);
   }
 
   const decideUpcomingKey = keyOrder => {
@@ -172,6 +169,28 @@ const Randomizer = () => {
     )
   }
 
+  const ChangeModDisplay = () => {
+    return (
+     <div>
+        <h1>Modifier: {currentMod} </h1>
+      <button onClick={() => {
+        setUpcomingMod("Major")
+        setCurrentMod("Major")
+      }
+    }>
+       Major
+    </button >
+      <button onClick={() => {
+        setUpcomingMod("Minor")
+        setCurrentMod("Minor")
+      }
+    }>
+       Minor
+    </button >
+     </div>
+    )
+  }
+
   const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
     if (completed) {
@@ -200,6 +219,7 @@ const Randomizer = () => {
       <div>
         <KeyDisplay />
         <ChangeOrderDisplay />
+        <ChangeModDisplay />
         <h5>Delay</h5>
         <button onClick={() => changeKeySequentially()}> Test </button>
         <input type="number" onChange={e => changeDelay(e)} /> <span> seconds </span>
