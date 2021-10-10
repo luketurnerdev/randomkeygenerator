@@ -15,16 +15,14 @@ import {chords} from "../../utils/musicImports";
 
 
 const Randomizer = () => {
-  // chords["CMajor"].play()
   const keys = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
-  // const keys = ["Ab", "A", "Bb", "C", "Db", "D"];
-  // const keys = ["C","Db"];
   const modifiers = ["Major", "Minor"];
-  // const modifiers = ["Major"];
+
   const [currentKey, setCurrentKey] = useState("G");
-  const [currentMod, setCurrentMod] = useState("Major");
   const [upcomingKey,setUpcomingKey] = useState("Ab");
+  const [currentMod, setCurrentMod] = useState("Minor");
   const [upcomingMod,setUpcomingMod] = useState("Major");
+  const [randomizeMod, setRandomizeMod] = useState(false);
   const [keyOrder, setKeyOrder] = useState("randomKey")
   const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [volume, setVolume] = useState(0.4);
@@ -35,8 +33,6 @@ const Randomizer = () => {
   1. Upcoming key is set to something (G). Mod set to major for now. Chord should play straight away.
   2. Upcoming key is changed based on mode. Countdown starts.
   3. End of countdown, play upcoming key, and THEN change upcoming key. Restart countdown.
-
-
 
   */
   
@@ -55,16 +51,14 @@ const Randomizer = () => {
     (index >= keys.length-1) ? newKey = keys[0] : newKey = keys[index+1]
 
     setUpcomingKey(newKey);
-    console.log('set upcoming to ' +newKey)
-
+    randomizeModIfEnabled();
   }
 
   const changeKeyRandomly = () => {
     let newKey = keys[Math.floor(Math.random() * keys.length)];
     setUpcomingKey(newKey)
-    console.log('set upcoming to ' +newKey)
+    randomizeModIfEnabled();
   }
-
 
   const changeKeyInFifths = currentKey => {
     let index = keys.indexOf(currentKey);
@@ -73,8 +67,14 @@ const Randomizer = () => {
       newPos = (newPos-keys.length);
     }
     setUpcomingKey(keys[newPos]);
-    console.log('set upcoming to ' + keys[newPos])
+    randomizeModIfEnabled();
+  }
 
+  const randomizeModIfEnabled = () => {
+    if (randomizeMod) {
+      let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
+      setUpcomingMod(newMod);
+    }
   }
 
   const playChord = () => {
@@ -174,19 +174,29 @@ const Randomizer = () => {
      <div>
         <h1>Modifier: {currentMod} </h1>
       <button onClick={() => {
+        setRandomizeMod(false);
         setUpcomingMod("Major")
-        setCurrentMod("Major")
+        // setCurrentMod("Major")
       }
     }>
        Major
     </button >
       <button onClick={() => {
+        setRandomizeMod(false);
         setUpcomingMod("Minor")
-        setCurrentMod("Minor")
+        // setCurrentMod("Minor")
       }
     }>
        Minor
     </button >
+
+    <button onClick={() => {
+        setRandomizeMod(true);
+      }
+    }>
+       Random
+    </button >
+
      </div>
     )
   }
@@ -196,6 +206,7 @@ const Randomizer = () => {
     if (completed) {
       playChord();
       decideUpcomingKey(keyOrder);
+      setCurrentMod(upcomingMod)
       api.start();
       return <h1>App is paused</h1>
       } 
@@ -220,6 +231,7 @@ const Randomizer = () => {
         <KeyDisplay />
         <ChangeOrderDisplay />
         <ChangeModDisplay />
+        <h1>Random? {randomizeMod.toString()} </h1>
         <h5>Delay</h5>
         <button onClick={() => changeKeySequentially()}> Test </button>
         <input type="number" onChange={e => changeDelay(e)} /> <span> seconds </span>
