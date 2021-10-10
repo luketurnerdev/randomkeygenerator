@@ -23,10 +23,10 @@ const Randomizer = () => {
   const modifiers = ["Major"];
   const [currentKey, setCurrentKey] = useState("G");
   const [currentMod, setCurrentMod] = useState("Major");
-  const [upcomingKey,setUpcomingKey] = useState("G");
+  const [upcomingKey,setUpcomingKey] = useState("Ab");
   const [upcomingMod,setUpcomingMod] = useState("Major");
   const [keyOrder, setKeyOrder] = useState("randomKey")
-  const [delayInSeconds, setDelayInSeconds] = useState(5);
+  const [delayInSeconds, setDelayInSeconds] = useState(500);
   // const [currentMod, setCurrentMod] = useState(modifiers[0])
   const [volume, setVolume] = useState(0.4);
 
@@ -44,7 +44,7 @@ const Randomizer = () => {
 
   //TODO:
 
-  // make metronome reset on new chord regardless of bpm and timing
+  // make metronome reset on  chord regardless of bpm and timing
   // keep a log of chords played in case cool progressions emerge
   // users can save these later?
   
@@ -53,14 +53,10 @@ const Randomizer = () => {
   const changeKeySequentially = (currentKey) => {
     let index = keys.indexOf(currentKey);
     let newKey;
-    if (index >= keys.length-1) {
-      newKey = keys[0]
-    }
-    else {
-      newKey = keys[index+1]
-    }
+    (index >= keys.length-1) ? newKey = keys[0] : newKey = keys[index+1]
 
     setUpcomingKey(newKey);
+    console.log('set upcoming to ' +newKey)
     setUpcomingMod("Major")
 
   }
@@ -69,15 +65,35 @@ const Randomizer = () => {
     let newKey = keys[Math.floor(Math.random() * keys.length)];
     let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
     setUpcomingKey(newKey)
+    console.log('set upcoming to ' +newKey)
+
     setUpcomingMod(newMod)
   }
+
+
+  const changeKeyInFifths = currentKey => {
+    let index = keys.indexOf(currentKey);
+    let newPos = index+7;
+    if (newPos > (keys.length-1)) {
+      newPos = (newPos-keys.length);
+    }
+    setUpcomingKey(keys[newPos]);
+    console.log('set upcoming to ' + keys[newPos])
+
+  }
+
   const playChord = () => {
     let current = `${upcomingKey}${upcomingMod}`;
-    current && chords[current].play()
+    console.log(current)
+    if (current) {
+      chords[current].play()
+    }
+    else {
+
+      console.error('no chord found')
+    }
     setCurrentKey(upcomingKey);
     setCurrentMod(upcomingMod);
-
-
   }
 
   const decideUpcomingKey = keyOrder => {
@@ -87,7 +103,12 @@ const Randomizer = () => {
         break;
 
       case "sequential":
+        // We pass in upcoming so it starts from correct key
         changeKeySequentially(upcomingKey);
+        break;
+
+      case "fifths": 
+        changeKeyInFifths(upcomingKey);
         break;
 
       default: {
@@ -99,17 +120,13 @@ const Randomizer = () => {
   const KeyDisplay = () => {
     return (
       <>
-      <h1>{currentKey}</h1>
+      <h1>{currentKey} {currentMod}</h1>
         <Countdown 
           date={Date.now() + delayInSeconds * 1000}
           renderer={clockRenderer}
         />
-        {/* <h1>{currentKey} {currentMod} </h1> */}
-        <br />
-        <br />
         <br />
         <span>Upcoming: {upcomingKey} {upcomingMod}</span>
-
       </>
     )
   }
@@ -117,16 +134,22 @@ const Randomizer = () => {
   const ChangeOrderDisplay = () => {
     const changeToRandom = () => {
       if (keyOrder != "randomKey") {
-        changeKeyRandomly();
         setKeyOrder("randomKey")
+        changeKeyRandomly();
+      }
+    }
+    const changeToFifths = () => {
+      if (keyOrder != "fifths") {
+        console.log('143')
+        setKeyOrder("fifths")
+        changeKeyRandomly(currentKey);
+
       }
     }
     const changeToSequential = () => {
       if (keyOrder != "sequential") {
-        console.log('set to seq currentkey: ' +currentKey)
-        console.log(upcomingKey)
-        changeKeySequentially(currentKey);
         setKeyOrder("sequential")
+        changeKeySequentially(currentKey);
       }
     }
     // TODO: Clear the upcoming Chord when we change, and set to
@@ -141,6 +164,11 @@ const Randomizer = () => {
       <button onClick={() => changeToSequential()}
       >
       {keyOrder === "sequential" ? "sequential [X]" : "sequential"}
+
+      </button>
+      <button onClick={() => changeToFifths()}
+      >
+      {keyOrder === "fifths" ? "fifths [X]" : "fifths"}
 
       </button>
       </div>
