@@ -29,7 +29,7 @@ const Randomizer = () => {
   const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [secondsLeft, setSecondsLeft] = useState(delayInSeconds);
   const [loop, setLoop] = useState(true)
-  const [volume, setVolume] = useState(0.4);
+  const [volume, setVolume] = useState(50);
 
   /*
 
@@ -48,6 +48,17 @@ const Randomizer = () => {
   // users can save these later?
   
   //Allow user to choose flats or sharps
+
+  const changeVolume = e => {
+    let vol = e.target.value;
+    console.log(e.target.value);
+
+    setVolume(vol);
+    // for (const key in chords) {
+
+    //   chords[key].volume = newVol/100;
+    // }
+  }
 
   const changeKeySequentially = (currentKey) => {
     let index = currentKeyset.indexOf(currentKey);
@@ -84,7 +95,9 @@ const Randomizer = () => {
   const playChord = () => {
     let chord = chords[`${upcomingKey}${upcomingMod}`];
     if (chord) {
+      chord.volume = volume / 100;
       chord.play();
+      // TODO - if loop selected
       chord.loop = loop;
     }
     else {
@@ -206,7 +219,15 @@ const Randomizer = () => {
        Random
     </button >
 
+
      </div>
+    )
+  }
+
+  const VolumeDisplay = () => {
+    return ( 
+      <input min="1" max="100" value={volume} onClick={e => changeVolume(e)} type="range" >
+      </input>
     )
   }
 
@@ -247,6 +268,9 @@ const Randomizer = () => {
         <KeyDisplay />
         <ChangeOrderDisplay />
         <ChangeModDisplay />
+        <VolumeDisplay />
+        <h1>Vol: {volume} </h1>
+
         <h1>Random? {randomizeMod.toString()} </h1>
         <h5>Delay</h5>
         <button onClick={() => changeKeySequentially()}> Test </button>
