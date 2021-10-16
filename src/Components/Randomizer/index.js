@@ -18,12 +18,11 @@ import { red } from '@mui/material/colors';
 
 
 const Randomizer = () => {
+  console.log('re rendered app')
   const modifiers = ["Major", "Minor"];
   const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
-  const [currentKey, setCurrentKey] = useState("G");
-  const [upcomingKey,setUpcomingKey] = useState("Ab");
   const [currentMod, setCurrentMod] = useState("Minor");
   const [upcomingMod,setUpcomingMod] = useState("Major");
   const [randomizeMod, setRandomizeMod] = useState(false);
@@ -116,30 +115,7 @@ const Randomizer = () => {
     // }
   }
 
-  const changeKeySequentially = (currentKey) => {
-    let index = currentKeyset.indexOf(currentKey);
-    let newKey;
-    (index >= currentKeyset.length-1) ? newKey = currentKeyset[0] : newKey = currentKeyset[index+1]
 
-    setUpcomingKey(newKey);
-    randomizeModIfEnabled();
-  }
-
-  const changeKeyRandomly = () => {
-    let newKey = currentKeyset[Math.floor(Math.random() * currentKeyset.length)];
-    setUpcomingKey(newKey)
-    randomizeModIfEnabled();
-  }
-
-  const changeKeyInFifths = currentKey => {
-    let index = currentKeyset.indexOf(currentKey);
-    let newPos = index+7;
-    if (newPos > (currentKeyset.length-1)) {
-      newPos = (newPos-currentKeyset.length);
-    }
-    setUpcomingKey(currentKeyset[newPos]);
-    randomizeModIfEnabled();
-  }
 
   const randomizeModIfEnabled = () => {
     if (randomizeMod) {
@@ -148,52 +124,118 @@ const Randomizer = () => {
     }
   }
 
-  const playChord = () => {
-    let chord = chords[`${upcomingKey}${upcomingMod}`];
-    if (chord) {
-      chord.volume = volume / 100;
-      chord.play();
-      // TODO - if loop selected
-      chord.loop = loop;
-    }
-    else {
-      console.error('no chord found')
-    }
-    setCurrentKey(upcomingKey);
-  }
 
-  const stopChord = () => {
-    // find chord in list by name,
-    let currentChord = `${currentKey}${currentMod}`
-    chords[currentChord].pause();
-    chords[currentChord].currentTime = 0;
-  }
 
-  const decideUpcomingKey = keyOrder => {
-    switch (keyOrder) {
-      case "randomKey": 
-        changeKeyRandomly()
-        break;
 
-      case "sequential":
-        // We pass in upcoming so it starts from correct key
-        changeKeySequentially(upcomingKey);
-        break;
-
-      case "fifths": 
-        changeKeyInFifths(upcomingKey);
-        break;
-
-      default: {
-        break;
-      }
-    }
-  } 
+  
   
   const KeyDisplay = () => {
-    const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
-    return (
+    const [currentKey, setCurrentKey] = useState("G");
+    const [upcomingKey,setUpcomingKey] = useState("Ab");
 
+    const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
+    const changeKeySequentially = (currentKey) => {
+      let index = currentKeyset.indexOf(currentKey);
+      let newKey;
+      (index >= currentKeyset.length-1) ? newKey = currentKeyset[0] : newKey = currentKeyset[index+1]
+  
+      setUpcomingKey(newKey);
+      randomizeModIfEnabled();
+    }
+  
+    const changeKeyRandomly = () => {
+      let newKey = currentKeyset[Math.floor(Math.random() * currentKeyset.length)];
+      setUpcomingKey(newKey)
+      randomizeModIfEnabled();
+    }
+  
+    const changeKeyInFifths = currentKey => {
+      let index = currentKeyset.indexOf(currentKey);
+      let newPos = index+7;
+      if (newPos > (currentKeyset.length-1)) {
+        newPos = (newPos-currentKeyset.length);
+      }
+      setUpcomingKey(currentKeyset[newPos]);
+      randomizeModIfEnabled();
+    }
+
+    const decideUpcomingKey = keyOrder => {
+      switch (keyOrder) {
+        case "randomKey": 
+          changeKeyRandomly()
+          break;
+  
+        case "sequential":
+          // We pass in upcoming so it starts from correct key
+          changeKeySequentially(upcomingKey);
+          break;
+  
+        case "fifths": 
+          changeKeyInFifths(upcomingKey);
+          break;
+  
+        default: {
+          break;
+        }
+      }
+    } 
+    const playChord = () => {
+      let chord = chords[`${upcomingKey}${upcomingMod}`];
+      if (chord) {
+        chord.volume = volume / 100;
+        chord.play();
+        // TODO - if loop selected
+        chord.loop = loop;
+      }
+      else {
+        console.error('no chord found')
+      }
+      setCurrentKey(upcomingKey);
+    }
+
+    const stopChord = () => {
+      // find chord in list by name,
+      let currentChord = `${currentKey}${currentMod}`
+      chords[currentChord].pause();
+      chords[currentChord].currentTime = 0;
+    }
+  
+
+    const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
+
+      // Every second, this re-renders, so we can track the seconds
+      // set seconds back to 3 explicitly?
+      // console.log(seconds)
+      if (seconds === 3) {
+        // setLessThanThreeLeft(true);
+      }
+      if (completed) {
+        // Stop any currently playing chord from overlapping
+        stopChord();
+        // Play upcoming (now current) chord
+        playChord();
+  
+        decideUpcomingKey(keyOrder);
+        setCurrentMod(upcomingMod)
+        //Restart clock
+        // setLessThanThreeLeft(false)
+        api.start();
+        return <h1>paused</h1>
+        } 
+        
+        else {
+          // Render a countdown
+          return (
+            <div style={styles.countdown} >
+            
+            <span>{(hours > 0) && hours} {minutes} mins {seconds} sec</span>
+            </div>
+          )
+        }
+    };
+   
+    return (
+<>
       <Paper elevation={4}>
         <Grid container style={styles.keyDisplayGrid}>
           <Grid item xs={8} style={styles.keyDisplayItem}>
@@ -212,52 +254,59 @@ const Randomizer = () => {
 
       </Paper>
 
+    <Countdown
+        date={Date.now() + delayInSeconds * 1000}
+        renderer={clockRenderer}
+    />
+
+</>
+
       
     )
   }
 
-  const ChangeOrderDisplay = () => {
-    const changeToRandom = () => {
-      if (keyOrder != "randomKey") {
-        setKeyOrder("randomKey")
-        changeKeyRandomly();
-      }
-    }
-    const changeToFifths = () => {
-      if (keyOrder != "fifths") {
-        setKeyOrder("fifths")
-        changeKeyRandomly(currentKey);
+  // const ChangeOrderDisplay = () => {
+  //   const changeToRandom = () => {
+  //     if (keyOrder != "randomKey") {
+  //       setKeyOrder("randomKey")
+  //       changeKeyRandomly();
+  //     }
+  //   }
+  //   const changeToFifths = () => {
+  //     if (keyOrder != "fifths") {
+  //       setKeyOrder("fifths")
+  //       changeKeyRandomly(currentKey);
 
-      }
-    }
-    const changeToSequential = () => {
-      if (keyOrder != "sequential") {
-        setKeyOrder("sequential")
-        changeKeySequentially(currentKey);
-      }
-    }
-    // TODO: Clear the upcoming Chord when we change, and set to
-    return (
-      <div>
-      <h1>Key order: {keyOrder}</h1>
-      <button 
-      onClick={() => changeToRandom()}
-      >
-        {keyOrder === "randomKey" ? "Random [X]" : "Random"}
-      </button>
-      <button onClick={() => changeToSequential()}
-      >
-      {keyOrder === "sequential" ? "sequential [X]" : "sequential"}
+  //     }
+  //   }
+  //   const changeToSequential = () => {
+  //     if (keyOrder != "sequential") {
+  //       setKeyOrder("sequential")
+  //       changeKeySequentially(currentKey);
+  //     }
+  //   }
+  //   // TODO: Clear the upcoming Chord when we change, and set to
+  //   return (
+  //     <div>
+  //     <h1>Key order: {keyOrder}</h1>
+  //     <button 
+  //     onClick={() => changeToRandom()}
+  //     >
+  //       {keyOrder === "randomKey" ? "Random [X]" : "Random"}
+  //     </button>
+  //     <button onClick={() => changeToSequential()}
+  //     >
+  //     {keyOrder === "sequential" ? "sequential [X]" : "sequential"}
 
-      </button>
-      <button onClick={() => changeToFifths()}
-      >
-      {keyOrder === "fifths" ? "fifths [X]" : "fifths"}
+  //     </button>
+  //     <button onClick={() => changeToFifths()}
+  //     >
+  //     {keyOrder === "fifths" ? "fifths [X]" : "fifths"}
 
-      </button>
-      </div>
-    )
-  }
+  //     </button>
+  //     </div>
+  //   )
+  // }
 
   const ChangeModDisplay = () => {
     return (
@@ -299,39 +348,7 @@ const Randomizer = () => {
     )
   }
 
-  const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
-    // Every second, this re-renders, so we can track the seconds
-    // set seconds back to 3 explicitly?
-    // console.log(seconds)
-    if (seconds === 3) {
-      // setLessThanThreeLeft(true);
-    }
-    if (completed) {
-      // Stop any currently playing chord from overlapping
-      stopChord();
-      // Play upcoming (now current) chord
-      playChord();
-
-      decideUpcomingKey(keyOrder);
-      setCurrentMod(upcomingMod)
-      //Restart clock
-      // setLessThanThreeLeft(false)
-      api.start();
-      return <h1>paused</h1>
-      } 
-      
-      else {
-        // Render a countdown
-        return (
-          <div style={styles.countdown} >
-          
-          <span>{(hours > 0) && hours} {minutes} mins {seconds} sec</span>
-          </div>
-        )
-      }
-  };
- 
 
 
   const DelayDisplay = () => {
@@ -355,10 +372,7 @@ const Randomizer = () => {
      <h1>Key Randomizer</h1> 
       <div>
         <KeyDisplay />
-        <Countdown
-            date={Date.now() + delayInSeconds * 1000}
-            renderer={clockRenderer}
-        />
+      
         <DelayDisplay />
         {/* <ChangeOrderDisplay />
         <ChangeModDisplay />
