@@ -18,13 +18,10 @@ import { red } from '@mui/material/colors';
 
 
 const Randomizer = () => {
-  console.log('re rendered app')
   const modifiers = ["Major", "Minor"];
   const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
-  const [upcomingMod,setUpcomingMod] = useState("Major");
-  const [randomizeMod, setRandomizeMod] = useState(false);
   const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
   const [keyOrder, setKeyOrder] = useState("randomKey")
   const [delayInSeconds, setDelayInSeconds] = useState(3);
@@ -116,18 +113,16 @@ const Randomizer = () => {
 
 
 
-  const randomizeModIfEnabled = () => {
-    if (randomizeMod) {
-      let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
-      setUpcomingMod(newMod);
-    }
-  }
+
 
 
   const KeyDisplay = () => {
     const [currentKey, setCurrentKey] = useState("G");
     const [upcomingKey,setUpcomingKey] = useState("Ab");
     const [currentMod, setCurrentMod] = useState("Major");
+    const [upcomingMod,setUpcomingMod] = useState("Major");
+    const [randomizeMod, setRandomizeMod] = useState(false);
+
 
     const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
     const changeKeySequentially = (currentKey) => {
@@ -137,6 +132,13 @@ const Randomizer = () => {
   
       setUpcomingKey(newKey);
       randomizeModIfEnabled();
+    }
+
+    const randomizeModIfEnabled = () => {
+      if (randomizeMod) {
+        let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
+        setUpcomingMod(newMod);
+      }
     }
   
     const changeKeyRandomly = () => {
