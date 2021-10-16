@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
-import { Paper, Grid, Slide } from '@mui/material';
+import { Paper, Grid, Slide, TextField } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 // 1. Randomize every 10 seconds
@@ -72,12 +72,36 @@ const Randomizer = () => {
       margin: ' 0 15%',
     },
     keyDisplayGrid: {
-      border: '2px solid green',
       height: '10vh',
       width: '30vw'
     },
     keyDisplayItem: {
+      border: '2px solid green'
+    },
+    countdown: {
       border: '2px solid red'
+    },
+    delayDisplay: {
+      border: '2px solid black',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+    seconds: {
+      // height: '10px'
+      width: '5vw',
+      height: '50%',
+      padding: '0 10px'
+    },
+    mins: {
+      // height: '10px'
+      width: '5vw',
+      height: '50%',
+      padding: '0 10px'
+
+    },
+    delayText: {
+
     }
   }
 
@@ -170,21 +194,20 @@ const Randomizer = () => {
     const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
     return (
 
-      <Paper elevation={4} >
+      <Paper elevation={4}>
         <Grid container style={styles.keyDisplayGrid}>
-          <Grid item xs={lessThanThreeLeft ? 6 : 12} style={styles.keyDisplayItem}>
-          <h5>Current: x </h5> 
+          <Grid item xs={8} style={styles.keyDisplayItem}>
+          <Slide direction="left" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
+          <h5>{currentKey} {currentMod}</h5> 
+              </Slide>
 
           </Grid>
-          <Grid item xs={lessThanThreeLeft ? 6 : 0} style={styles.keyDisplayItem}>  
+          <Grid item xs={4} style={styles.keyDisplayItem}>  
               <Slide direction="up" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
-                <h5>Upcoming: y </h5> 
+                <h5>Next: {upcomingKey} {upcomingMod}</h5> 
               </Slide>
+              
           </Grid>
-            <Countdown 
-              date={Date.now() + delayInSeconds * 1000}
-              renderer={clockRenderer}
-            />
          </Grid> 
 
       </Paper>
@@ -300,23 +323,43 @@ const Randomizer = () => {
       
       else {
         // Render a countdown
-        // return <span>{(hours > 0) && hours} hr {minutes} mins {seconds} sec</span>;
-        return seconds
+        return (
+          <div style={styles.countdown} >
+          
+          <span>{(hours > 0) && hours} {minutes} mins {seconds} sec</span>
+          </div>
+        )
       }
   };
  
-  const changeDelay = (e) => {
-    if (e.target.value >= 1) {
-      setDelayInSeconds(e.target.value)
-    }
-  }
 
+
+  const DelayDisplay = () => {
+    const changeDelay = (e) => {
+      // if (e.target.value >= 1) {
+      //   setDelayInSeconds(e.target.value)
+      // }
+    }
+
+    return (
+      <div style={styles.delayDisplay}>
+        <TextField style={styles.mins} /> mins
+        <TextField style={styles.seconds} /> seconds
+      </div>
+    )
+
+  }
 
   return (
     <Paper elevation={5} style={styles.paperContainer}>
      <h1>Key Randomizer</h1> 
       <div>
         <KeyDisplay />
+        <Countdown
+            date={Date.now() + delayInSeconds * 1000}
+            renderer={clockRenderer}
+        />
+        <DelayDisplay />
         {/* <ChangeOrderDisplay />
         <ChangeModDisplay />
         <VolumeDisplay /> */}
