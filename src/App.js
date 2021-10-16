@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <Randomizer  />
-      <Metronome />
+      {/* <Metronome /> */}
       {/* <button onClick={() => setPaused(!paused)}>Pause / Unpause</button> */}
       {/* <h1>{paused ? "Paused" : "unpaused"}</h1> */}
 

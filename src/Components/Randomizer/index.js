@@ -1,6 +1,9 @@
 import {useState} from 'react';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
+import { Paper, Grid } from '@mui/material';
+import { red } from '@mui/material/colors';
+
 // 1. Randomize every 10 seconds
 // 2. Add variable amount of seconds
 // validate this field
@@ -31,6 +34,7 @@ const Randomizer = () => {
   const [loop, setLoop] = useState(true)
   const [volume, setVolume] = useState(50);
 
+
   /*
 
   // Start of App (or when user presses play)
@@ -48,6 +52,25 @@ const Randomizer = () => {
   // users can save these later?
   
   //Allow user to choose flats or sharps
+
+  const styles = {
+    paperContainer: {
+      display: 'flex',
+      // justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+      border: '1px solid black',
+      margin: ' 0 15%',
+    },
+    keyDisplayGrid: {
+      border: '2px solid green',
+      height: '10vh',
+      width: '30vw'
+    },
+    keyDisplayItem: {
+      border: '2px solid red'
+    }
+  }
 
   const changeVolume = e => {
     let vol = e.target.value;
@@ -136,15 +159,24 @@ const Randomizer = () => {
   
   const KeyDisplay = () => {
     return (
-      <>
-      <h1>{currentKey} {currentMod}</h1>
-        <Countdown 
-          date={Date.now() + delayInSeconds * 1000}
-          renderer={clockRenderer}
-        />
-        <br />
-        <span>Upcoming: {upcomingKey} {upcomingMod}</span>
-      </>
+      <Paper elevation={4} >
+        <Grid container style={styles.keyDisplayGrid}>
+          <Grid item xs={6} style={styles.keyDisplayItem}>
+            Current: x
+          </Grid>
+          <Grid item xs={6} style={styles.keyDisplayItem}>
+            Upcoming: y
+          </Grid>
+          {/* <h1>{currentKey} {currentMod}</h1>
+            <Countdown 
+              date={Date.now() + delayInSeconds * 1000}
+              renderer={clockRenderer}
+            />
+            <br />
+            <span>Upcoming: {upcomingKey} {upcomingMod}</span> */}
+        </Grid> 
+
+      </Paper>
     )
   }
 
@@ -262,22 +294,22 @@ const Randomizer = () => {
 
 
   return (
-    <div className="App">
+    <Paper elevation={5} style={styles.paperContainer}>
      <h1>Key Randomizer</h1> 
       <div>
         <KeyDisplay />
-        <ChangeOrderDisplay />
+        {/* <ChangeOrderDisplay />
         <ChangeModDisplay />
-        <VolumeDisplay />
-        <h1>Vol: {volume} </h1>
+        <VolumeDisplay /> */}
+        {/* <h1>Vol: {volume} </h1>
 
         <h1>Random? {randomizeMod.toString()} </h1>
         <h5>Delay</h5>
         <button onClick={() => changeKeySequentially()}> Test </button>
         <input type="number" onChange={e => changeDelay(e)} /> <span> seconds </span>
-        <h5>Seconds</h5>
+        <h5>Seconds</h5> */}
       </div>
-    </div>
+    </Paper>
   );
 }
 
