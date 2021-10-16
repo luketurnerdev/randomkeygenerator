@@ -23,12 +23,11 @@ const Randomizer = () => {
   const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
-  const [currentMod, setCurrentMod] = useState("Minor");
   const [upcomingMod,setUpcomingMod] = useState("Major");
   const [randomizeMod, setRandomizeMod] = useState(false);
   const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
   const [keyOrder, setKeyOrder] = useState("randomKey")
-  const [delayInSeconds, setDelayInSeconds] = useState(7);
+  const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [loop, setLoop] = useState(true)
   const [volume, setVolume] = useState(50);
 
@@ -125,13 +124,10 @@ const Randomizer = () => {
   }
 
 
-
-
-  
-  
   const KeyDisplay = () => {
     const [currentKey, setCurrentKey] = useState("G");
     const [upcomingKey,setUpcomingKey] = useState("Ab");
+    const [currentMod, setCurrentMod] = useState("Major");
 
     const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
     const changeKeySequentially = (currentKey) => {
@@ -308,38 +304,38 @@ const Randomizer = () => {
   //   )
   // }
 
-  const ChangeModDisplay = () => {
-    return (
-     <div>
-        <h1>Modifier: {currentMod} </h1>
-      <button onClick={() => {
-        setRandomizeMod(false);
-        setUpcomingMod("Major")
-        // setCurrentMod("Major")
-      }
-    }>
-       Major
-    </button >
-      <button onClick={() => {
-        setRandomizeMod(false);
-        setUpcomingMod("Minor")
-        // setCurrentMod("Minor")
-      }
-    }>
-       Minor
-    </button >
+  // const ChangeModDisplay = () => {
+  //   return (
+  //    <div>
+  //       <h1>Modifier: {currentMod} </h1>
+  //     <button onClick={() => {
+  //       setRandomizeMod(false);
+  //       setUpcomingMod("Major")
+  //       // setCurrentMod("Major")
+  //     }
+  //   }>
+  //      Major
+  //   </button >
+  //     <button onClick={() => {
+  //       setRandomizeMod(false);
+  //       setUpcomingMod("Minor")
+  //       // setCurrentMod("Minor")
+  //     }
+  //   }>
+  //      Minor
+  //   </button >
 
-    <button onClick={() => {
-        setRandomizeMod(true);
-      }
-    }>
-       Random
-    </button >
+  //   <button onClick={() => {
+  //       setRandomizeMod(true);
+  //     }
+  //   }>
+  //      Random
+  //   </button >
 
 
-     </div>
-    )
-  }
+  //    </div>
+  //   )
+  // }
 
   const VolumeDisplay = () => {
     return ( 
