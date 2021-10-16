@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
-import { Paper, Grid } from '@mui/material';
+import { Paper, Grid, Slide } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 // 1. Randomize every 10 seconds
@@ -35,6 +35,16 @@ const Randomizer = () => {
   const [volume, setVolume] = useState(50);
 
 
+  // State to handle key display animation
+
+  /*
+  when 3 seconds left:
+  1. slide in from side.
+  
+  when 0 sec left: 
+  replace current. current has full width?
+
+  const []
   /*
 
   // Start of App (or when user presses play)
@@ -158,14 +168,26 @@ const Randomizer = () => {
   } 
   
   const KeyDisplay = () => {
+  
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
     return (
+
       <Paper elevation={4} >
+        <button onClick={handleChange}>
+          clik
+        </button>
         <Grid container style={styles.keyDisplayGrid}>
-          <Grid item xs={6} style={styles.keyDisplayItem}>
+          <Grid item xs={checked ? 6 : 12} style={styles.keyDisplayItem}>
             Current: x
           </Grid>
-          <Grid item xs={6} style={styles.keyDisplayItem}>
-            Upcoming: y
+          <Grid item xs={checked ? 6 : 0} style={styles.keyDisplayItem}>  
+              <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+                <h1>Upcoming: y </h1>
+              </Slide>
           </Grid>
           {/* <h1>{currentKey} {currentMod}</h1>
             <Countdown 
@@ -173,10 +195,12 @@ const Randomizer = () => {
               renderer={clockRenderer}
             />
             <br />
-            <span>Upcoming: {upcomingKey} {upcomingMod}</span> */}
-        </Grid> 
+            <span>Upcoming: {upcomingKey} {upcomingMod}</span>  */}
+         </Grid> 
 
       </Paper>
+
+      
     )
   }
 
