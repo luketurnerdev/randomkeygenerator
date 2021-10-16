@@ -29,8 +29,7 @@ const Randomizer = () => {
   const [randomizeMod, setRandomizeMod] = useState(false);
   const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
   const [keyOrder, setKeyOrder] = useState("randomKey")
-  const [delayInSeconds, setDelayInSeconds] = useState(3);
-  const [secondsLeft, setSecondsLeft] = useState(delayInSeconds);
+  const [delayInSeconds, setDelayInSeconds] = useState(7);
   const [loop, setLoop] = useState(true)
   const [volume, setVolume] = useState(50);
 
@@ -168,34 +167,24 @@ const Randomizer = () => {
   } 
   
   const KeyDisplay = () => {
-  
-  const [checked, setChecked] = useState(false);
-
-  const handleChange = () => {
-    setChecked((prev) => !prev);
-  };
+    const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
     return (
 
       <Paper elevation={4} >
-        <button onClick={handleChange}>
-          clik
-        </button>
         <Grid container style={styles.keyDisplayGrid}>
-          <Grid item xs={checked ? 6 : 12} style={styles.keyDisplayItem}>
-            Current: x
+          <Grid item xs={lessThanThreeLeft ? 6 : 12} style={styles.keyDisplayItem}>
+          <h5>Current: x </h5> 
+
           </Grid>
-          <Grid item xs={checked ? 6 : 0} style={styles.keyDisplayItem}>  
-              <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
-                <h1>Upcoming: y </h1>
+          <Grid item xs={lessThanThreeLeft ? 6 : 0} style={styles.keyDisplayItem}>  
+              <Slide direction="up" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
+                <h5>Upcoming: y </h5> 
               </Slide>
           </Grid>
-          {/* <h1>{currentKey} {currentMod}</h1>
             <Countdown 
               date={Date.now() + delayInSeconds * 1000}
               renderer={clockRenderer}
             />
-            <br />
-            <span>Upcoming: {upcomingKey} {upcomingMod}</span>  */}
          </Grid> 
 
       </Paper>
@@ -290,6 +279,11 @@ const Randomizer = () => {
   const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
     // Every second, this re-renders, so we can track the seconds
+    // set seconds back to 3 explicitly?
+    // console.log(seconds)
+    if (seconds === 3) {
+      // setLessThanThreeLeft(true);
+    }
     if (completed) {
       // Stop any currently playing chord from overlapping
       stopChord();
@@ -298,15 +292,16 @@ const Randomizer = () => {
 
       decideUpcomingKey(keyOrder);
       setCurrentMod(upcomingMod)
-
       //Restart clock
+      // setLessThanThreeLeft(false)
       api.start();
-      return <h1>App is paused</h1>
+      return <h1>paused</h1>
       } 
       
       else {
         // Render a countdown
-        return <span>{(hours > 0) && hours} hr {minutes} mins {seconds} sec</span>;
+        // return <span>{(hours > 0) && hours} hr {minutes} mins {seconds} sec</span>;
+        return seconds
       }
   };
  
