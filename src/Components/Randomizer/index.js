@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
-import { Paper, Grid, Slide, TextField } from '@mui/material';
+import { Paper, Grid, Slide, TextField, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
 
 // 1. Randomize every 10 seconds
@@ -237,15 +237,15 @@ const Randomizer = () => {
       <Paper elevation={4}>
         <Grid container style={styles.keyDisplayGrid}>
           <Grid item xs={8} style={styles.keyDisplayItem}>
-          <Slide direction="left" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
+          <Paper direction="left" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
           <h5>{currentKey} {currentMod}</h5> 
-              </Slide>
+              </Paper>
 
           </Grid>
           <Grid item xs={4} style={styles.keyDisplayItem}>  
-              <Slide direction="up" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
+              <Paper direction="up" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
                 <h5>Next: {upcomingKey} {upcomingMod}</h5> 
-              </Slide>
+              </Paper>
               
           </Grid>
          </Grid> 
@@ -350,16 +350,17 @@ const Randomizer = () => {
 
 
   const DelayDisplay = () => {
+    const [delay,setDelay] = useState(delayInSeconds);
     const changeDelay = (e) => {
-      // if (e.target.value >= 1) {
-      //   setDelayInSeconds(e.target.value)
-      // }
+      if (e.target.value && e.target.value >= 1) {
+        setDelayInSeconds(e.target.value)
+      }
     }
 
     return (
       <div style={styles.delayDisplay}>
-        <TextField style={styles.mins} /> mins
-        <TextField style={styles.seconds} /> seconds
+        <TextField value={delay} onChange={e => setDelay(e.target.value)} style={styles.seconds} /> seconds
+        <Button onClick={e => setDelayInSeconds(delay)}> Set </Button>
       </div>
     )
 
