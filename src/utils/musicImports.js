@@ -37,74 +37,53 @@ const CMajor = new Howl ({src : [cMajorSound], volume:0.3});
 
 const DbMajor = new Howl ({src : [dbMajorSound], volume:0.3});
 
-const DMajor = new Audio(dMajorSound);
-DbMajor.volume = 0.3;
+const DMajor = new Howl({src: [dMajorSound], volume: 0.3})
 
-const EbMajor = new Audio(ebMajorSound);
-DbMajor.volume = 0.3;
 
-const EMajor = new Audio(eMajorSound);
-DbMajor.volume = 0.3;
+const EbMajor = new Howl({src: [ebMajorSound], volume: 0.3})
 
-const FMajor = new Audio(fMajorSound);
-EMajor.volume = 0.3;
+const EMajor = new Howl({src: [eMajorSound], volume: 0.3})
 
-const GbMajor = new Audio(gbMajorSound);
-EMajor.volume = 0.3;
+const FMajor = new Howl({src: [fMajorSound], volume: 0.3})
 
-const GMajor = new Audio(gMajorSound);
-EMajor.volume = 0.3;
+const GbMajor = new Howl({src: [gbMajorSound], volume: 0.3})
 
-const AbMajor = new Audio(abMajorSound);
-EMajor.volume = 0.3;
+const GMajor = new Howl({src: [gMajorSound], volume: 0.3})
 
-const AMajor = new Audio(aMajorSound);
-EMajor.volume = 0.3;
+const AbMajor = new Howl({src: [abMajorSound], volume: 0.3})
 
-const BbMajor = new Audio(bbMajorSound);
-EMajor.volume = 0.3;
+const AMajor = new Howl({src: [aMajorSound], volume: 0.3})
 
-const BMajor = new Audio(bMajorSound);
-EMajor.volume = 0.3;
+const BbMajor = new Howl({src: [bbMajorSound], volume: 0.3})
+
+const BMajor = new Howl({src: [bMajorSound], volume: 0.3})
 
 
 // Minor
 
-const CMinor = new Audio(cMinorSound);
-CMinor.volume = 0.3;
+const CMinor = new Howl({src: [cMinorSound], volume: 0.3})
 
-const DbMinor = new Audio(dbMinorSound);
-DbMinor.volume = 0.3;
+const DbMinor = new Howl({src: [dbMinorSound], volume: 0.3})
 
-const DMinor = new Audio(dMinorSound);
-DbMinor.volume = 0.3;
+const DMinor = new Howl({src: [dMinorSound], volume: 0.3})
 
-const EbMinor = new Audio(ebMinorSound);
-DbMinor.volume = 0.3;
+const EbMinor = new Howl({src: [ebMinorSound], volume: 0.3})
 
-const EMinor = new Audio(eMinorSound);
-DbMinor.volume = 0.3;
+const EMinor = new Howl({src: [eMinorSound], volume: 0.3})
 
-const FMinor = new Audio(fMinorSound);
-EMinor.volume = 0.3;
+const FMinor = new Howl({src: [fMinorSound], volume: 0.3})
 
-const GbMinor = new Audio(gbMinorSound);
-EMinor.volume = 0.3;
+const GbMinor = new Howl({src: [gbMinorSound], volume: 0.3})
 
-const GMinor = new Audio(gMinorSound);
-EMinor.volume = 0.3;
+const GMinor = new Howl({src: [gMinorSound], volume: 0.3})
 
-const AbMinor = new Audio(abMinorSound);
-EMinor.volume = 0.3;
+const AbMinor = new Howl({src: [abMinorSound], volume: 0.3})
 
-const AMinor = new Audio(aMinorSound);
-EMinor.volume = 0.3;
+const AMinor = new Howl({src: [aMinorSound], volume: 0.3})
 
-const BbMinor = new Audio(bbMinorSound);
-EMinor.volume = 0.3;
+const BbMinor = new Howl({src: [bbMinorSound], volume: 0.3})
 
-const BMinor = new Audio(bMinorSound);
-EMinor.volume = 0.3;
+const BMinor = new Howl({src: [bMinorSound], volume: 0.3})
 
 export const chords = {
     "CMajor": CMajor,

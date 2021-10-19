@@ -13,8 +13,7 @@ import { fontWeight, textAlign } from '@mui/system';
 
 const Randomizer = () => {
   const modifiers = ["Major", "Minor"];
-  // const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
-  const keysWithFlats = ["C","Db"];
+  const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
   const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
@@ -139,11 +138,6 @@ const Randomizer = () => {
         console.error('no chord found')
       }
     }
-
-    const stopChord = () => {
-      
-      Howler.stop()
-    }
   
 
     const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
@@ -158,7 +152,7 @@ const Randomizer = () => {
         // upcoming = Ab (same as before)
         
         // Stop any previous chords
-        stopChord();
+        Howler.stop()
         // Play current
         playChord();
         
