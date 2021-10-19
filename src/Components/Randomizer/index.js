@@ -1,21 +1,12 @@
 import {useState} from 'react';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
-import {generateRandomKey, generateSequentialKey} from "../../utils/keyChanges";
+import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../utils/keyChanges";
 import { Paper, Grid, Slide, TextField, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { fontWeight, textAlign } from '@mui/system';
 
-// 1. Randomize every 10 seconds
-// 2. Add variable amount of seconds
-// validate this field
-// 2. Go in sequential order
-// 3. Go in circle of 5ths
-// 5. Allow chord to be major or minor (user sets)
-// Add metronome
-// change delay setting ui (arrows?)
-// 4. Add sounds (chord?)
-// have pause from above state for pausing app (global state?)
+
 
 
 
@@ -25,30 +16,11 @@ const Randomizer = () => {
   // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
   const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
-  const [keyOrder, setKeyOrder] = useState("randomKey")
+  const [keyOrder, setKeyOrder] = useState("sequential")
   const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [loop, setLoop] = useState(true)
   const [volume, setVolume] = useState(50);
-
-
-  // State to handle key display animation
-
-  /*
-  when 3 seconds left:
-  1. slide in from side.
-  
-  when 0 sec left: 
-  replace current. current has full width?
-
-  const []
-  /*
-
-  // Start of App (or when user presses play)
-  1. Upcoming key is set to something (G). Mod set to major for now. Chord should play straight away.
-  2. Upcoming key is changed based on mode. Countdown starts.
-  3. End of countdown, play upcoming key, and THEN change upcoming key. Restart countdown.
-
-  */
+  // */
   
 
   //TODO:
@@ -107,7 +79,6 @@ const Randomizer = () => {
 
   const changeVolume = e => {
     let vol = e.target.value;
-    console.log(e.target.value);
 
     setVolume(vol);
     // for (const key in chords) {
@@ -116,11 +87,6 @@ const Randomizer = () => {
     // }
   }
 
-
-
-
-
-
   const KeyDisplay = () => {
     const [currentKey, setCurrentKey] = useState("G");
     const [upcomingKey,setUpcomingKey] = useState("Ab");
@@ -128,48 +94,28 @@ const Randomizer = () => {
     const [upcomingMod,setUpcomingMod] = useState("Major");
     const [randomizeMod, setRandomizeMod] = useState(false);
 
+      // // Start of App (or when user presses play)
+  // 1. Upcoming key is set to something (G). Mod set to major for now. Chord should play straight away.
+  // 2. Upcoming key is changed based on mode. Countdown starts.
+  // 3. End of countdown, play upcoming key, and THEN change upcoming key. Restart countdown.
 
-    const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
 
-
-    const randomizeModIfEnabled = () => {
-      if (randomizeMod) {
-        let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
-        setUpcomingMod(newMod);
-      }
-    }
-  
-    // const changeKeyRandomly = () => {
-    //   let newKey = currentKeyset[Math.floor(Math.random() * currentKeyset.length)];
-    //   setUpcomingKey(newKey)
-    //   randomizeModIfEnabled();
+    // const randomizeModIfEnabled = () => {
+    //   if (randomizeMod) {
+    //     let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
+    //     setUpcomingMod(newMod);
+    //   }
     // }
-  
-    const changeKeyInFifths = currentKey => {
-      let index = currentKeyset.indexOf(currentKey);
-      let newPos = index+7;
-      if (newPos > (currentKeyset.length-1)) {
-        newPos = (newPos-currentKeyset.length);
-      }
-      setUpcomingKey(currentKeyset[newPos]);
-      randomizeModIfEnabled();
-    }
 
-    const decideUpcomingKey = keyOrder => {
+    const decideUpcomingKey = () => {
       switch (keyOrder) {
         case "randomKey": 
-          setUpcomingKey(generateRandomKey(currentKeyset));
-          break;
-  
+          return (generateRandomKey(currentKeyset));
         case "sequential":
           // We pass in upcoming so it starts from correct key
-          setUpcomingKey(generateSequentialKey(currentKey, currentKeyset));
-          break;
-  
-        case "fifths": 
-          changeKeyInFifths(upcomingKey);
-          break;
-  
+          return (generateSequentialKey(upcomingKey, currentKeyset));
+          case "fifths": 
+          return (generateFifthsKey(currentKey, currentKeyset));
         default: {
           break;
         }
@@ -186,38 +132,62 @@ const Randomizer = () => {
       else {
         console.error('no chord found')
       }
-      setCurrentKey(upcomingKey);
     }
 
     const stopChord = () => {
+      
+      var allAudios = document.querySelectorAll('audio');
+
+
+      allAudios.forEach(function(audio){
+        console.log(audio)
+        audio.pause();
+        audio.currentTime = 0 ;
+      });
+
       // find chord in list by name,
-      let currentChord = `${currentKey}${currentMod}`
-      chords[currentChord].pause();
-      chords[currentChord].currentTime = 0;
+      // let currentChord = `${currentKey}${currentMod}`
+      // let upcomingChord = `${upcomingKey}${upcomingMod}`
+      // console.log('stop' + currentKey)
+      // console.log(upcomingKey)
+      // chords[upcomingChord].pause();
+      // chords[upcomingChord].currentTime = 0;
+      // chords[currentChord].pause();
+      // chords[currentChord].currentTime = 0;
     }
   
 
     const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
-      // Every second, this re-renders, so we can track the seconds
-      // set seconds back to 3 explicitly?
-
       // TODO - when 3 sec left, play click (but dont alter state)
-      // console.log(seconds)
-      if (seconds === 3) {
-        // setLessThanThreeLeft(true);
-      }
       if (completed) {
-        // Stop any currently playing chord from overlapping
+
+        // start: current = G. Upcoming = Ab.
+        // Countdown begins.
+        // upcon complettion..
+
+        // upcoming = Ab (same as before)
+        
+        // Stop any previous chords
         stopChord();
-        // Play upcoming (now current) chord
+        
+        // Play current
         playChord();
-  
-        decideUpcomingKey(keyOrder);
-        setCurrentMod(upcomingMod)
+        
         //Restart clock
-        // setLessThanThreeLeft(false)
         api.start();
+        
+        // Current is discarded. 
+        // Upcoming becomes current.  
+        
+        setUpcomingKey(decideUpcomingKey());
+        setCurrentKey(upcomingKey);
+
+        // Change state for next reset
+
+        
+        // setCurrentMod(upcomingMod);
+
         return <h1>paused</h1>
         } 
         
@@ -261,20 +231,6 @@ const Randomizer = () => {
   }
 
   const ChangeOrderDisplay = () => {
-
-    // const changeToFifths = () => {
-    //   if (keyOrder != "fifths") {
-    //     setKeyOrder("fifths")
-    //     generateRandomKey(currentKey);
-
-    //   }
-    // }
-    // const changeToSequential = () => {
-    //   if (keyOrder != "sequential") {
-    //     setKeyOrder("sequential")
-    //     changeKeySequentially(currentKey);
-    //   }
-    // }
     return (
       <div>
       <h1>Key order: {keyOrder}</h1>
@@ -285,14 +241,13 @@ const Randomizer = () => {
       </button>
       <button onClick={() => setKeyOrder("sequential")}
       >
-      {keyOrder === "sequential" ? "SEQUENTIAL" : "sequential"}
+        {keyOrder === "sequential" ? "SEQUENTIAL" : "sequential"}
 
       </button>
-      {/* <button onClick={() => changeToFifths()}
+      <button onClick={() => setKeyOrder("fifths")}
       >
-      {keyOrder === "fifths" ? "fifths [X]" : "fifths"}
-
-      </button> */}
+        {keyOrder === "fifths" ? "FIFTHS" : "fifths"}
+      </button>
       </div>
     )
   }
@@ -342,17 +297,21 @@ const Randomizer = () => {
 
   const DelayDisplay = () => {
     const [delay,setDelay] = useState(delayInSeconds);
-    const changeDelay = (e) => {
-      if (e.target.value && e.target.value >= 1) {
-        setDelayInSeconds(e.target.value)
+    const changeDelay = () => {
+      console.log('1')
+      if (delay && delay >= 1) {
+        console.log('2')
+        setDelayInSeconds(delay)
       }
     }
 
     return (
       <div style={styles.delayDisplay}>
         <h5> Change Delay </h5>
+          {//todo - DO NOT ALLOW HYPHENS ETC} - regex 
+        }
         <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} type="number"value={delay} onChange={e => setDelay(e.target.value)} style={styles.seconds} /> seconds
-        <Button onClick={e => setDelayInSeconds(delay)}> Set </Button>
+        <Button onClick={changeDelay}> Set </Button>
       </div>
     )
 
@@ -365,7 +324,7 @@ const Randomizer = () => {
         <KeyDisplay />
       
         <DelayDisplay />
-         <ChangeOrderDisplay />
+        <ChangeOrderDisplay />
         {/* <ChangeModDisplay />
         <VolumeDisplay />  */}
         {/* <h1>Vol: {volume} </h1>
