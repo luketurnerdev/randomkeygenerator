@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Howl, Howler} from 'howler';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../utils/keyChanges";
@@ -12,7 +13,8 @@ import { fontWeight, textAlign } from '@mui/system';
 
 const Randomizer = () => {
   const modifiers = ["Major", "Minor"];
-  const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+  // const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+  const keysWithFlats = ["C","Db"];
   // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
   const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
@@ -88,8 +90,8 @@ const Randomizer = () => {
   }
 
   const KeyDisplay = () => {
-    const [currentKey, setCurrentKey] = useState("G");
-    const [upcomingKey,setUpcomingKey] = useState("Ab");
+    const [currentKey, setCurrentKey] = useState("C");
+    const [upcomingKey,setUpcomingKey] = useState("Db");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
     const [randomizeMod, setRandomizeMod] = useState(false);
@@ -123,11 +125,15 @@ const Randomizer = () => {
     } 
     const playChord = () => {
       let chord = chords[`${upcomingKey}${upcomingMod}`];
+      chord.play()
+      console.log(chord);
       if (chord) {
-        chord.volume = volume / 100;
-        chord.play();
-        // TODO - if loop selected
-        chord.loop = loop;
+
+        // chord.once('load', () => {})
+        // chord.volume = volume / 100;
+        // chord.play();
+        // // TODO - if loop selected
+        // chord.loop = loop;
       }
       else {
         console.error('no chord found')
@@ -136,24 +142,7 @@ const Randomizer = () => {
 
     const stopChord = () => {
       
-      var allAudios = document.querySelectorAll('audio');
-
-
-      allAudios.forEach(function(audio){
-        console.log(audio)
-        audio.pause();
-        audio.currentTime = 0 ;
-      });
-
-      // find chord in list by name,
-      // let currentChord = `${currentKey}${currentMod}`
-      // let upcomingChord = `${upcomingKey}${upcomingMod}`
-      // console.log('stop' + currentKey)
-      // console.log(upcomingKey)
-      // chords[upcomingChord].pause();
-      // chords[upcomingChord].currentTime = 0;
-      // chords[currentChord].pause();
-      // chords[currentChord].currentTime = 0;
+      Howler.stop()
     }
   
 
@@ -170,7 +159,6 @@ const Randomizer = () => {
         
         // Stop any previous chords
         stopChord();
-        
         // Play current
         playChord();
         

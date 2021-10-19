@@ -1,3 +1,5 @@
+import {Howl, Howler} from 'howler';
+
 //Major
 
 import cMajorSound from "../Sounds/Piano/CMajorPiano.mp3"
@@ -28,14 +30,12 @@ import aMinorSound from "../Sounds/Piano/AMinorPiano.mp3";
 import bbMinorSound from "../Sounds/Piano/BbMinorPiano.mp3";
 import bMinorSound from "../Sounds/Piano/BMinorPiano.mp3";
 
-// Defining Audio instances
+// Defining Howl instances
 
 // Major
-const CMajor = new Audio(cMajorSound);
-CMajor.volume = 0.3;
+const CMajor = new Howl ({src : [cMajorSound], volume:0.3});
 
-const DbMajor = new Audio(dbMajorSound);
-DbMajor.volume = 0.3;
+const DbMajor = new Howl ({src : [dbMajorSound], volume:0.3});
 
 const DMajor = new Audio(dMajorSound);
 DbMajor.volume = 0.3;
