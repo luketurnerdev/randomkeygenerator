@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
-import {generateRandomKey} from "../../utils/keyChanges";
+import {generateRandomKey, generateSequentialKey} from "../../utils/keyChanges";
 import { Paper, Grid, Slide, TextField, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { fontWeight, textAlign } from '@mui/system';
@@ -130,14 +130,7 @@ const Randomizer = () => {
 
 
     const [lessThanThreeLeft, setLessThanThreeLeft] = useState(true);
-    const changeKeySequentially = (currentKey) => {
-      let index = currentKeyset.indexOf(currentKey);
-      let newKey;
-      (index >= currentKeyset.length-1) ? newKey = currentKeyset[0] : newKey = currentKeyset[index+1]
-  
-      setUpcomingKey(newKey);
-      randomizeModIfEnabled();
-    }
+
 
     const randomizeModIfEnabled = () => {
       if (randomizeMod) {
@@ -170,7 +163,7 @@ const Randomizer = () => {
   
         case "sequential":
           // We pass in upcoming so it starts from correct key
-          changeKeySequentially(upcomingKey);
+          setUpcomingKey(generateSequentialKey(currentKey, currentKeyset));
           break;
   
         case "fifths": 
@@ -268,14 +261,7 @@ const Randomizer = () => {
   }
 
   const ChangeOrderDisplay = () => {
-    const changeToRandom = () => {
-      let newKey = generateRandomKey(currentKeyset);
-      setKeyOrder("randomKey");
-      // if (keyOrder != "randomKey") {
-      //   setKeyOrder("randomKey")
-      //   // return a new key
-      // }
-    }
+
     // const changeToFifths = () => {
     //   if (keyOrder != "fifths") {
     //     setKeyOrder("fifths")
@@ -293,16 +279,16 @@ const Randomizer = () => {
       <div>
       <h1>Key order: {keyOrder}</h1>
       <button 
-        onClick={() => changeToRandom()}
+        onClick={() => setKeyOrder("randomKey")}
       >
-        {keyOrder === "randomKey" ? "Random [X]" : "Random"}
+        {keyOrder === "randomKey" ? "RANDOM" : "Random"}
       </button>
-      {/* <button onClick={() => changeToSequential()}
+      <button onClick={() => setKeyOrder("sequential")}
       >
-      {keyOrder === "sequential" ? "sequential [X]" : "sequential"}
+      {keyOrder === "sequential" ? "SEQUENTIAL" : "sequential"}
 
       </button>
-      <button onClick={() => changeToFifths()}
+      {/* <button onClick={() => changeToFifths()}
       >
       {keyOrder === "fifths" ? "fifths [X]" : "fifths"}
 
