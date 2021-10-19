@@ -3,6 +3,7 @@ import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
 import { Paper, Grid, Slide, TextField, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
+import { fontWeight, textAlign } from '@mui/system';
 
 // 1. Randomize every 10 seconds
 // 2. Add variable amount of seconds
@@ -60,40 +61,43 @@ const Randomizer = () => {
   const styles = {
     paperContainer: {
       display: 'flex',
-      // justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'column',
-      border: '1px solid black',
+      border: '1px solid green',
       margin: ' 0 15%',
     },
     keyDisplayGrid: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
       height: '10vh',
-      width: '30vw'
+      width: '100%%',
+      textAlign: 'center',
+      border: '2px solid red'
     },
     keyDisplayItem: {
-      border: '2px solid green'
+      // border: '2px solid green',
+    },
+    gridItemText: {
+      margin: '5px 0 ',
     },
     countdown: {
-      border: '2px solid red'
+      margin: '10px 0',
+      border: '2px solid red',
+      textAlign: 'center',
+      fontWeight: 400
     },
     delayDisplay: {
       border: '2px solid black',
       display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center'
     },
     seconds: {
-      // height: '10px'
-      width: '5vw',
-      height: '50%',
-      padding: '0 10px'
-    },
-    mins: {
-      // height: '10px'
-      width: '5vw',
-      height: '50%',
-      padding: '0 10px'
-
+      width: '75%',
+      height: '30%',
+      padding: '0 10px',
     },
     delayText: {
 
@@ -236,17 +240,14 @@ const Randomizer = () => {
 <>
       <Paper elevation={4}>
         <Grid container style={styles.keyDisplayGrid}>
-          <Grid item xs={8} style={styles.keyDisplayItem}>
-          <Paper direction="left" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
-          <h5>{currentKey} {currentMod}</h5> 
-              </Paper>
+          <Grid item xs={6} style={styles.keyDisplayItem}>
+            <h5 style={styles.gridItemText}>Current:</h5> 
+            <h5 style={styles.gridItemText}>{currentKey} {currentMod}</h5> 
 
           </Grid>
-          <Grid item xs={4} style={styles.keyDisplayItem}>  
-              <Paper direction="up" in={lessThanThreeLeft} mountOnEnter unmountOnExit>
-                <h5>Next: {upcomingKey} {upcomingMod}</h5> 
-              </Paper>
-              
+          <Grid item xs={6} style={styles.keyDisplayItem}>  
+                <h5 style={styles.gridItemText}>Next:</h5> 
+                <h5 style={styles.gridItemText}>{upcomingKey} {upcomingMod}</h5> 
           </Grid>
          </Grid> 
 
@@ -359,7 +360,8 @@ const Randomizer = () => {
 
     return (
       <div style={styles.delayDisplay}>
-        <TextField value={delay} onChange={e => setDelay(e.target.value)} style={styles.seconds} /> seconds
+        <h5> Change Delay </h5>
+        <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} type="number"value={delay} onChange={e => setDelay(e.target.value)} style={styles.seconds} /> seconds
         <Button onClick={e => setDelayInSeconds(delay)}> Set </Button>
       </div>
     )
