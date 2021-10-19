@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
+import {generateRandomKey} from "../../utils/keyChanges";
 import { Paper, Grid, Slide, TextField, Button } from '@mui/material';
 import { red } from '@mui/material/colors';
 import { fontWeight, textAlign } from '@mui/system';
@@ -145,11 +146,11 @@ const Randomizer = () => {
       }
     }
   
-    const changeKeyRandomly = () => {
-      let newKey = currentKeyset[Math.floor(Math.random() * currentKeyset.length)];
-      setUpcomingKey(newKey)
-      randomizeModIfEnabled();
-    }
+    // const changeKeyRandomly = () => {
+    //   let newKey = currentKeyset[Math.floor(Math.random() * currentKeyset.length)];
+    //   setUpcomingKey(newKey)
+    //   randomizeModIfEnabled();
+    // }
   
     const changeKeyInFifths = currentKey => {
       let index = currentKeyset.indexOf(currentKey);
@@ -164,7 +165,7 @@ const Randomizer = () => {
     const decideUpcomingKey = keyOrder => {
       switch (keyOrder) {
         case "randomKey": 
-          changeKeyRandomly()
+          setUpcomingKey(generateRandomKey(currentKeyset));
           break;
   
         case "sequential":
@@ -207,6 +208,8 @@ const Randomizer = () => {
 
       // Every second, this re-renders, so we can track the seconds
       // set seconds back to 3 explicitly?
+
+      // TODO - when 3 sec left, play click (but dont alter state)
       // console.log(seconds)
       if (seconds === 3) {
         // setLessThanThreeLeft(true);
@@ -264,48 +267,49 @@ const Randomizer = () => {
     )
   }
 
-  // const ChangeOrderDisplay = () => {
-  //   const changeToRandom = () => {
-  //     if (keyOrder != "randomKey") {
-  //       setKeyOrder("randomKey")
-  //       changeKeyRandomly();
-  //     }
-  //   }
-  //   const changeToFifths = () => {
-  //     if (keyOrder != "fifths") {
-  //       setKeyOrder("fifths")
-  //       changeKeyRandomly(currentKey);
+  const ChangeOrderDisplay = () => {
+    const changeToRandom = () => {
+      let newKey = generateRandomKey(currentKeyset);
+      setKeyOrder("randomKey");
+      // if (keyOrder != "randomKey") {
+      //   setKeyOrder("randomKey")
+      //   // return a new key
+      // }
+    }
+    // const changeToFifths = () => {
+    //   if (keyOrder != "fifths") {
+    //     setKeyOrder("fifths")
+    //     generateRandomKey(currentKey);
 
-  //     }
-  //   }
-  //   const changeToSequential = () => {
-  //     if (keyOrder != "sequential") {
-  //       setKeyOrder("sequential")
-  //       changeKeySequentially(currentKey);
-  //     }
-  //   }
-  //   // TODO: Clear the upcoming Chord when we change, and set to
-  //   return (
-  //     <div>
-  //     <h1>Key order: {keyOrder}</h1>
-  //     <button 
-  //     onClick={() => changeToRandom()}
-  //     >
-  //       {keyOrder === "randomKey" ? "Random [X]" : "Random"}
-  //     </button>
-  //     <button onClick={() => changeToSequential()}
-  //     >
-  //     {keyOrder === "sequential" ? "sequential [X]" : "sequential"}
+    //   }
+    // }
+    // const changeToSequential = () => {
+    //   if (keyOrder != "sequential") {
+    //     setKeyOrder("sequential")
+    //     changeKeySequentially(currentKey);
+    //   }
+    // }
+    return (
+      <div>
+      <h1>Key order: {keyOrder}</h1>
+      <button 
+        onClick={() => changeToRandom()}
+      >
+        {keyOrder === "randomKey" ? "Random [X]" : "Random"}
+      </button>
+      {/* <button onClick={() => changeToSequential()}
+      >
+      {keyOrder === "sequential" ? "sequential [X]" : "sequential"}
 
-  //     </button>
-  //     <button onClick={() => changeToFifths()}
-  //     >
-  //     {keyOrder === "fifths" ? "fifths [X]" : "fifths"}
+      </button>
+      <button onClick={() => changeToFifths()}
+      >
+      {keyOrder === "fifths" ? "fifths [X]" : "fifths"}
 
-  //     </button>
-  //     </div>
-  //   )
-  // }
+      </button> */}
+      </div>
+    )
+  }
 
   // const ChangeModDisplay = () => {
   //   return (
@@ -375,9 +379,9 @@ const Randomizer = () => {
         <KeyDisplay />
       
         <DelayDisplay />
-        {/* <ChangeOrderDisplay />
-        <ChangeModDisplay />
-        <VolumeDisplay /> */}
+         <ChangeOrderDisplay />
+        {/* <ChangeModDisplay />
+        <VolumeDisplay />  */}
         {/* <h1>Vol: {volume} </h1>
 
         <h1>Random? {randomizeMod.toString()} </h1>
