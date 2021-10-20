@@ -1,11 +1,9 @@
 import {useState} from 'react';
-import {Howl, Howler} from 'howler';
+import {Howler} from 'howler';
 import Countdown from 'react-countdown';
 import {chords} from "../../utils/musicImports";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../utils/keyChanges";
 import { Paper, Grid, Slide, TextField, Button } from '@mui/material';
-import { red } from '@mui/material/colors';
-import { fontWeight, textAlign } from '@mui/system';
 
 
 
@@ -20,6 +18,8 @@ const Randomizer = () => {
   const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [loop, setLoop] = useState(true)
   const [volume, setVolume] = useState(50);
+  const [modifiers, setModifiers] = useState(["Minor"])
+
   // */
   
 
@@ -92,7 +92,6 @@ const Randomizer = () => {
     const [upcomingKey,setUpcomingKey] = useState("Db");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
-    const [randomizeMod, setRandomizeMod] = useState(false);
 
 
     // const randomizeModIfEnabled = () => {
@@ -119,7 +118,6 @@ const Randomizer = () => {
     const playChord = () => {
       let chord = chords[`${upcomingKey}${upcomingMod}`];
       chord.play()
-      console.log(chord);
       if (chord) {
 
         // chord.once('load', () => {})
@@ -162,7 +160,9 @@ const Randomizer = () => {
         // Change state for next reset
 
         
+        setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
         setCurrentMod(upcomingMod);
+
 
         return <h1>paused</h1>
         } 
@@ -201,8 +201,6 @@ const Randomizer = () => {
         date={Date.now() + delayInSeconds * 1000}
         renderer={clockRenderer}
     />
-
-
 </>
 
       
@@ -242,13 +240,11 @@ const Randomizer = () => {
 
 
 
-  const ChangeModDisplay = () => {
-    const [modifiers, setModifiers] = useState(["Minor"])
+  const ChangeModDisplay = props => {
+    const {modifiers, setModifiers} = props;
     const addOrRemoveMod = modString => {
       let prev = modifiers;
       prev.includes(modString) ? setModifiers(prev.filter((e) => {return e != modString})) : setModifiers([...prev, modString])
-        
-      
     }
 
 
@@ -258,10 +254,11 @@ const Randomizer = () => {
 
       <button onClick={() => addOrRemoveMod("Major")}>
        Major
-    </button >
+     </button>
+
     <button onClick={() => addOrRemoveMod("Minor")}>
        Minor
-    </button >
+    </button>
 
 
      </div>
@@ -272,9 +269,7 @@ const Randomizer = () => {
   const DelayDisplay = () => {
     const [delay,setDelay] = useState(delayInSeconds);
     const changeDelay = () => {
-      console.log('1')
       if (delay && delay >= 1) {
-        console.log('2')
         setDelayInSeconds(delay)
       }
     }
@@ -299,7 +294,7 @@ const Randomizer = () => {
       
         <DelayDisplay />
         <ChangeOrderDisplay />
-        <ChangeModDisplay />
+        <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
 
         {/* <VolumeDisplay />  */}
         {/* <h1>Vol: {volume} </h1>
