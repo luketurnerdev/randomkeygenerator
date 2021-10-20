@@ -12,7 +12,6 @@ import { fontWeight, textAlign } from '@mui/system';
 
 
 const Randomizer = () => {
-  const modifiers = ["Major", "Minor"];
   const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
   // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
 
@@ -95,11 +94,6 @@ const Randomizer = () => {
     const [upcomingMod,setUpcomingMod] = useState("Major");
     const [randomizeMod, setRandomizeMod] = useState(false);
 
-      // // Start of App (or when user presses play)
-  // 1. Upcoming key is set to something (G). Mod set to major for now. Chord should play straight away.
-  // 2. Upcoming key is changed based on mode. Countdown starts.
-  // 3. End of countdown, play upcoming key, and THEN change upcoming key. Restart countdown.
-
 
     // const randomizeModIfEnabled = () => {
     //   if (randomizeMod) {
@@ -116,7 +110,7 @@ const Randomizer = () => {
           // We pass in upcoming so it starts from correct key
           return (generateSequentialKey(upcomingKey, currentKeyset));
           case "fifths": 
-          return (generateFifthsKey(currentKey, currentKeyset));
+          return (generateFifthsKey(upcomingKey, currentKeyset));
         default: {
           break;
         }
@@ -168,7 +162,7 @@ const Randomizer = () => {
         // Change state for next reset
 
         
-        // setCurrentMod(upcomingMod);
+        setCurrentMod(upcomingMod);
 
         return <h1>paused</h1>
         } 
@@ -183,6 +177,8 @@ const Randomizer = () => {
           )
         }
     };
+
+
    
     return (
 <>
@@ -205,6 +201,7 @@ const Randomizer = () => {
         date={Date.now() + delayInSeconds * 1000}
         renderer={clockRenderer}
     />
+
 
 </>
 
@@ -234,38 +231,7 @@ const Randomizer = () => {
     )
   }
 
-  // const ChangeModDisplay = () => {
-  //   return (
-  //    <div>
-  //       <h1>Modifier: {currentMod} </h1>
-  //     <button onClick={() => {
-  //       setRandomizeMod(false);
-  //       setUpcomingMod("Major")
-  //       // setCurrentMod("Major")
-  //     }
-  //   }>
-  //      Major
-  //   </button >
-  //     <button onClick={() => {
-  //       setRandomizeMod(false);
-  //       setUpcomingMod("Minor")
-  //       // setCurrentMod("Minor")
-  //     }
-  //   }>
-  //      Minor
-  //   </button >
 
-  //   <button onClick={() => {
-  //       setRandomizeMod(true);
-  //     }
-  //   }>
-  //      Random
-  //   </button >
-
-
-  //    </div>
-  //   )
-  // }
 
   const VolumeDisplay = () => {
     return ( 
@@ -275,6 +241,32 @@ const Randomizer = () => {
   }
 
 
+
+  const ChangeModDisplay = () => {
+    const [modifiers, setModifiers] = useState(["Minor"])
+    const addOrRemoveMod = modString => {
+      let prev = modifiers;
+      prev.includes(modString) ? setModifiers(prev.filter((e) => {return e != modString})) : setModifiers([...prev, modString])
+        
+      
+    }
+
+
+    return (
+      <div>
+       <h1>Modifiers: {modifiers}</h1>
+
+      <button onClick={() => addOrRemoveMod("Major")}>
+       Major
+    </button >
+    <button onClick={() => addOrRemoveMod("Minor")}>
+       Minor
+    </button >
+
+
+     </div>
+    )
+  }
 
 
   const DelayDisplay = () => {
@@ -307,8 +299,9 @@ const Randomizer = () => {
       
         <DelayDisplay />
         <ChangeOrderDisplay />
-        {/* <ChangeModDisplay />
-        <VolumeDisplay />  */}
+        <ChangeModDisplay />
+
+        {/* <VolumeDisplay />  */}
         {/* <h1>Vol: {volume} </h1>
 
         <h1>Random? {randomizeMod.toString()} </h1>

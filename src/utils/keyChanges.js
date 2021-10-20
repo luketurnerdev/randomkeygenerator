@@ -16,5 +16,14 @@ export const generateFifthsKey = (currentKey, currentKeyset) => {
   if (newPos > (currentKeyset.length-1)) {
     newPos = (newPos-currentKeyset.length);
   }
-  // randomizeModIfEnabled();
+  return currentKeyset[newPos]
+}
+export const generateFourthsKey = (currentKey, currentKeyset) => {
+  let index = currentKeyset.indexOf(currentKey);
+  let newPos = index+5;
+  // Reset to the start if exceeding array
+  if (newPos > (currentKeyset.length-1)) {
+    newPos = (newPos-currentKeyset.length);
+  }
+  return currentKeyset[newPos]
 }
