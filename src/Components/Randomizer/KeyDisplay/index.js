@@ -5,6 +5,7 @@ import {chords} from "../../../utils/musicImports";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
 import {useState} from 'react';
 
+
 const KeyDisplay = props => {
     const {keyOrder, setKeyOrder, modifiers, styles, delayInSeconds} = props;
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
