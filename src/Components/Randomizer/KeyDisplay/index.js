@@ -96,7 +96,7 @@ const KeyDisplay = props => {
           return (
             <div style={styles.countdown} >
             
-            <span>{(hours > 0) && hours} {minutes} mins {seconds} sec</span>
+            <span>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</span>
             </div>
           )
         }

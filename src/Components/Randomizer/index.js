@@ -10,7 +10,6 @@ const Randomizer = () => {
 
   const [keyOrder, setKeyOrder] = useState("sequential")
   const [delayInSeconds, setDelayInSeconds] = useState(3);
-  const [loop, setLoop] = useState(true)
   const [modifiers, setModifiers] = useState(["Minor"])
  
   const DelayDisplay = () => {
