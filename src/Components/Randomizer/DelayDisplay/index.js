@@ -2,35 +2,57 @@ import {useState} from 'react';
 import {TextField, Button} from '@mui/material';
 
 const DelayDisplay = props => {
+  const [color, setColor] = useState("grey");
+  const {delayInSeconds, setDelayInSeconds} = props;
+  const [delay,setDelay] = useState(delayInSeconds);
+
     const styles = {
         delayDisplay: {
             border: '2px solid black',
             display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center'
+            justifyContent: 'space-evenly',
+            alignItems: 'center',
+            padding: '10px'
           },
-          seconds: {
-            width: '75%',
-            height: '30%',
-            padding: '0 10px',
-          },
+
+          button: {
+            height: '50%',
+            backgroundColor: color,
+          }
     }
-    const {delayInSeconds, setDelayInSeconds} = props;
-    const [delay,setDelay] = useState(delayInSeconds);
+
     const changeDelay = () => {
       if (delay && delay >= 1) {
+        setColor("grey");
         setDelayInSeconds(delay)
       }
     }
 
+    const typeInField = e => {
+      setColor("green");
+      setDelay(e.target.value)
+    }
+
     return (
       <div style={styles.delayDisplay}>
-        <h5> Change Delay </h5>
           {//todo - DO NOT ALLOW HYPHENS ETC} - regex 
         }
-        <TextField inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} type="number"value={delay} onChange={e => setDelay(e.target.value)} style={styles.seconds} /> seconds
-        <Button onClick={changeDelay}> Set </Button>
+        <TextField 
+          size="small"
+          variant="outlined"
+          label="Delay (seconds)"
+          style={styles.textField} 
+          inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} 
+          // type="number"value={delay} 
+          onChange={e => typeInField(e)} 
+        />
+        <Button 
+          variant="contained"
+          style={styles.button} 
+          onClick={changeDelay}
+          >Set</Button>
+
+        
       </div>
     )
 

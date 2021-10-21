@@ -27,18 +27,6 @@ const styles = {
       textAlign: 'center',
       fontWeight: 400
     },
-    delayDisplay: {
-      border: '2px solid black',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center'
-    },
-    seconds: {
-      width: '75%',
-      height: '30%',
-      padding: '0 10px',
-    },
     delayText: {
 
     }
