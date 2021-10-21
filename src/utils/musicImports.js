@@ -31,7 +31,7 @@ import bbMinorSound from "../Sounds/Piano/BbMinorPiano.mp3";
 import bMinorSound from "../Sounds/Piano/BMinorPiano.mp3";
 
 // Defining Howl instances
-const endFunc = function() {console.log('done')}
+const endFunc = function() {}
 
 // Major
 const CMajor = new Howl ({src : [cMajorSound], loop: false, onend: endFunc, volume:0.3});

@@ -9,8 +9,9 @@ import { Paper} from '@mui/material';
 const Randomizer = () => {
 
   const [keyOrder, setKeyOrder] = useState("sequential")
-  const [delayInSeconds, setDelayInSeconds] = useState(3);
+  const [delayInSeconds, setDelayInSeconds] = useState(4);
   const [modifiers, setModifiers] = useState(["Minor"])
+  const [paused, setPaused] = useState(true);
 
   return (
     <Paper elevation={5} style={styles.paperContainer}>
@@ -22,6 +23,8 @@ const Randomizer = () => {
           modifiers={modifiers}
           styles={styles}
           delayInSeconds={delayInSeconds}
+          paused={paused}
+          setPaused={setPaused}
         />
       
         <DelayDisplay 

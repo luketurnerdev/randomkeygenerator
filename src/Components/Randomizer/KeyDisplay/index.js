@@ -8,7 +8,7 @@ import {useState} from 'react';
 
 
 const KeyDisplay = props => {
-    const {keyOrder, setKeyOrder, modifiers, styles, delayInSeconds} = props;
+    const {keyOrder, setKeyOrder, modifiers, styles, delayInSeconds, paused, setPaused} = props;
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
@@ -46,20 +46,20 @@ const KeyDisplay = props => {
       chord.play();
     }
 
-   
-  
-
     const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
-      // TODO - when 3 sec left, play click (but dont alter state)
-      if (completed) {
-
-        // start: current = G. Upcoming = Ab.
-        // Countdown begins.
-        // upcon complettion..
-
-        // upcoming = Ab (same as before)
+      if (paused) {
+        return (            
+        <div style={styles.countdown} >
+            
+          <span>Paused</span>
+          
+        </div>
         
+        )
+      }
+      // TODO - when 3 sec left, play click (but dont alter state)
+      else if (completed) {
         // Stop any previous chords
         Howler.stop()
         
@@ -67,20 +67,21 @@ const KeyDisplay = props => {
         playChord();
         
         //Restart clock
-        api.start();
         
         // Current is discarded. 
         // Upcoming becomes current.  
         
         setUpcomingKey(decideUpcomingKey());
         setCurrentKey(upcomingKey);
-
+        
         // Change state for next reset
-
+        
         // Always randomly select from list of available mods (chosen by user)
         setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
         setCurrentMod(upcomingMod);
-
+        api.start();
+        // setSecondsLeft(delayInSeconds)
+        
 
         return <h1>paused</h1>
         } 
@@ -116,12 +117,16 @@ const KeyDisplay = props => {
       </Paper>
 
     <Countdown
-        date={Date.now() + delayInSeconds * 1000}
+        date={
+          Date.now() + delayInSeconds * 1000
+        }
         renderer={clockRenderer}
     />
 
     <AudioControls
-      currentChord={chords[`${currentKey}${currentMod}`]}  
+      currentChord={chords[`${currentKey}${currentMod}`]}
+      paused={paused}
+      setPaused={setPaused}  
       />
 </>
 

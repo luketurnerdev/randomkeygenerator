@@ -4,11 +4,13 @@ import { Howl, Howler } from 'howler';
 import LoopIcon from '@mui/icons-material/Loop';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
-import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
+import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import {chords} from "../../../utils/musicImports";
+import { HowToRegOutlined } from '@mui/icons-material';
 
 const AudioControls = props => {
-  const {currentChord} = props;
+  const {currentChord, paused, setPaused} = props;
   const [looping, setLooping] = useState(false);
 
   const styles = {
@@ -35,6 +37,21 @@ const AudioControls = props => {
   const VolumeDisplay = () => {
     const [volume, setVolume] = useState(Howler.volume());
 
+    const pauseOrUnpause = () => {
+      // If we are PAUSING
+
+      if (!paused && looping) {
+        Howler.stop();
+      }
+
+      // if we are PLAYING
+      if (paused) {
+        console.log('playing')
+        currentChord.play();
+      }
+      setPaused (!paused)
+    }
+
     const changeVolume = amount => {
       let existing = Howler.volume()
       console.log('existing ' + existing)
@@ -52,7 +69,9 @@ const AudioControls = props => {
               <VolumeDownIcon /> 
             </Button>
 
-            <Button style={styles.volumeControls} ><PauseCircleOutlineIcon /> </Button>
+            <Button onClick={pauseOrUnpause} style={styles.volumeControls} >
+              {paused ? <PlayCircleOutlineIcon /> : <StopCircleIcon />  }
+              </Button>
 
 
             <Button disabled={volume > 0.9} style={styles.volumeControls} onClick={() => changeVolume(0.1)}><VolumeUpIcon /> </Button>      
@@ -75,7 +94,7 @@ const AudioControls = props => {
             // If turning to true,
             else {
               Howler.stop()
-              currentChord.play()
+              if (!paused) {currentChord.play()}
             }
             
 
