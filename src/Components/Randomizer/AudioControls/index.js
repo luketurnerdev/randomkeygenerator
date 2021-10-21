@@ -21,6 +21,13 @@ const AudioControls = props => {
     volumeIcons: {
       display: 'flex',
       justifyContent: 'space-evenly'
+    },
+    volumeOn: {
+      // opaci
+    },
+    volumeOff: {
+      // backgroundColor: 'red'
+      // position: 'static'
     }
   }
 
@@ -37,14 +44,19 @@ const AudioControls = props => {
       let newVol = existing+amount;
       Howler.volume(newVol)
       setVolume(newVol)
-
-
     }
     return ( 
           <div style={styles.volumeIcons}>
-            <Button onClick={() => changeVolume(-0.1)}><VolumeDownIcon /> </Button>
-            <Button ><PauseCircleOutlineIcon /> </Button>
-            <Button onClick={() => changeVolume(0.1)}><VolumeUpIcon /> </Button>      
+            <Button disabled={volume < 0.1} 
+            onClick={() => changeVolume(-0.1)}>
+              <VolumeDownIcon /> 
+            </Button>
+
+            <Button style={styles.volumeControls} ><PauseCircleOutlineIcon /> </Button>
+
+
+            <Button disabled={volume > 0.9} style={styles.volumeControls} onClick={() => changeVolume(0.1)}><VolumeUpIcon /> </Button>      
+
           </div>
         )
       }
@@ -80,7 +92,6 @@ const AudioControls = props => {
               <Button variant={looping ? "contained" : "outlined"} onClick={() => toggleLoop()}>
                 <LoopIcon /> Loop
               </Button>
-              <h1>{looping ? "Looping" : "not looping"}</h1>
          </div>
       )
 }
