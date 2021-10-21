@@ -16,13 +16,14 @@ const ChangeOrderDisplay = props => {
       container: {
         border: '2px solid red',
         display: 'flex',
-        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center'
+
       },
       buttonGroup: {
-        display: 'flex',
-        justifyContent: 'space-evenly'
+        margin: '10px',
       },
+
     }
 
     const setColor = orderString => {
@@ -33,7 +34,7 @@ const ChangeOrderDisplay = props => {
     }
     return (
     <div style={styles.container}>
-      <h5>Order</h5>
+      <h5 style={styles.title}>Order</h5>
           <ButtonGroup style={styles.buttonGroup} size ="small" variant="contained" aria-label="outlined primary button group">
               <Button style={setColor("randomKey")} onClick={() => setKeyOrder("randomKey")}>Random</Button>
               <Button style={setColor("sequential")} onClick={() => setKeyOrder("sequential")}>Sequential</Button>

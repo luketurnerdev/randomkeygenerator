@@ -12,9 +12,12 @@ const ChangeModDisplay = props => {
       container: {
         border: '2px solid red',
         display: 'flex',
-        flexDirection: 'column',
+        justifyContent: 'center',
         alignItems: 'center'
       },
+      buttonGroup: {
+        margin: '10px',
+      }
     }
     const {modifiers, setModifiers} = props;
 
@@ -36,8 +39,8 @@ const ChangeModDisplay = props => {
     return (
       
       <div style={styles.container}>
-        <h5>Chord Types (select at least 1)</h5>
-        <ButtonGroup size ="small" variant="contained" aria-label="outlined primary button group">
+        <h5>Chord Types</h5>
+        <ButtonGroup style={styles.buttonGroup} size ="small" variant="contained" aria-label="outlined primary button group">
           <Button style={setColor("Major")} onClick={() => addOrRemoveMod("Major")}>Major</Button>
           <Button style={setColor("Minor")} onClick={() => addOrRemoveMod("Minor")}>Minor</Button>
         </ButtonGroup>
