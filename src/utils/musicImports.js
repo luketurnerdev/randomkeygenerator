@@ -31,59 +31,60 @@ import bbMinorSound from "../Sounds/Piano/BbMinorPiano.mp3";
 import bMinorSound from "../Sounds/Piano/BMinorPiano.mp3";
 
 // Defining Howl instances
+const endFunc = function() {console.log('done')}
 
 // Major
-const CMajor = new Howl ({src : [cMajorSound], volume:0.3});
+const CMajor = new Howl ({src : [cMajorSound], loop: false, onend: endFunc, volume:0.3});
 
-const DbMajor = new Howl ({src : [dbMajorSound], volume:0.3});
+const DbMajor = new Howl ({src : [dbMajorSound], loop: false, onend: endFunc, volume:0.3});
 
-const DMajor = new Howl({src: [dMajorSound], volume: 0.3})
+const DMajor = new Howl({src: [dMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
 
-const EbMajor = new Howl({src: [ebMajorSound], volume: 0.3})
+const EbMajor = new Howl({src: [ebMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const EMajor = new Howl({src: [eMajorSound], volume: 0.3})
+const EMajor = new Howl({src: [eMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const FMajor = new Howl({src: [fMajorSound], volume: 0.3})
+const FMajor = new Howl({src: [fMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const GbMajor = new Howl({src: [gbMajorSound], volume: 0.3})
+const GbMajor = new Howl({src: [gbMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const GMajor = new Howl({src: [gMajorSound], volume: 0.3})
+const GMajor = new Howl({src: [gMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const AbMajor = new Howl({src: [abMajorSound], volume: 0.3})
+const AbMajor = new Howl({src: [abMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const AMajor = new Howl({src: [aMajorSound], volume: 0.3})
+const AMajor = new Howl({src: [aMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const BbMajor = new Howl({src: [bbMajorSound], volume: 0.3})
+const BbMajor = new Howl({src: [bbMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const BMajor = new Howl({src: [bMajorSound], volume: 0.3})
+const BMajor = new Howl({src: [bMajorSound], loop: false, onend: endFunc, volume: 0.3})
 
 
 // Minor
 
-const CMinor = new Howl({src: [cMinorSound], volume: 0.3})
+const CMinor = new Howl({src: [cMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const DbMinor = new Howl({src: [dbMinorSound], volume: 0.3})
+const DbMinor = new Howl({src: [dbMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const DMinor = new Howl({src: [dMinorSound], volume: 0.3})
+const DMinor = new Howl({src: [dMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const EbMinor = new Howl({src: [ebMinorSound], volume: 0.3})
+const EbMinor = new Howl({src: [ebMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const EMinor = new Howl({src: [eMinorSound], volume: 0.3})
+const EMinor = new Howl({src: [eMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const FMinor = new Howl({src: [fMinorSound], volume: 0.3})
+const FMinor = new Howl({src: [fMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const GbMinor = new Howl({src: [gbMinorSound], volume: 0.3})
+const GbMinor = new Howl({src: [gbMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const GMinor = new Howl({src: [gMinorSound], volume: 0.3})
+const GMinor = new Howl({src: [gMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const AbMinor = new Howl({src: [abMinorSound], volume: 0.3})
+const AbMinor = new Howl({src: [abMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const AMinor = new Howl({src: [aMinorSound], volume: 0.3})
+const AMinor = new Howl({src: [aMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const BbMinor = new Howl({src: [bbMinorSound], volume: 0.3})
+const BbMinor = new Howl({src: [bbMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
-const BMinor = new Howl({src: [bMinorSound], volume: 0.3})
+const BMinor = new Howl({src: [bMinorSound], loop: false, onend: endFunc, volume: 0.3})
 
 export const chords = {
     "CMajor": CMajor,

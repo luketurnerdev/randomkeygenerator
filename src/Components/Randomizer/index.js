@@ -3,9 +3,8 @@ import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import ChangeModDisplay from "./ChangeModDisplay";
 import DelayDisplay from "./DelayDisplay";
-import AudioControls from "./AudioControls";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
-import { Paper, TextField, Button } from '@mui/material';
+import { Paper} from '@mui/material';
 
 const Randomizer = () => {
 
@@ -34,7 +33,8 @@ const Randomizer = () => {
           setKeyOrder={setKeyOrder}
         />
         <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
-        <AudioControls />
+
+
       </div>
     </Paper>
   );

@@ -1,5 +1,6 @@
 import {Howler} from 'howler';
 import Countdown from 'react-countdown';
+import AudioControls from "../AudioControls";
 import { Paper, Grid, Button } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
@@ -42,19 +43,10 @@ const KeyDisplay = props => {
     } 
     const playChord = () => {
       let chord = chords[`${upcomingKey}${upcomingMod}`];
-      chord.play()
-      if (chord) {
-
-        // chord.once('load', () => {})
-        // chord.volume = volume / 100;
-        // chord.play();
-        // // TODO - if loop selected
-        // chord.loop = loop;
-      }
-      else {
-        console.error('no chord found')
-      }
+      chord.play();
     }
+
+   
   
 
     const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
@@ -70,6 +62,7 @@ const KeyDisplay = props => {
         
         // Stop any previous chords
         Howler.stop()
+        
         // Play current
         playChord();
         
@@ -126,6 +119,11 @@ const KeyDisplay = props => {
         date={Date.now() + delayInSeconds * 1000}
         renderer={clockRenderer}
     />
+
+    <AudioControls
+      chords={chords}
+      currentChord={chords[`${currentKey}${currentMod}`]}  
+      />
 </>
 
       
