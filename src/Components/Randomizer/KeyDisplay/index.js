@@ -1,7 +1,7 @@
 import {Howler} from 'howler';
 import Countdown from 'react-countdown';
 import AudioControls from "../AudioControls";
-import { Paper, Grid, Button } from '@mui/material';
+import { Paper, Grid } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
 import {useState} from 'react';
@@ -121,7 +121,6 @@ const KeyDisplay = props => {
     />
 
     <AudioControls
-      chords={chords}
       currentChord={chords[`${currentKey}${currentMod}`]}  
       />
 </>
