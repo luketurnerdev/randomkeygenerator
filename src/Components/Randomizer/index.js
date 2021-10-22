@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useContext} from 'react';
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import ChangeModDisplay from "./ChangeModDisplay";
@@ -14,7 +14,7 @@ const Randomizer = () => {
 
   return (
     <Paper elevation={5} style={styles.paperContainer}>
-      <h1>Key Randomizer {}</h1> 
+      <h1>Key Randomizer</h1> 
       <div style={styles.componentContainer}>
 
       <div style={styles.component}>

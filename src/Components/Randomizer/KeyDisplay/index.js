@@ -1,12 +1,13 @@
 import {Howler} from 'howler';
 import Countdown from 'react-countdown';
 import AudioControls from "../AudioControls";
-import { Paper, Grid } from '@mui/material';
+import { Paper, Grid, Button } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import TimerIcon from '@mui/icons-material/Timer';
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
-import {useState} from 'react';
-import { StyleSharp } from '@mui/icons-material';
+import {useState, useContext, useRef} from 'react';
+import {ClockContext} from "../../../Contexts/ClockContext";
+
 
 
 const KeyDisplay = props => {
@@ -20,7 +21,11 @@ const KeyDisplay = props => {
     const [upcomingKey,setUpcomingKey] = useState("Db");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
-    const [paused, setPaused] = useState(true);
+
+    const clockRef = useRef();
+    const handleStart = () => clockRef.current.start();
+    const handlePause = () => clockRef.current.pause();
+
 
 
 
@@ -43,20 +48,10 @@ const KeyDisplay = props => {
       chord.play();
     }
 
-    const ClockRenderer = ({ hours, minutes, seconds, completed, api}) => {
-
-      console.log('seconds' + seconds)
-      // if (paused) {
-      //   console.log('stopping')
-      //   return (            
-      //   <div style={styles.countdown} >
-            
-      //     <span>Paused</span>
-          
-      //   </div>
-        
-      //   )
-      // }
+    const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
+      
+  
+      console.log('crank')
       // TODO - when 3 sec left, play click (but dont alter state)
        if (completed) {
         // Stop any previous chords
@@ -96,6 +91,18 @@ const KeyDisplay = props => {
         }
     };
 
+    const Clock = () => {
+    
+      return (
+        <div>
+          <Countdown 
+            date={Date.now() + 5000}
+            ref={clockRef}
+            renderer={clockRenderer}
+          />
+        </div>
+      )
+    }
 
    
     return (
@@ -113,17 +120,11 @@ const KeyDisplay = props => {
           </Grid>
           <Grid item xs={2} style={styles.timerBox}>
           <TimerIcon />  
-           {!paused ?
-             <Countdown
-             date={Date.now() + delayInSeconds * 1000}
-             renderer={ClockRenderer}
-          /> 
-          
-          : 
 
-          <h5>{delayInSeconds}</h5>
-          
-          }
+        <ClockContext.Provider value={{paused: true}}>
+            <Clock />
+        </ClockContext.Provider>
+            
 
           
           </Grid>
@@ -132,12 +133,13 @@ const KeyDisplay = props => {
         
       </Paper>
 
-    
+    <Button onClick={handleStart}>hi</Button>
+    <Button onClick={handlePause}>hi</Button>
 
     <AudioControls
       currentChord={chords[`${currentKey}${currentMod}`]}
-      paused={paused}
-      setPaused={setPaused}  
+      // paused={paused}
+      // setPaused={setPaused}  
     />
 </>
 
