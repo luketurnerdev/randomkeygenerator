@@ -26,7 +26,7 @@ const Randomizer = () => {
           delayInSeconds={delayInSeconds}
         />
       </div>
-      <h5> Settings </h5>
+      <h3> Settings </h3>
       <div style={styles.component}>
       <DelayDisplay 
           delayInSeconds={delayInSeconds}

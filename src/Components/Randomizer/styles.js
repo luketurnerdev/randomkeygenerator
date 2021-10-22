@@ -24,6 +24,12 @@ const styles = {
     keyDisplayItem: {
       border: '2px solid black',
     },
+    timerBox: {
+      border: '2px solid black',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
     gridItemText: {
       margin: '5px 0 ',
     },

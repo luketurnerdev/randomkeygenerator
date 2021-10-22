@@ -3,6 +3,7 @@ import Countdown from 'react-countdown';
 import AudioControls from "../AudioControls";
 import { Paper, Grid } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
+import TimerIcon from '@mui/icons-material/Timer';
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
 import {useState} from 'react';
 import { StyleSharp } from '@mui/icons-material';
@@ -110,7 +111,8 @@ const KeyDisplay = props => {
                 <h5 style={styles.gridItemText}>Next:</h5> 
                 <h5 style={styles.gridItemText}>{upcomingKey} {upcomingMod}</h5> 
           </Grid>
-          <Grid item xs={2} style={styles.keyDisplayItem}>  
+          <Grid item xs={2} style={styles.timerBox}>
+          <TimerIcon />  
            {!paused ?
              <Countdown
              date={Date.now() + delayInSeconds * 1000}
@@ -122,6 +124,8 @@ const KeyDisplay = props => {
           <h5>{delayInSeconds}</h5>
           
           }
+
+          
           </Grid>
          </Grid> 
 
