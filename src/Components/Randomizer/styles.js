@@ -1,29 +1,37 @@
 const styles = {
     paperContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'column',
       border: '1px solid green',
-      margin: ' 0 15%',
+      margin: ' 0 10%',
+      height: '100vh',
+      textAlign: 'center'
+
+    },
+    componentContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100%',
+    },
+    component: {
+      margin: '10px 10%',
     },
     keyDisplayGrid: {
       display: 'flex',
-      flexDirection: 'column',
+      // flexDirection: 'column',
       justifyContent: 'center',
-      height: '10vh',
-      width: '100%%',
+      height: '7.5vh',
+      width: '100%',
       textAlign: 'center',
-      border: '2px solid red'
+      // border: '2px solid red'
     },
     keyDisplayItem: {
-      // border: '2px solid green',
+      border: '2px solid black',
     },
     gridItemText: {
       margin: '5px 0 ',
     },
     countdown: {
-      margin: '10px 0',
-      border: '2px solid red',
+      margin: '10px 10px',
+      // border: '2px solid red',
       textAlign: 'center',
       fontWeight: 400
     },

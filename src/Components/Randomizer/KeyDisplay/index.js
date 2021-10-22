@@ -5,10 +5,11 @@ import { Paper, Grid } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
 import {useState} from 'react';
+import { StyleSharp } from '@mui/icons-material';
 
 
 const KeyDisplay = props => {
-    const {keyOrder, setKeyOrder, modifiers, styles, delayInSeconds, paused, setPaused} = props;
+    const {keyOrder, setKeyOrder, modifiers, styles, delayInSeconds} = props;
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
@@ -18,14 +19,9 @@ const KeyDisplay = props => {
     const [upcomingKey,setUpcomingKey] = useState("Db");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
+    const [paused, setPaused] = useState(true);
 
 
-    // const randomizeModIfEnabled = () => {
-    //   if (randomizeMod) {
-    //     let newMod = modifiers[Math.floor(Math.random() * modifiers.length)];
-    //     setUpcomingMod(newMod);
-    //   }
-    // }
 
     const decideUpcomingKey = () => {
       switch (keyOrder) {
@@ -46,20 +42,22 @@ const KeyDisplay = props => {
       chord.play();
     }
 
-    const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
+    const ClockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
-      if (paused) {
-        return (            
-        <div style={styles.countdown} >
+      console.log('seconds' + seconds)
+      // if (paused) {
+      //   console.log('stopping')
+      //   return (            
+      //   <div style={styles.countdown} >
             
-          <span>Paused</span>
+      //     <span>Paused</span>
           
-        </div>
+      //   </div>
         
-        )
-      }
+      //   )
+      // }
       // TODO - when 3 sec left, play click (but dont alter state)
-      else if (completed) {
+       if (completed) {
         // Stop any previous chords
         Howler.stop()
         
@@ -82,8 +80,8 @@ const KeyDisplay = props => {
         api.start();
         // setSecondsLeft(delayInSeconds)
         
-
         return <h1>paused</h1>
+
         } 
         
         else {
@@ -103,31 +101,40 @@ const KeyDisplay = props => {
 <>
       <Paper elevation={4}>
         <Grid container style={styles.keyDisplayGrid}>
-          <Grid item xs={6} style={styles.keyDisplayItem}>
+          <Grid item xs={5} style={styles.keyDisplayItem}>
             <h5 style={styles.gridItemText}>Current:</h5> 
             <h5 style={styles.gridItemText}>{currentKey} {currentMod}</h5> 
 
           </Grid>
-          <Grid item xs={6} style={styles.keyDisplayItem}>  
+          <Grid item xs={5} style={styles.keyDisplayItem}>  
                 <h5 style={styles.gridItemText}>Next:</h5> 
                 <h5 style={styles.gridItemText}>{upcomingKey} {upcomingMod}</h5> 
           </Grid>
+          <Grid item xs={2} style={styles.keyDisplayItem}>  
+           {!paused ?
+             <Countdown
+             date={Date.now() + delayInSeconds * 1000}
+             renderer={ClockRenderer}
+          /> 
+          
+          : 
+
+          <h5>hi</h5>
+          
+          }
+          </Grid>
          </Grid> 
 
+        
       </Paper>
 
-    <Countdown
-        date={
-          Date.now() + delayInSeconds * 1000
-        }
-        renderer={clockRenderer}
-    />
+    
 
     <AudioControls
       currentChord={chords[`${currentKey}${currentMod}`]}
       paused={paused}
       setPaused={setPaused}  
-      />
+    />
 </>
 
       

@@ -1,13 +1,12 @@
 import {useState} from 'react';
 import {Button} from "@mui/material";
-import { Howl, Howler } from 'howler';
+import {Howler } from 'howler';
 import LoopIcon from '@mui/icons-material/Loop';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import StopCircleIcon from '@mui/icons-material/StopCircle';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import {chords} from "../../../utils/musicImports";
-import { HowToRegOutlined } from '@mui/icons-material';
 
 const AudioControls = props => {
   const {currentChord, paused, setPaused} = props;
@@ -15,6 +14,7 @@ const AudioControls = props => {
 
   const styles = {
     audioContainer: {
+      margin: '15px 0',
       border: '2px solid',
       display: 'flex',
       flexDirection: 'column',
@@ -24,13 +24,6 @@ const AudioControls = props => {
       display: 'flex',
       justifyContent: 'space-evenly'
     },
-    volumeOn: {
-      // opaci
-    },
-    volumeOff: {
-      // backgroundColor: 'red'
-      // position: 'static'
-    }
   }
 
   

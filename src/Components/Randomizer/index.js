@@ -8,34 +8,42 @@ import { Paper} from '@mui/material';
 
 const Randomizer = () => {
 
-  const [keyOrder, setKeyOrder] = useState("sequential")
-  const [delayInSeconds, setDelayInSeconds] = useState(4);
-  const [modifiers, setModifiers] = useState(["Minor"])
-  const [paused, setPaused] = useState(true);
+  const [keyOrder, setKeyOrder] = useState("randomKey")
+  const [delayInSeconds, setDelayInSeconds] = useState(10);
+  const [modifiers, setModifiers] = useState(["Major"])
 
   return (
     <Paper elevation={5} style={styles.paperContainer}>
-     <h1>Key Randomizer</h1> 
-      <div>
+      <h1>Key Randomizer {}</h1> 
+      <div style={styles.componentContainer}>
+
+      <div style={styles.component}>
         <KeyDisplay 
           keyOrder={keyOrder}
           setKeyOrder={setKeyOrder}
           modifiers={modifiers}
           styles={styles}
           delayInSeconds={delayInSeconds}
-          paused={paused}
-          setPaused={setPaused}
         />
-      
-        <DelayDisplay 
+      </div>
+      <h5> Settings </h5>
+      <div style={styles.component}>
+      <DelayDisplay 
           delayInSeconds={delayInSeconds}
           setDelayInSeconds={setDelayInSeconds}
         />
-        <ChangeOrderDisplay
+      </div>
+      <div style={styles.component}>
+      <ChangeOrderDisplay
           keyOrder={keyOrder}
           setKeyOrder={setKeyOrder}
         />
+      </div>
+      <div style={styles.component}>
         <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
+      </div>
+      
+
 
 
       </div>
