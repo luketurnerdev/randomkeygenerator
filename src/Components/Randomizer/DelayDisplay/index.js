@@ -5,20 +5,19 @@ const DelayDisplay = props => {
   const [color, setColor] = useState("grey");
   const {delayInSeconds, setDelayInSeconds} = props;
   const [delay,setDelay] = useState(delayInSeconds);
-
+  var reg = /^\d+$/;
     const styles = {
-        delayDisplay: {
-            border: '2px solid black',
-            display: 'flex',
-            justifyContent: 'space-evenly',
-            alignItems: 'center',
-            padding: '10px'
-          },
-
-          button: {
-            height: '50%',
-            backgroundColor: color,
-          }
+      delayDisplay: {
+          border: '2px solid black',
+          display: 'flex',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+          padding: '10px'
+        },
+        button: {
+          height: '50%',
+          backgroundColor: color,
+        }
     }
 
     const changeDelay = () => {
@@ -30,7 +29,10 @@ const DelayDisplay = props => {
 
     const typeInField = e => {
       setColor("green");
-      setDelay(e.target.value)
+      if (reg.test(e.target.value) || e.target.value === "") 
+      {
+        setDelay(e.target.value)
+      }
     }
 
     return (
@@ -38,9 +40,10 @@ const DelayDisplay = props => {
           {//todo - DO NOT ALLOW HYPHENS ETC} - regex 
         }
         <TextField 
+          value={delay}
           size="small"
           variant="outlined"
-          label="Delay (seconds)"
+          label={`Delay (${delayInSeconds} seconds)`}
           style={styles.textField} 
           inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} 
           // type="number"value={delay} 

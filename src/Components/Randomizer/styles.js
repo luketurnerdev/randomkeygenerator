@@ -16,12 +16,10 @@ const styles = {
     },
     keyDisplayGrid: {
       display: 'flex',
-      // flexDirection: 'column',
       justifyContent: 'center',
       height: '7.5vh',
       width: '100%',
       textAlign: 'center',
-      // border: '2px solid red'
     },
     keyDisplayItem: {
       border: '2px solid black',
@@ -30,8 +28,6 @@ const styles = {
       margin: '5px 0 ',
     },
     countdown: {
-      margin: '10px 10px',
-      // border: '2px solid red',
       textAlign: 'center',
       fontWeight: 400
     },

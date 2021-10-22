@@ -89,7 +89,7 @@ const KeyDisplay = props => {
           return (
             <div style={styles.countdown} >
             
-            <span>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</span>
+             <h5>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</h5>
             </div>
           )
         }
@@ -119,7 +119,7 @@ const KeyDisplay = props => {
           
           : 
 
-          <h5>hi</h5>
+          <h5>{delayInSeconds}</h5>
           
           }
           </Grid>
