@@ -1,13 +1,11 @@
-import {Howler} from 'howler';
-import Countdown from 'react-countdown';
+import Clock from "../Clock"
+import {Howler} from "howler"
 import AudioControls from "../AudioControls";
 import { Paper, Grid, Button } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import TimerIcon from '@mui/icons-material/Timer';
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
-import {useState, useContext, useRef} from 'react';
-import {ClockContext} from "../../../Contexts/ClockContext";
-
+import {useState} from 'react';
 
 
 const KeyDisplay = props => {
@@ -16,18 +14,12 @@ const KeyDisplay = props => {
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
     const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
+    const [paused, setPaused] = useState(true);
   
     const [currentKey, setCurrentKey] = useState("C");
     const [upcomingKey,setUpcomingKey] = useState("Db");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
-
-    const clockRef = useRef();
-    const handleStart = () => clockRef.current.start();
-    const handlePause = () => clockRef.current.pause();
-
-
-
 
     const decideUpcomingKey = () => {
       switch (keyOrder) {
@@ -48,61 +40,25 @@ const KeyDisplay = props => {
       chord.play();
     }
 
-    const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
-      
-  
-      console.log('crank')
-      // TODO - when 3 sec left, play click (but dont alter state)
-       if (completed) {
-        // Stop any previous chords
-        Howler.stop()
-        
-        // Play current
-        playChord();
-        
-        //Restart clock
-        
-        // Current is discarded. 
-        // Upcoming becomes current.  
-        
-        setUpcomingKey(decideUpcomingKey());
-        setCurrentKey(upcomingKey);
-        
-        // Change state for next reset
-        
-        // Always randomly select from list of available mods (chosen by user)
-        setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
-        setCurrentMod(upcomingMod);
-        api.start();
-        // setSecondsLeft(delayInSeconds)
-        
-        return <h1>paused</h1>
+    const handleChordChange = () => {
+      // stop all prev chords
+      Howler.stop()
+      // play new chord
+      playChord();
 
-        } 
-        
-        else {
-          // Render a countdown
-          return (
-            <div style={styles.countdown} >
-            
-             <h5>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</h5>
-            </div>
-          )
-        }
-    };
+      // change key
 
-    const Clock = () => {
-    
-      return (
-        <div>
-          <Countdown 
-            date={Date.now() + 5000}
-            ref={clockRef}
-            renderer={clockRenderer}
-          />
-        </div>
-      )
+      setUpcomingKey(decideUpcomingKey());
+      setCurrentKey(upcomingKey);
+
+      // Change mod
+
+      setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
+      setCurrentMod(upcomingMod);
+
     }
+
+    
 
    
     return (
@@ -121,9 +77,12 @@ const KeyDisplay = props => {
           <Grid item xs={2} style={styles.timerBox}>
           <TimerIcon />  
 
-        <ClockContext.Provider value={{paused: true}}>
-            <Clock />
-        </ClockContext.Provider>
+          <Clock
+            paused={paused}
+            handleChordChange={handleChordChange}
+            delayInSeconds={delayInSeconds}
+          />
+
             
 
           
@@ -133,14 +92,14 @@ const KeyDisplay = props => {
         
       </Paper>
 
-    <Button onClick={handleStart}>hi</Button>
-    <Button onClick={handlePause}>hi</Button>
-
-    <AudioControls
-      currentChord={chords[`${currentKey}${currentMod}`]}
+      <AudioControls
+        currentChord={chords[`${currentKey}${currentMod}`]}
+        setPaused={setPaused}
+        paused={paused}
       // paused={paused}
       // setPaused={setPaused}  
     />
+
 </>
 
       

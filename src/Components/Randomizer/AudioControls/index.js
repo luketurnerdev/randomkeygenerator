@@ -4,7 +4,7 @@ import {Howler } from 'howler';
 import LoopIcon from '@mui/icons-material/Loop';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeDownIcon from '@mui/icons-material/VolumeDown';
-import StopCircleIcon from '@mui/icons-material/StopCircle';
+import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import {chords} from "../../../utils/musicImports";
 
@@ -31,6 +31,7 @@ const AudioControls = props => {
     const [volume, setVolume] = useState(Howler.volume());
 
     const pauseOrUnpause = () => {
+      setPaused(!paused);
       // If we are PAUSING
 
       // if (!paused && looping) {
@@ -63,7 +64,7 @@ const AudioControls = props => {
             </Button>
 
             <Button onClick={pauseOrUnpause} style={styles.volumeControls} >
-              {paused ? <PlayCircleOutlineIcon /> : <StopCircleIcon />  }
+              {paused ? <PlayCircleOutlineIcon /> : <PauseCircleOutlineIcon />  }
               </Button>
 
 
@@ -100,6 +101,7 @@ const AudioControls = props => {
          <div style={styles.audioContainer}>
 
               <VolumeDisplay />
+              <span> {paused ? "paused" : "nup"} </span>
               
               <Button variant={looping ? "contained" : "outlined"} onClick={() => toggleLoop()}>
                 <LoopIcon /> Loop

@@ -20,6 +20,7 @@ const styles = {
       height: '7.5vh',
       width: '100%',
       textAlign: 'center',
+      border: '2px solid green'
     },
     keyDisplayItem: {
       border: '2px solid black',
@@ -32,10 +33,6 @@ const styles = {
     },
     gridItemText: {
       margin: '5px 0 ',
-    },
-    countdown: {
-      textAlign: 'center',
-      fontWeight: 400
     },
     delayText: {
 
