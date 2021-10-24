@@ -1,7 +1,7 @@
 import {useRef, useEffect, useState} from 'react';
 import Countdown from 'react-countdown'
 const Clock = props => {
-    const {paused, handleChordChange, delayInSeconds} = props;
+    const {paused, handleChordChange, delayInSeconds, playCurrentChord} = props;
     const clockRef = useRef();
     const handleStart = () => clockRef.current.start();
     const checkIfCompleted = () => clockRef.current.isCompleted();
@@ -10,15 +10,9 @@ const Clock = props => {
     const handlePause = () => clockRef.current.pause();
     const handleStop = () => clockRef.current.stop();
     const [secondsLeft, setSecondsLeft] = useState(delayInSeconds);
+    const [firstPlay, setFirstPlay] = useState(true);
 
     useEffect(() => {
-        // Pause on first load
-        // handlePause();
-        // console.log(`is paused? ${isPaused()}`)
-    }, [])
-    
-    useEffect(() => {
-        console.log(`is paused? ${isPaused()}`)
         pauseOrUnpause();
     }, [paused])
 
@@ -39,18 +33,29 @@ const Clock = props => {
 
     }
 
+    const handleFirstPlay = () => {
+      if (firstPlay) {
+        console.log('first')
+        playCurrentChord()
+      }
+      else {
+        console.log('na mate')
+      }
+    }
+
     
     const handleComplete = () => {
         console.log(`completed? ${checkIfCompleted()}`);
 
         // if user has not stopped it, loop it again
-        
+        console.log('bro')
         if (!paused) {
           handleStop();
           handleChordChange();
           setSecondsLeft(delayInSeconds);
           handleStart();
         }
+
 
     }
 
@@ -69,6 +74,7 @@ const Clock = props => {
       const pauseOrUnpause = () => {
         if (isPaused()) {
           handleStart();
+          setFirstPlay(false);
         }
 
         else {
@@ -81,6 +87,7 @@ const Clock = props => {
           date={Date.now() + secondsLeft * 1000}
           ref={clockRef}
           autoStart={false}
+          onStart={handleFirstPlay}
           renderer={clockRenderer}
           onComplete={handleComplete}
           onTick={handleTimeLeft}

@@ -9,7 +9,7 @@ import { Paper} from '@mui/material';
 const Randomizer = () => {
 
   const [keyOrder, setKeyOrder] = useState("randomKey")
-  const [delayInSeconds, setDelayInSeconds] = useState(10);
+  const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [modifiers, setModifiers] = useState(["Major"])
 
   return (

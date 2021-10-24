@@ -35,16 +35,21 @@ const KeyDisplay = props => {
         }
       }
     } 
-    const playChord = () => {
+    const playNewChord = () => {
       let chord = chords[`${upcomingKey}${upcomingMod}`];
       chord.play();
     }
 
+    const playCurrentChord = () => {
+      Howler.stop()
+      let chord = chords[`${currentKey}${currentMod}`];
+      chord.play();
+    }
     const handleChordChange = () => {
       // stop all prev chords
       Howler.stop()
       // play new chord
-      playChord();
+      playNewChord();
 
       // change key
 
@@ -80,6 +85,7 @@ const KeyDisplay = props => {
           <Clock
             paused={paused}
             handleChordChange={handleChordChange}
+            playCurrentChord={playCurrentChord}
             delayInSeconds={delayInSeconds}
           />
 
