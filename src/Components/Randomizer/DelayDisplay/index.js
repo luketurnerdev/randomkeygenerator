@@ -53,7 +53,8 @@ const DelayDisplay = props => {
           variant="contained"
           style={styles.button} 
           onClick={changeDelay}
-          >Set</Button>
+          >Set
+          </Button>
 
         
       </div>

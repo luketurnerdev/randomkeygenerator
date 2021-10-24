@@ -12,6 +12,7 @@ const Randomizer = () => {
   const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [modifiers, setModifiers] = useState(["Major"])
 
+
   return (
     <Paper elevation={5} style={styles.paperContainer}>
       <h1>Key Randomizer</h1> 

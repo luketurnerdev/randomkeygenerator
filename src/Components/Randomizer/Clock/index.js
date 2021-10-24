@@ -6,15 +6,20 @@ const Clock = props => {
     const handleStart = () => clockRef.current.start();
     const checkIfCompleted = () => clockRef.current.isCompleted();
     const isPaused = () => clockRef.current.isPaused();
-    const isStopped = () => clockRef.current.isStopped();
     const handlePause = () => clockRef.current.pause();
     const handleStop = () => clockRef.current.stop();
     const [secondsLeft, setSecondsLeft] = useState(delayInSeconds);
     const [firstPlay, setFirstPlay] = useState(true);
 
+    // Update paused state based on upper input
     useEffect(() => {
         pauseOrUnpause();
     }, [paused])
+
+    // If user changes delay while the app is running:
+    useEffect(() => {
+        setSecondsLeft(delayInSeconds);
+    }, [delayInSeconds])
 
 
     const styles = {
