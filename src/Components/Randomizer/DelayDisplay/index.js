@@ -8,8 +8,8 @@ const DelayDisplay = props => {
   var reg = /^\d+$/;
     const styles = {
       delayDisplay: {
-          margin: '10px 0',
-          padding: '0 5px'
+          margin: '25px 0',
+          // padding: '0 5px'
         },
         button: {
           height: '50%',
