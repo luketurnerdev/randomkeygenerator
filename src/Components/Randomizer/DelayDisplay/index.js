@@ -8,15 +8,16 @@ const DelayDisplay = props => {
   var reg = /^\d+$/;
     const styles = {
       delayDisplay: {
-          border: '2px solid black',
-          display: 'flex',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-          padding: '10px'
+          margin: '10px 0',
+          padding: '0 5px'
         },
         button: {
           height: '50%',
           backgroundColor: color,
+          margin: '0 15px'
+        },
+        textField: {
+          width: '50%'
         }
     }
 
@@ -46,7 +47,6 @@ const DelayDisplay = props => {
           label={`Delay (${delayInSeconds} seconds)`}
           style={styles.textField} 
           inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} 
-          // type="number"value={delay} 
           onChange={e => typeInField(e)} 
         />
         <Button 

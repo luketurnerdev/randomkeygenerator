@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react';
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import ChangeModDisplay from "./ChangeModDisplay";
-import DelayDisplay from "./DelayDisplay";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import { Paper} from '@mui/material';
 import ReactGA from 'react-ga';
@@ -33,14 +32,12 @@ const Randomizer = props => {
           modifiers={modifiers}
           styles={styles}
           delayInSeconds={delayInSeconds}
-        />
-      </div>
-      {/* <h3> Settings </h3>
-      <div style={styles.component}>
-      <DelayDisplay 
-          delayInSeconds={delayInSeconds}
           setDelayInSeconds={setDelayInSeconds}
         />
+      </div>
+      <h3> Settings </h3>
+      <div style={styles.component}>
+
       </div>
       <div style={styles.component}>
       <ChangeOrderDisplay
@@ -50,7 +47,7 @@ const Randomizer = props => {
       </div>
       <div style={styles.component}>
         <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
-      </div> */}
+      </div>
       
 
 

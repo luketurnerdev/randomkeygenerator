@@ -1,43 +1,38 @@
 const styles = {
     paperContainer: {
       border: '1px solid green',
-      margin: ' 0 5%',
+      margin: ' 2% 4%',
       height: '100vh',
       textAlign: 'center',
     },
-    componentContainer: {
-      // display: 'flex',
-      // flexDirection: 'column',
-      // height: '100%',
-    },
+
     component: {
       // margin: '2px 5%',
     },
     currentKey: {
-      border: '2px solid black',
+      // border: '2px solid black',
       backgroundColor: '#0A8BA1',
-      // width: '100%',
-      // height: '100%',
-      // width: '100%'
-    },
-    gridMobile: {
-      // border: '2px solid red',
-      // height: '35vh',
-      // display: 'flex',
-      // flexDirection: 'column',
-      // alignItems: 'center'
     },
     gridItemText: {
       color: 'white',
-      fontSize: '16px',
-      // height: '100%',
-      // width: '100%',
-      // maxHeight: '20px'
+      fontSize: '14px',
+      margin: '2.5px',
+    },
+
+    keyContainer: {
+      border: '1px solid black',
+      height: '50vh',
+      margin: '0 5px'
+    },
+    key: {
+      color: 'white',
+      fontSize: '30px',
     },
     nextKey: {
       backgroundColor: '#80DF81',
       width: '100%',
       display: 'flex',
+      maxHeight: '80px',
       alignItems: 'center',
       justifyContent: 'space-evenly'
     },
@@ -45,6 +40,7 @@ const styles = {
       // height: '10vh',
       display: 'flex',
       justifyContent: 'center',
+      // flexDirection: 'column',
       alignItems: 'center'
     },
     timerBox: {

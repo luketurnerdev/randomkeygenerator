@@ -4,12 +4,13 @@ import AudioControls from "../AudioControls";
 import { Paper, Grid, Button } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import TimerIcon from '@mui/icons-material/Timer';
+import DelayDisplay from "./../DelayDisplay";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
 import {useState} from 'react';
 
 
 const KeyDisplay = props => {
-    const {mobile, keyOrder, setKeyOrder, modifiers, styles, delayInSeconds} = props;
+    const {mobile, keyOrder, setKeyOrder, modifiers, styles, delayInSeconds, setDelayInSeconds} = props;
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
@@ -60,7 +61,6 @@ const KeyDisplay = props => {
 
       setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
       setCurrentMod(upcomingMod);
-
     }
 
     
@@ -68,11 +68,10 @@ const KeyDisplay = props => {
    
     return (
 <>
-      <Paper elevation={4}>
+      <Paper elevation={4} style={styles.keyContainer}>
         <Grid container  direction="column" style={mobile ? styles.gridMobile : styles.gridMobile}>
           <Grid item xs={10} style={styles.currentKey}>
-            <h5 style={styles.gridItemText}>Current:</h5> 
-            <h5 style={styles.gridItemText}>{currentKey} {currentMod}</h5> 
+            <h5 style={styles.key}>{currentKey} {currentMod}</h5> 
           </Grid>
           <Grid item xs={2} style={styles.nextKey}>  
               <div>
@@ -89,12 +88,18 @@ const KeyDisplay = props => {
                 playCurrentChord={playCurrentChord}
                 delayInSeconds={delayInSeconds}
               />
+
          </div>
           </Grid>
 
           
 
          </Grid> 
+
+         <DelayDisplay 
+                  delayInSeconds={delayInSeconds}
+                  setDelayInSeconds={setDelayInSeconds}
+                />
 
 
 
@@ -105,8 +110,6 @@ const KeyDisplay = props => {
         currentChord={chords[`${currentKey}${currentMod}`]}
         setPaused={setPaused}
         paused={paused}
-      // paused={paused}
-      // setPaused={setPaused}  
     />
 
 </>
