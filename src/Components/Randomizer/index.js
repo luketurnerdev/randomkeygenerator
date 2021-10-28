@@ -1,12 +1,19 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import ChangeModDisplay from "./ChangeModDisplay";
 import DelayDisplay from "./DelayDisplay";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import { Paper} from '@mui/material';
+import ReactGA from 'react-ga';
 
 const Randomizer = () => {
+
+
+  useEffect(() => {
+    console.log(ReactGA.ga())
+    ReactGA.pageview(window.location.pathname);
+  });
 
   const [keyOrder, setKeyOrder] = useState("randomKey")
   const [delayInSeconds, setDelayInSeconds] = useState(3);

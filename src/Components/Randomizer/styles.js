@@ -3,8 +3,7 @@ const styles = {
       border: '1px solid green',
       margin: ' 0 10%',
       height: '100vh',
-      textAlign: 'center'
-
+      textAlign: 'center',
     },
     componentContainer: {
       display: 'flex',

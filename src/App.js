@@ -1,14 +1,25 @@
 import Randomizer from "./Components/Randomizer";
-import Metronome  from "./Components/Metronome";
 import {useState} from 'react';
+import ReactGA from 'react-ga';
+
 function App() {
-  // const [paused, setPaused] = useState(true);
+  const [mobile, setMobile] = useState(window.matchMedia("(max-width: 768px)").matches)
+
+  ReactGA.initialize('UA-210928692-2', {
+    debug: true,
+    titleCase: false,
+    gaOptions: {
+      userId: 123
+    }
+  });
+
+  console.log(ReactGA.ga())
   return (
     <div className="App">
-        <Randomizer  />
+       {mobile && (<h1>Small Screen</h1>)}
+      {!mobile && (<h3>Big Screen</h3>)}
+      {/* <Randomizer  /> */}
       {/* <Metronome /> */}
-      {/* <button onClick={() => setPaused(!paused)}>Pause / Unpause</button> */}
-      {/* <h1>{paused ? "Paused" : "unpaused"}</h1> */}
 
     </div>
   );
