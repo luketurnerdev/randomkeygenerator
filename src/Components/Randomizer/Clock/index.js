@@ -1,7 +1,7 @@
 import {useRef, useEffect, useState} from 'react';
 import Countdown from 'react-countdown'
 const Clock = props => {
-    const {paused, handleChordChange, delayInSeconds, playCurrentChord} = props;
+    const {styles, paused, handleChordChange, delayInSeconds, playCurrentChord} = props;
     const clockRef = useRef();
     const handleStart = () => clockRef.current.start();
     const checkIfCompleted = () => clockRef.current.isCompleted();
@@ -20,14 +20,6 @@ const Clock = props => {
     useEffect(() => {
         setSecondsLeft(delayInSeconds);
     }, [delayInSeconds])
-
-
-    const styles = {
-      countdown: {
-        textAlign: 'center',
-        fontWeight: 400
-      },
-    }
 
     const handleTimeLeft = () => {
       // this happens every tick
@@ -71,7 +63,7 @@ const Clock = props => {
             return (
               <div style={styles.countdown} >
               
-               <h5>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</h5>
+                <h4>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</h4>
               </div>
             )
           }

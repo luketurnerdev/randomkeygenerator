@@ -7,8 +7,8 @@ import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import { Paper} from '@mui/material';
 import ReactGA from 'react-ga';
 
-const Randomizer = () => {
-
+const Randomizer = props => {
+  const {mobile} = props;
 
   useEffect(() => {
     console.log(ReactGA.ga())
@@ -27,6 +27,7 @@ const Randomizer = () => {
 
       <div style={styles.component}>
         <KeyDisplay 
+          mobile={mobile}
           keyOrder={keyOrder}
           setKeyOrder={setKeyOrder}
           modifiers={modifiers}
@@ -34,7 +35,7 @@ const Randomizer = () => {
           delayInSeconds={delayInSeconds}
         />
       </div>
-      <h3> Settings </h3>
+      {/* <h3> Settings </h3>
       <div style={styles.component}>
       <DelayDisplay 
           delayInSeconds={delayInSeconds}
@@ -49,7 +50,7 @@ const Randomizer = () => {
       </div>
       <div style={styles.component}>
         <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
-      </div>
+      </div> */}
       
 
 

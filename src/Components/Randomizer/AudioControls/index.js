@@ -101,7 +101,6 @@ const AudioControls = props => {
          <div style={styles.audioContainer}>
 
               <VolumeDisplay />
-              <span> {paused ? "paused" : "nup"} </span>
               
               <Button variant={looping ? "contained" : "outlined"} onClick={() => toggleLoop()}>
                 <LoopIcon /> Loop

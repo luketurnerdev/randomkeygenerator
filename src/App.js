@@ -16,9 +16,7 @@ function App() {
   console.log(ReactGA.ga())
   return (
     <div className="App">
-       {mobile && (<h1>Small Screen</h1>)}
-      {!mobile && (<h3>Big Screen</h3>)}
-      {/* <Randomizer  /> */}
+      <Randomizer mobile={mobile} />
       {/* <Metronome /> */}
 
     </div>
