@@ -31,19 +31,18 @@ const AudioControls = props => {
     const [volume, setVolume] = useState(Howler.volume());
 
     const pauseOrUnpause = () => {
-      setPaused(!paused);
       // If we are PAUSING
 
-      // if (!paused && looping) {
+      // if (!paused) {
       //   Howler.stop();
       // }
 
-      // if we are PLAYING
+      // // if we are PLAYING
       // if (paused) {
       //   console.log('playing')
       //   currentChord.play();
       // }
-      // setPaused (!paused)
+      setPaused (!paused)
     }
 
     const changeVolume = amount => {

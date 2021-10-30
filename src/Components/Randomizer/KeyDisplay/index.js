@@ -29,8 +29,10 @@ const KeyDisplay = props => {
         case "sequential":
           // We pass in upcoming so it starts from correct key
           return (generateSequentialKey(upcomingKey, currentKeyset));
-          case "fifths": 
+
+        case "fifths": 
           return (generateFifthsKey(upcomingKey, currentKeyset));
+
         default: {
           break;
         }
@@ -46,6 +48,7 @@ const KeyDisplay = props => {
       let chord = chords[`${currentKey}${currentMod}`];
       chord.play();
     }
+
     const handleChordChange = () => {
       // stop all prev chords
       Howler.stop()
@@ -76,7 +79,7 @@ const KeyDisplay = props => {
           <Grid item xs={2} style={styles.nextKey}>  
               <div>
                   <h5 style={styles.gridItemText}>Next:</h5> 
-                  <h5 style={styles.gridItemText}>{currentKey} {currentMod}</h5> 
+                  <h5 style={styles.gridItemText}>{upcomingKey} {upcomingMod}</h5> 
               </div>
 
             <div style={styles.clockSection}>
@@ -97,9 +100,9 @@ const KeyDisplay = props => {
          </Grid> 
 
          <DelayDisplay 
-                  delayInSeconds={delayInSeconds}
-                  setDelayInSeconds={setDelayInSeconds}
-                />
+              delayInSeconds={delayInSeconds}
+              setDelayInSeconds={setDelayInSeconds}
+          />
 
 
 

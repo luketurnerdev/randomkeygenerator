@@ -32,8 +32,7 @@ const Clock = props => {
 
     const handleFirstPlay = () => {
       if (firstPlay) {
-        console.log('first')
-        playCurrentChord()
+        playCurrentChord();
       }
       else {
         console.log('na mate')
@@ -45,11 +44,15 @@ const Clock = props => {
         console.log(`completed? ${checkIfCompleted()}`);
 
         // if user has not stopped it, loop it again
-        console.log('bro')
         if (!paused) {
+          // Stop clock
           handleStop();
+
           handleChordChange();
+          // Reset timer 
           setSecondsLeft(delayInSeconds);
+
+          // Start clock
           handleStart();
         }
 
@@ -58,15 +61,14 @@ const Clock = props => {
 
     const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
 
+        // Render a countdown
+        return (
+          <div style={styles.countdown} >
           
-            // Render a countdown
-            return (
-              <div style={styles.countdown} >
-              
-                <h4>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</h4>
-              </div>
-            )
-          }
+            <h4>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</h4>
+          </div>
+        )
+      }
   
       const pauseOrUnpause = () => {
         if (isPaused()) {
