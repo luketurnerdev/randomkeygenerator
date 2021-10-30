@@ -3,6 +3,7 @@ import {Howler} from "howler"
 import AudioControls from "../AudioControls";
 import { Paper, Grid, Button } from '@mui/material';
 import {chords} from "../../../utils/musicImports";
+import {playCurrentChord, handleChordChange} from "../../../utils/playSounds";
 import TimerIcon from '@mui/icons-material/Timer';
 import DelayDisplay from "./../DelayDisplay";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
@@ -43,28 +44,24 @@ const KeyDisplay = props => {
       chord.play();
     }
 
-    const playCurrentChord = () => {
-      Howler.stop()
-      let chord = chords[`${currentKey}${currentMod}`];
-      chord.play();
-    }
 
-    const handleChordChange = () => {
-      // stop all prev chords
-      Howler.stop()
-      // play new chord
-      playNewChord();
 
-      // change key
+    // const handleChordChange = () => {
+    //   // stop all prev chords
+    //   Howler.stop()
+    //   // play new chord
+    //   playNewChord();
 
-      setUpcomingKey(decideUpcomingKey());
-      setCurrentKey(upcomingKey);
+    //   // change key
 
-      // Change mod
+    //   setUpcomingKey(decideUpcomingKey());
+    //   setCurrentKey(upcomingKey);
 
-      setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
-      setCurrentMod(upcomingMod);
-    }
+    //   // Change mod
+
+    //   setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
+    //   setCurrentMod(upcomingMod);
+    // }
 
     
 
@@ -113,6 +110,7 @@ const KeyDisplay = props => {
         currentChord={chords[`${currentKey}${currentMod}`]}
         setPaused={setPaused}
         paused={paused}
+        delayInSeconds={delayInSeconds}
     />
 
 </>

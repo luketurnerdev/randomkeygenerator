@@ -6,17 +6,19 @@ import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import { Paper} from '@mui/material';
 import ReactGA from 'react-ga';
 
+
 const Randomizer = props => {
   const {mobile} = props;
 
   useEffect(() => {
-    console.log(ReactGA.ga())
     ReactGA.pageview(window.location.pathname);
+
   });
 
   const [keyOrder, setKeyOrder] = useState("randomKey")
   const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [modifiers, setModifiers] = useState(["Major"])
+
 
 
   return (

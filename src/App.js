@@ -15,7 +15,7 @@ function App() {
     }
   });
 
-  console.log(ReactGA.ga())
+
   return (
     <div className="App">
       <Randomizer mobile={mobile} />
