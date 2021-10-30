@@ -1,8 +1,9 @@
 const styles = {
     paperContainer: {
       border: '1px solid green',
-      margin: ' 2% 4%',
-      height: '100vh',
+      margin: ' 2% 2%',
+
+      // height: '100vh',
       textAlign: 'center',
     },
 
