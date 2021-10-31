@@ -53,27 +53,8 @@ const KeyDisplay = props => {
       setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
       setCurrentMod(upcomingMod);
     }
-
-    // const handleChordChange = () => {
-    //   // stop all prev chords
-    //   Howler.stop()
-    //   // play new chord
-    //   playNewChord();
-
-    //   // change key
-
-    //   setUpcomingKey(decideUpcomingKey());
-    //   setCurrentKey(upcomingKey);
-
-    // //   // Change mod
-
-    //   setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
-    //   setCurrentMod(upcomingMod);
-    // }
-
     
 
-   
     return (
 <>
       <Paper elevation={4} style={styles.keyContainer}>

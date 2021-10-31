@@ -1,7 +1,7 @@
 import {useRef, useEffect, useState} from 'react';
 import Countdown from 'react-countdown'
 const Clock = props => {
-    const {styles, paused, activateChord, delayInSeconds, currentChord, upcomingChord, updateChordsInRender} = props;
+    const {styles, paused, activateChord, delayInSeconds, upcomingChord, updateChordsInRender} = props;
     const clockRef = useRef();
     const handleStart = () => clockRef.current.start();
     const checkIfCompleted = () => clockRef.current.isCompleted();
@@ -39,7 +39,7 @@ const Clock = props => {
 
           // Play new sound
           activateChord(upcomingChord);
-          // updateChordsInRender();
+          updateChordsInRender();
           // Reset timer  
           setSecondsLeft(delayInSeconds);
 
