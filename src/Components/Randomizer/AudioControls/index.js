@@ -7,7 +7,7 @@ import VolumeDownIcon from '@mui/icons-material/VolumeDown';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import {chords} from "../../../utils/musicImports";
-import {activateChord, stopSynth} from "../../../utils/playSounds";
+import {pauseSynth} from "../../../utils/playSounds";
 
 const AudioControls = props => {
   const {currentChord, paused, setPaused} = props;
@@ -37,13 +37,14 @@ const AudioControls = props => {
       if (!paused) {
         Howler.stop();
         // Turn off synth HERE
-        activateChord(paused, "C Major", 3)
+        pauseSynth();
+        // activateChord("C Major")
       }
 
       // if we are PLAYING
       if (paused) {
         console.log('playing')
-        activateChord(paused, "C Major", 3)
+        // activateChord("C Major")
       }
 
       // Set render state

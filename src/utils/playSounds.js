@@ -3,45 +3,36 @@ import * as Tone from 'tone';
 
 
 const synth = new Tone.PolySynth().toDestination();
+let pitch = 3;
 
-let chordNotes = ["C4", "E4", "G4"];
+// synth.set("detune", -1200);
 
 
+const chords = {
+    "CMajor" : ["C", "E", "G"],
+    "CMinor" : ["C", "Eb", "G"],
+    "DMajor" : ["D", "Gb", "A"],
+    "DMinor" : ["D", "G", "A"],
+}
 
-export const activateChord = (paused, currentChord, duration) => {
+export const activateChord = (chord) => {
+    // chord is a string eg "C Major"
+    // "C Major" ==> ["C4", "G4", "E4"] etc.
 
-    // currentChord is a string eg "C Major"
+    synth.releaseAll(Tone.now())
+    let chordNotes = chords[chord].map(key => key + pitch);
 
-    // Create switch statement for converting:
-    // "C Major" ==> "CEG" etc.
-    console.log(paused)
-    synth.triggerAttackRelease(chordNotes, 999, 0.5);
-    // const loop = new Tone.Loop(time => {
-    // }, "4n").start(0);
+    synth.triggerAttackRelease(chordNotes, 999, 1);
+  
+}
 
-    if (!paused) {
+export const pauseSynth = () => {
         synth.releaseAll(Tone.now())
-    }
+}
+export const resumeSynth = () => {
+        // synth.releaseAll(Tone.now())
 }
 
-export const playCurrentChord = () => {
-    Howler.stop()
-
-    // playCustomChord('xyz')
-
-    
-}
-export const handleChordChange = () => {
-        
-    console.log('handle change')
-    // stop prev chord
-    // stopSynth();
-    
-    // Play new chord
-    
-    
-    
-}
 
 export const stopSynth = () => {
     console.log('stop func')

@@ -1,9 +1,8 @@
 import Clock from "../Clock"
-import {Howler} from "howler"
 import AudioControls from "../AudioControls";
-import { Paper, Grid, Button } from '@mui/material';
+import { Paper, Grid} from '@mui/material';
 import {chords} from "../../../utils/musicImports";
-import {playCurrentChord, handleChordChange} from "../../../utils/playSounds";
+import {activateChord} from "../../../utils/playSounds";
 import TimerIcon from '@mui/icons-material/Timer';
 import DelayDisplay from "./../DelayDisplay";
 import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
@@ -12,14 +11,15 @@ import {useState} from 'react';
 
 const KeyDisplay = props => {
     const {mobile, keyOrder, setKeyOrder, modifiers, styles, delayInSeconds, setDelayInSeconds} = props;
-    const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+    // const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+    const keysWithFlats = ["C", "D"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
     const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
     const [paused, setPaused] = useState(true);
   
     const [currentKey, setCurrentKey] = useState("C");
-    const [upcomingKey,setUpcomingKey] = useState("Db");
+    const [upcomingKey,setUpcomingKey] = useState("D");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
 
@@ -45,6 +45,14 @@ const KeyDisplay = props => {
     }
 
 
+    const updateChordsInRender = () => {
+
+      setUpcomingKey(decideUpcomingKey());
+      setCurrentKey(upcomingKey);
+
+      setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
+      setCurrentMod(upcomingMod);
+    }
 
     // const handleChordChange = () => {
     //   // stop all prev chords
@@ -57,7 +65,7 @@ const KeyDisplay = props => {
     //   setUpcomingKey(decideUpcomingKey());
     //   setCurrentKey(upcomingKey);
 
-    //   // Change mod
+    // //   // Change mod
 
     //   setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);
     //   setCurrentMod(upcomingMod);
@@ -84,8 +92,10 @@ const KeyDisplay = props => {
               <Clock
                 styles={styles}
                 paused={paused}
-                handleChordChange={handleChordChange}
-                playCurrentChord={playCurrentChord}
+                currentChord={`${currentKey} ${currentMod}`}
+                upcomingChord={`${upcomingKey}${upcomingMod}`}
+                activateChord={activateChord}
+                updateChordsInRender={updateChordsInRender}
                 delayInSeconds={delayInSeconds}
               />
 
