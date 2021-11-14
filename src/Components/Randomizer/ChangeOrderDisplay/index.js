@@ -1,7 +1,18 @@
-import {Button, ButtonGroup} from '@mui/material'
+import {Button, ButtonGroup, Chip, Typography, Menu, MenuItem} from '@mui/material'
+import {useState} from 'react';
 
 const ChangeOrderDisplay = props => {
     const {keyOrder, setKeyOrder} = props;
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const menuOpen = Boolean(anchorEl);
 
     const styles = {
       buttonSelected: {
@@ -32,14 +43,56 @@ const ChangeOrderDisplay = props => {
       return keyOrder === orderString ? styles.buttonSelected : styles.buttonDeselected
 
     }
+
+    const MyChip = () => {
+      return (
+        <Chip size="small" label="Order"/>
+      )
+    }
     return (
     <div style={styles.container}>
-      <h5 style={styles.title}>Order</h5>
+      <div style={styles.orderBar}>
+        <div style={styles.orderTitle}>
+          <Typography variant="h5">
+            Order:
+          </Typography>
+        </div>
+
+
+
+      <Button
+        id="basic-button"
+        aria-controls="basic-menu"
+        aria-haspopup="true"
+        aria-expanded={menuOpen ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        <MyChip />
+        </Button>
+
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={menuOpen}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+      >
+          <MenuItem >Profile</MenuItem>
+          <MenuItem >My account</MenuItem>
+          <MenuItem >Logout</MenuItem>
+        </Menu>
+        
+      </div>
+
+
+      {/* <h5 style={styles.title}>Order</h5>
           <ButtonGroup style={styles.buttonGroup} size ="small" variant="contained" aria-label="outlined primary button group">
               <Button style={setColor("randomKey")} onClick={() => setKeyOrder("randomKey")}>Random</Button>
               <Button style={setColor("sequential")} onClick={() => setKeyOrder("sequential")}>Sequential</Button>
               <Button style={setColor("fifths")} onClick={() => setKeyOrder("fifths")}>Fifths</Button>
-          </ButtonGroup>
+          </ButtonGroup> */}
     </div>
     )
   }

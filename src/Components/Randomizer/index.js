@@ -25,8 +25,13 @@ const Randomizer = props => {
     <Paper elevation={5} style={styles.paperContainer}>
       <h1>Key Randomizer</h1> 
       <div style={styles.componentContainer}>
-
       <div style={styles.component}>
+      <ChangeOrderDisplay
+          keyOrder={keyOrder}
+          setKeyOrder={setKeyOrder}
+        />
+      </div>
+      {/* <div style={styles.component}>
         <KeyDisplay 
           mobile={mobile}
           keyOrder={keyOrder}
@@ -41,15 +46,10 @@ const Randomizer = props => {
       <div style={styles.component}>
 
       </div>
-      <div style={styles.component}>
-      <ChangeOrderDisplay
-          keyOrder={keyOrder}
-          setKeyOrder={setKeyOrder}
-        />
-      </div>
+
       <div style={styles.component}>
         <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
-      </div>
+      </div> */}
       
 
 

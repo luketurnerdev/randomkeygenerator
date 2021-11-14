@@ -11,8 +11,8 @@ import {useState} from 'react';
 
 const KeyDisplay = props => {
     const {mobile, keyOrder, setKeyOrder, modifiers, styles, delayInSeconds, setDelayInSeconds} = props;
-    // const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
-    const keysWithFlats = ["C", "D"];
+    const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+    // const keysWithFlats = ["Gb"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
     const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);

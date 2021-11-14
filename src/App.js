@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="App">
       <Randomizer mobile={mobile} />
-      <Footer />
+      {/* <Footer /> */}
       {/* <Metronome /> */}
 
     </div>
