@@ -39,6 +39,48 @@ const KeyDisplay = props => {
       setCurrentMod(upcomingMod);
     }
     
+    const InnerCircle = () => {
+      return (
+        <>
+        <CircularProgress style={styles.progress} variant="determinate" value={80} />
+        <Box
+          sx={{
+            top: 0,
+            left: 0,
+            bottom: 0,
+            right: 0,
+            position: 'absolute',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box style={styles.innerText}>
+            <div style={styles.currentKey}>
+              Gb
+            </div>
+            <div style={styles.currentMod}>
+              Major
+            </div>
+            <div style={styles.upcomingKey}>
+              Next: Db Major
+            </div>
+            <div style={styles.timerContainer}>
+              <TimerIcon style={styles.timer} /> 2
+            </div>
+          </Box>
+        </Box>
+        </>
+      )
+    }
+
+    const OuterCircle = () => {
+      return (
+        <>
+        <CircularProgress style={styles.outerProgress} variant="determinate" value={100} />
+        </>
+      )
+    }
 
     return (
 <>
@@ -46,34 +88,8 @@ const KeyDisplay = props => {
 
       
 <Box style={styles.circleBox} sx={{ position: 'relative', display: 'inline-flex' }}>
-    <CircularProgress style={styles.progress} variant="determinate" value={100} />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: 'absolute',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Box style={styles.innerText}>
-          <div style={styles.currentKey}>
-            Gb
-          </div>
-          <div style={styles.currentMod}>
-            Major
-          </div>
-          <div style={styles.upcomingKey}>
-            Next: Db Major
-          </div>
-          <div style={styles.timerContainer}>
-            <TimerIcon style={styles.timer} /> 2
-          </div>
-        </Box>
-      </Box>
+  <InnerCircle />
+  <OuterCircle />
     </Box>
 
       {/* <Paper elevation={4} style={styles.keyContainer}>

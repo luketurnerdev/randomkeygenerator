@@ -1,3 +1,5 @@
+//background: #F0EEFF;
+
 const styles = {
     circleBox: {    
         width: '256px',
@@ -6,6 +8,14 @@ const styles = {
     progress: {
         width: '100%',
         height: '100%',
+        color: '#8D7DFF',
+    },
+    outerProgress: {
+        color: '#F0EEFF',
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        zIndex: -1
     },
     innerText: {
         display: 'flex',
