@@ -46,14 +46,7 @@ const styles = {
       border: '2px solid black',
       alignItems: 'center',
     },
-    timerIcon: {
-      color: 'white'
-    },
-    countdown: {
-      color: 'white',
-      textAlign: 'center',
-      fontWeight: 400
-    },
+
   }
 
   export default styles;

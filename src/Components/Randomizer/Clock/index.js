@@ -56,7 +56,7 @@ const Clock = props => {
         return (
           <div style={styles.countdown} >
           
-            <h4>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds} sec</h4>
+            <h4>{(hours > 0) && `${hours} Hours`} {(minutes > 0) && `${minutes} Mins`}  {seconds}</h4>
           </div>
         )
       }

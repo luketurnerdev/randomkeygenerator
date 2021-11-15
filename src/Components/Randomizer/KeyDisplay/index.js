@@ -57,16 +57,25 @@ const KeyDisplay = props => {
         >
           <Box style={styles.innerText}>
             <div style={styles.currentKey}>
-              Gb
+              {currentKey}
             </div>
             <div style={styles.currentMod}>
-              Major
+              {currentMod}
             </div>
             <div style={styles.upcomingKey}>
-              Next: Db Major
+              Next: {upcomingKey} {upcomingMod}
             </div>
             <div style={styles.timerContainer}>
-              <TimerIcon style={styles.timer} /> 2
+              <TimerIcon style={styles.timer} /> 
+              <Clock
+                styles={styles}
+                paused={paused}
+                currentChord={`${currentKey} ${currentMod}`}
+                upcomingChord={`${upcomingKey}${upcomingMod}`}
+                activateChord={activateChord}
+                updateChordsInRender={updateChordsInRender}
+                delayInSeconds={delayInSeconds}
+              />
             </div>
           </Box>
         </Box>

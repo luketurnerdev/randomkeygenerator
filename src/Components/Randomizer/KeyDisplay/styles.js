@@ -25,19 +25,19 @@ const styles = {
     },
     currentKey: {
         fontSize: '60px',
-        margin: '5px 0',
+        margin: '2.5px 0',
         fontWeight: 500,
 
     },
     currentMod: {
         fontSize: '20px',
-        margin: '5px 0',
+        marginTop: '2.5px 0',
         fontWeight: 500,
     },
     upcomingKey: {
         fontSize: '16px',
         color: '#6C57FF',
-        margin: '5px 0',
+        marginTop: '15px',
         fontWeight: 400,
 
     },
@@ -49,11 +49,10 @@ const styles = {
 
     },
     timerContainer: {
+        maxHeight: '40px',
         color: '#6C57FF',
         display: 'flex',
         alignItems: 'center',
-        margin: '5px 0'
-
     },
 }
 
