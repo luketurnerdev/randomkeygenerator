@@ -42,7 +42,7 @@ const KeyDisplay = props => {
     const InnerCircle = () => {
       return (
         <>
-        <CircularProgress style={styles.progress} variant="determinate" value={80} />
+        <CircularProgress thickness={2} style={styles.progress} variant="determinate" value={80} />
         <Box
           sx={{
             top: 0,
@@ -77,7 +77,7 @@ const KeyDisplay = props => {
     const OuterCircle = () => {
       return (
         <>
-        <CircularProgress style={styles.outerProgress} variant="determinate" value={100} />
+        <CircularProgress thickness={2} style={styles.outerProgress} variant="determinate" value={100} />
         </>
       )
     }
