@@ -1,4 +1,5 @@
 import {Button, ButtonGroup, Chip, Typography, Menu, MenuItem} from '@mui/material'
+import { makeStyles } from '@material-ui/core/styles';
 import {useState} from 'react';
 
 const ChangeOrderDisplay = props => {
@@ -34,6 +35,13 @@ const ChangeOrderDisplay = props => {
       buttonGroup: {
         margin: '10px',
       },
+      orderBar: {
+        display: 'flex',
+        border: '2px solid',
+      },
+      menuButton: {
+        textTransform: 'none'
+      }
 
     }
 
@@ -46,21 +54,23 @@ const ChangeOrderDisplay = props => {
 
     const MyChip = () => {
       return (
-        <Chip size="small" label="Order"/>
+        <Chip size="small" label={keyOrder}/>
       )
     }
     return (
     <div style={styles.container}>
       <div style={styles.orderBar}>
         <div style={styles.orderTitle}>
-          <Typography variant="h5">
-            Order:
+          <Typography variant="h1">
+            hi
           </Typography>
         </div>
 
 
 
       <Button
+        // color={theme}
+        style={styles.menuButton}
         id="basic-button"
         aria-controls="basic-menu"
         aria-haspopup="true"
