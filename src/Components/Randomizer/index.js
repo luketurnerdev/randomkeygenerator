@@ -17,23 +17,18 @@ const Randomizer = props => {
 
   });
 
-  const [keyOrder, setKeyOrder] = useState("randomKey")
+  const [keyOrder, setKeyOrder] = useState("Random")
   const [delayInSeconds, setDelayInSeconds] = useState(3);
   const [modifiers, setModifiers] = useState(["Major"])
 
 
 
   return (
-    <Paper elevation={5} style={styles.paperContainer}>
-      <h1>Key Randomizer</h1> 
-      <div style={styles.componentContainer}>
-      <div style={styles.component}>
         <ChangeOrderDisplay
             keyOrder={keyOrder}
             setKeyOrder={setKeyOrder}
           />
-      </div>
-      {/* <div style={styles.component}>
+      /* <div style={styles.component}>
         <KeyDisplay 
           mobile={mobile}
           keyOrder={keyOrder}
@@ -51,13 +46,11 @@ const Randomizer = props => {
 
       <div style={styles.component}>
         <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
-      </div> */}
+      </div> */
       
 
 
 
-      </div>
-    </Paper>
   );
 }
 

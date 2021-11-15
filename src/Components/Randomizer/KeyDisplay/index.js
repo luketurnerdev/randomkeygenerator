@@ -25,13 +25,13 @@ const KeyDisplay = props => {
 
     const decideUpcomingKey = () => {
       switch (keyOrder) {
-        case "randomKey": 
+        case "Random": 
           return (generateRandomKey(currentKeyset));
-        case "sequential":
+        case "Sequential":
           // We pass in upcoming so it starts from correct key
           return (generateSequentialKey(upcomingKey, currentKeyset));
 
-        case "fifths": 
+        case "Fifths": 
           return (generateFifthsKey(upcomingKey, currentKeyset));
 
         default: {

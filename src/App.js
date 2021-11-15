@@ -20,10 +20,6 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button variant="contained" color="primary"> 
-
-        Click
-      </Button>
       <Randomizer mobile={mobile} />
       {/* <Metronome /> */}
     </ThemeProvider>

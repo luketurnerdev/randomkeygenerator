@@ -1,11 +1,18 @@
-import {Button, ButtonGroup, Chip, Typography, Menu, MenuItem} from '@mui/material'
-import { makeStyles } from '@material-ui/core/styles';
+import {Button, Grid, GridItem, Chip, Typography, Menu, MenuItem} from '@mui/material'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import DoneIcon from '@mui/icons-material/Done';
 import {useState} from 'react';
 
 const ChangeOrderDisplay = props => {
+    const [anchorEl, setAnchorEl] = useState(null);
+    const menuOpen = Boolean(anchorEl);
+
     const {keyOrder, setKeyOrder} = props;
+
+    const handleMenuClick = orderString => {
+      handleClose();
+      setKeyOrder(orderString);
+    }
 
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -14,8 +21,6 @@ const ChangeOrderDisplay = props => {
       setAnchorEl(null);
     };
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const menuOpen = Boolean(anchorEl);
 
     const styles = {
       buttonSelected: {
@@ -28,7 +33,6 @@ const ChangeOrderDisplay = props => {
 
       },
       container: {
-        border: '2px solid red',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center'
@@ -39,7 +43,7 @@ const ChangeOrderDisplay = props => {
       },
       orderBar: {
         display: 'flex',
-        border: '2px solid',
+        alignItems: 'center'
       },
       menuButton: {
         textTransform: 'none'
@@ -52,16 +56,9 @@ const ChangeOrderDisplay = props => {
         alignItems: 'center',
         color: '#5641E6'
       },
-      menuItem: {
-        // color: 'red'
+      menuText: {
+        margin: '0 10px'
       }
-    }
-
-    const setColor = orderString => {
-      //TODO
-      // is the arg in the modifier list?
-      return keyOrder === orderString ? styles.buttonSelected : styles.buttonDeselected
-
     }
 
     const MyChip = () => {
@@ -74,12 +71,8 @@ const ChangeOrderDisplay = props => {
         )
       }
       return (
-        <div style={styles.chipContainer}>
-          
-          <Chip style={styles.chip} size="small" label={order()}>
-          
-            </Chip>
-          
+        <div style={styles.chipContainer}>          
+          <Chip style={styles.chip} size="small" label={order()} />        
         </div>
       )
     }
@@ -112,36 +105,37 @@ const ChangeOrderDisplay = props => {
           }}
       >
           <MenuItem style={styles.menuItem} 
-            onClick={() => setKeyOrder("randomKey")}
+            onClick={() => handleMenuClick("Random")}
           >
-             {keyOrder === "randomKey" && <DoneIcon />}
+           {keyOrder === "Random" && <DoneIcon />}
+           <div style={styles.menuText}>
                 Random
+          </div>
+                
           </MenuItem>
 
           <MenuItem style={styles.menuItem} 
-            onClick={() => setKeyOrder("sequential")}
+            onClick={() => handleMenuClick("Sequential")}
           >
-             {keyOrder === "sequential" && <DoneIcon />}
-                Sequential
+                  {keyOrder === "Sequential" && <DoneIcon />}
+                  <div style={styles.menuText}>
+                    Sequential
+                  </div>
+            
           </MenuItem>
 
           <MenuItem style={styles.menuItem} 
-            onClick={() => setKeyOrder("fifths")}
+            onClick={() => handleMenuClick("Fifths")}
           >
-             {keyOrder === "fifths" && <DoneIcon />}
+             {keyOrder === "Fifths" && <DoneIcon />}
+             <div style={styles.menuText}>
                 Fifths
+          </div>
           </MenuItem>
         </Menu>
         
       </div>
 
-
-      {/* <h5 style={styles.title}>Order</h5>
-          <ButtonGroup style={styles.buttonGroup} size ="small" variant="contained" aria-label="outlined primary button group">
-              <Button style={setColor("randomKey")} onClick={() => setKeyOrder("randomKey")}>Random</Button>
-              <Button style={setColor("sequential")} onClick={() => setKeyOrder("sequential")}>Sequential</Button>
-              <Button style={setColor("fifths")} onClick={() => setKeyOrder("fifths")}>Fifths</Button>
-          </ButtonGroup> */}
     </div>
     )
   }
