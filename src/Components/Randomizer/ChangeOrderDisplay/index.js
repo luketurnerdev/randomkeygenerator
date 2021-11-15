@@ -1,5 +1,7 @@
 import {Button, ButtonGroup, Chip, Typography, Menu, MenuItem} from '@mui/material'
 import { makeStyles } from '@material-ui/core/styles';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import DoneIcon from '@mui/icons-material/Done';
 import {useState} from 'react';
 
 const ChangeOrderDisplay = props => {
@@ -41,8 +43,18 @@ const ChangeOrderDisplay = props => {
       },
       menuButton: {
         textTransform: 'none'
+      },
+      chip: {
+        backgroundColor: '#F0EEFF'
+      },
+      chipInner: {
+        display: 'flex',
+        alignItems: 'center',
+        color: '#5641E6'
+      },
+      menuItem: {
+        // color: 'red'
       }
-
     }
 
     const setColor = orderString => {
@@ -53,35 +65,45 @@ const ChangeOrderDisplay = props => {
     }
 
     const MyChip = () => {
+      const order = () => {
+        return (
+          <div style ={styles.chipInner}>
+            {keyOrder}
+            <KeyboardArrowDownIcon />
+          </div>
+        )
+      }
       return (
-        <Chip size="small" label={keyOrder}/>
+        <div style={styles.chipContainer}>
+          
+          <Chip style={styles.chip} size="small" label={order()}>
+          
+            </Chip>
+          
+        </div>
       )
     }
     return (
     <div style={styles.container}>
       <div style={styles.orderBar}>
-        <div style={styles.orderTitle}>
-          <Typography variant="h1">
-            hi
+          <Typography variant="body1" >
+            Order:
           </Typography>
-        </div>
 
-
-
-      <Button
-        // color={theme}
-        style={styles.menuButton}
-        id="basic-button"
-        aria-controls="basic-menu"
-        aria-haspopup="true"
-        aria-expanded={menuOpen ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        <MyChip />
+        <Button
+          style={styles.menuButton}
+          id="basic-button"
+          aria-controls="basic-menu"
+          aria-haspopup="true"
+          aria-expanded={menuOpen ? 'true' : undefined}
+          onClick={handleClick}
+        >
+          <MyChip />
         </Button>
 
         <Menu
           id="basic-menu"
+          style={styles.menu}
           anchorEl={anchorEl}
           open={menuOpen}
           onClose={handleClose}
@@ -89,9 +111,26 @@ const ChangeOrderDisplay = props => {
             'aria-labelledby': 'basic-button',
           }}
       >
-          <MenuItem >Profile</MenuItem>
-          <MenuItem >My account</MenuItem>
-          <MenuItem >Logout</MenuItem>
+          <MenuItem style={styles.menuItem} 
+            onClick={() => setKeyOrder("randomKey")}
+          >
+             {keyOrder === "randomKey" && <DoneIcon />}
+                Random
+          </MenuItem>
+
+          <MenuItem style={styles.menuItem} 
+            onClick={() => setKeyOrder("sequential")}
+          >
+             {keyOrder === "sequential" && <DoneIcon />}
+                Sequential
+          </MenuItem>
+
+          <MenuItem style={styles.menuItem} 
+            onClick={() => setKeyOrder("fifths")}
+          >
+             {keyOrder === "fifths" && <DoneIcon />}
+                Fifths
+          </MenuItem>
         </Menu>
         
       </div>

@@ -1,5 +1,7 @@
 import {useState, useEffect} from 'react';
 import styles from "./styles";
+import { ThemeProvider } from '@material-ui/core'
+import theme from "../../theme"
 import KeyDisplay from "./KeyDisplay";
 import ChangeModDisplay from "./ChangeModDisplay";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
@@ -26,10 +28,10 @@ const Randomizer = props => {
       <h1>Key Randomizer</h1> 
       <div style={styles.componentContainer}>
       <div style={styles.component}>
-      <ChangeOrderDisplay
-          keyOrder={keyOrder}
-          setKeyOrder={setKeyOrder}
-        />
+        <ChangeOrderDisplay
+            keyOrder={keyOrder}
+            setKeyOrder={setKeyOrder}
+          />
       </div>
       {/* <div style={styles.component}>
         <KeyDisplay 

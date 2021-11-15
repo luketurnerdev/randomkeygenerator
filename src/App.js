@@ -1,7 +1,7 @@
 import Randomizer from "./Components/Randomizer";
 import { ThemeProvider } from '@material-ui/core'
 import { Button, Typography } from '@material-ui/core'
-import myTheme from "./myTheme";
+import theme from "./theme";
 import {useState} from 'react';
 import ReactGA from 'react-ga';
 
@@ -19,13 +19,12 @@ function App() {
 
 
   return (
-    <ThemeProvider theme={myTheme}>
-      <Button variant="contained" color="primary">
-        <Typography variant="body1">
-         bodyello
-        </Typography>
-         </Button>
-      {/* <Randomizer mobile={mobile} /> */}
+    <ThemeProvider theme={theme}>
+      <Button variant="contained" color="primary"> 
+
+        Click
+      </Button>
+      <Randomizer mobile={mobile} />
       {/* <Metronome /> */}
     </ThemeProvider>
   );
