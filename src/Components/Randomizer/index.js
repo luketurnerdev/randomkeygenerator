@@ -24,7 +24,7 @@ const Randomizer = props => {
 
 
   return (
-    <div>
+    <div style={styles.mainContainer}>
       <ChangeOrderDisplay
           keyOrder={keyOrder}
           setKeyOrder={setKeyOrder}
@@ -34,7 +34,6 @@ const Randomizer = props => {
         keyOrder={keyOrder}
         setKeyOrder={setKeyOrder}
         modifiers={modifiers}
-        styles={styles}
         delayInSeconds={delayInSeconds}
         setDelayInSeconds={setDelayInSeconds}
       />

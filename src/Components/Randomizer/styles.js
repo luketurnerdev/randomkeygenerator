@@ -1,10 +1,8 @@
 const styles = {
-    paperContainer: {
-      border: '1px solid green',
-      margin: ' 2% 2%',
-
-      // height: '100vh',
-      textAlign: 'center',
+  mainContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
     },
 
     component: {
