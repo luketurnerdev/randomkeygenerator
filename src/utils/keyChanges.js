@@ -26,3 +26,18 @@ export const generateFourthsKey = (currentKey, currentKeyset) => {
   }
   return currentKeyset[newPos]
 }
+
+export const decideUpcomingKey = (keyOrder, upcomingKey, currentKeyset) => {
+  switch (keyOrder) {
+    case "Random": 
+      return (generateRandomKey(currentKeyset));
+    case "Sequential":
+      // We pass in upcoming so it starts from correct key
+      return (generateSequentialKey(upcomingKey, currentKeyset));
+    case "Fifths": 
+      return (generateFifthsKey(upcomingKey, currentKeyset));
+    default: {
+      break;
+    }
+  }
+} 

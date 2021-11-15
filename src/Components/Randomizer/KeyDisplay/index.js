@@ -5,7 +5,7 @@ import {chords} from "../../../utils/musicImports";
 import {activateChord} from "../../../utils/playSounds";
 import TimerIcon from '@mui/icons-material/Timer';
 import DelayDisplay from "./../DelayDisplay";
-import {generateRandomKey, generateSequentialKey, generateFifthsKey} from "../../../utils/keyChanges";
+import {decideUpcomingKey} from "../../../utils/keyChanges";
 import {useState} from 'react';
 
 
@@ -23,22 +23,7 @@ const KeyDisplay = props => {
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
 
-    const decideUpcomingKey = () => {
-      switch (keyOrder) {
-        case "Random": 
-          return (generateRandomKey(currentKeyset));
-        case "Sequential":
-          // We pass in upcoming so it starts from correct key
-          return (generateSequentialKey(upcomingKey, currentKeyset));
-
-        case "Fifths": 
-          return (generateFifthsKey(upcomingKey, currentKeyset));
-
-        default: {
-          break;
-        }
-      }
-    } 
+    
     const playNewChord = () => {
       let chord = chords[`${upcomingKey}${upcomingMod}`];
       chord.play();
@@ -47,7 +32,7 @@ const KeyDisplay = props => {
 
     const updateChordsInRender = () => {
 
-      setUpcomingKey(decideUpcomingKey());
+      setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));
       setCurrentKey(upcomingKey);
 
       setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);

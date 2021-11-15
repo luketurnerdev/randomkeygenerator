@@ -24,29 +24,30 @@ const Randomizer = props => {
 
 
   return (
-        <ChangeOrderDisplay
-            keyOrder={keyOrder}
-            setKeyOrder={setKeyOrder}
-          />
-      /* <div style={styles.component}>
-        <KeyDisplay 
-          mobile={mobile}
+    <div>
+      <ChangeOrderDisplay
           keyOrder={keyOrder}
           setKeyOrder={setKeyOrder}
-          modifiers={modifiers}
-          styles={styles}
-          delayInSeconds={delayInSeconds}
-          setDelayInSeconds={setDelayInSeconds}
         />
-      </div>
-      <h3> Settings </h3>
-      <div style={styles.component}>
+      <KeyDisplay 
+        mobile={mobile}
+        keyOrder={keyOrder}
+        setKeyOrder={setKeyOrder}
+        modifiers={modifiers}
+        styles={styles}
+        delayInSeconds={delayInSeconds}
+        setDelayInSeconds={setDelayInSeconds}
+      />
+    </div>
 
-      </div>
+      // <h3> Settings </h3>
+      // <div style={styles.component}>
 
-      <div style={styles.component}>
-        <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
-      </div> */
+      // </div>
+
+      // <div style={styles.component}>
+      //   <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
+      // </div> 
       
 
 
