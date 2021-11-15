@@ -3,6 +3,7 @@ import styles from "./styles";
 import { ThemeProvider } from '@material-ui/core'
 import theme from "../../theme"
 import KeyDisplay from "./KeyDisplay";
+import SettingsBar from "./SettingsBar";
 import ChangeModDisplay from "./ChangeModDisplay";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import { Paper} from '@mui/material';
@@ -37,7 +38,11 @@ const Randomizer = props => {
         delayInSeconds={delayInSeconds}
         setDelayInSeconds={setDelayInSeconds}
       />
+    <SettingsBar
+      delayInSeconds={delayInSeconds}
+    />
     </div>
+
 
       // <h3> Settings </h3>
       // <div style={styles.component}>
