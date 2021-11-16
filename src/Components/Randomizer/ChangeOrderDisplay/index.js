@@ -35,8 +35,8 @@ const ChangeOrderDisplay = props => {
       container: {
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
-
+        alignItems: 'center',
+        marginBottom: '10px' 
       },
       buttonGroup: {
         margin: '10px',
@@ -49,7 +49,8 @@ const ChangeOrderDisplay = props => {
         textTransform: 'none'
       },
       chip: {
-        backgroundColor: '#F0EEFF'
+        backgroundColor: '#F0EEFF',
+        minWidth: '100px'
       },
       chipInner: {
         display: 'flex',

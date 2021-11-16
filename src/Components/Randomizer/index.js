@@ -1,13 +1,10 @@
 import {useState, useEffect} from 'react';
 import styles from "./styles";
-import { ThemeProvider } from '@material-ui/core'
-import theme from "../../theme"
 import KeyDisplay from "./KeyDisplay";
 import VolumeSection from "./VolumeSection";
 import SettingsBar from "./SettingsBar";
-import ChangeModDisplay from "./ChangeModDisplay";
+import PlayButton from "../PlayButton";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
-import { Paper} from '@mui/material';
 import ReactGA from 'react-ga';
 
 
@@ -19,8 +16,10 @@ const Randomizer = props => {
 
   });
 
+  // Default state 
+
   const [keyOrder, setKeyOrder] = useState("Random")
-  const [delayInSeconds, setDelayInSeconds] = useState(3);
+  const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
 
 
@@ -38,24 +37,15 @@ const Randomizer = props => {
         modifiers={modifiers}
         delayInSeconds={delayInSeconds}
         setDelayInSeconds={setDelayInSeconds}
+      /> 
+      <SettingsBar
+        delayInSeconds={delayInSeconds}
       />
-    <SettingsBar
-      delayInSeconds={delayInSeconds}
-    />
 
-    <VolumeSection />
+      <VolumeSection />
+
+      <PlayButton />
     </div>
-
-
-      // <h3> Settings </h3>
-      // <div style={styles.component}>
-
-      // </div>
-
-      // <div style={styles.component}>
-      //   <ChangeModDisplay modifiers={modifiers} setModifiers={setModifiers} />
-      // </div> 
-      
 
 
 

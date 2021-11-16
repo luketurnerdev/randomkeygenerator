@@ -7,7 +7,7 @@ import {activateChord} from "../../../utils/playSounds";
 import DelayDisplay from "./../DelayDisplay";
 import styles from "./styles"
 import {decideUpcomingKey} from "../../../utils/keyChanges";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
 
 const KeyDisplay = props => {
@@ -27,6 +27,15 @@ const KeyDisplay = props => {
     const playNewChord = () => {
       let chord = chords[`${upcomingKey}${upcomingMod}`];
       chord.play();
+    }
+    
+    // If keyOrder prop has changed, change upcoming instantly
+    useEffect(() => {
+      changeChordBasedOnKeyOrder()
+    }, [keyOrder])
+
+    const changeChordBasedOnKeyOrder = () => {
+      setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));
     }
 
 

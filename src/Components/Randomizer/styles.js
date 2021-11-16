@@ -2,7 +2,10 @@ const styles = {
   mainContainer: {
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      border: '2px solid red',
+      height: '100vh',
+      justifyContent: 'center'
     },
 
     component: {
