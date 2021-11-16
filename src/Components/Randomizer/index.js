@@ -21,6 +21,7 @@ const Randomizer = props => {
   const [keyOrder, setKeyOrder] = useState("Random")
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
+  const [paused, setPaused] = useState(true);
 
 
 
@@ -30,7 +31,8 @@ const Randomizer = props => {
           keyOrder={keyOrder}
           setKeyOrder={setKeyOrder}
         />
-      <KeyDisplay 
+      <KeyDisplay
+        paused={paused} 
         mobile={mobile}
         keyOrder={keyOrder}
         setKeyOrder={setKeyOrder}
@@ -44,7 +46,10 @@ const Randomizer = props => {
 
       <VolumeSection />
 
-      <PlayButton />
+      <PlayButton
+        paused={paused}
+        setPaused={setPaused}
+      />
     </div>
 
 

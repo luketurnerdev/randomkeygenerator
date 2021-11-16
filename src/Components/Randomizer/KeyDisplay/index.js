@@ -1,23 +1,21 @@
 import Clock from "../Clock"
-import AudioControls from "../AudioControls";
 import { Paper, Grid, CircularProgress, Box, Typography} from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import TimerIcon from '@mui/icons-material/Timer';
 import {activateChord} from "../../../utils/playSounds";
-import DelayDisplay from "./../DelayDisplay";
 import styles from "./styles"
 import {decideUpcomingKey} from "../../../utils/keyChanges";
 import {useState, useEffect} from 'react';
 
 
 const KeyDisplay = props => {
-    const {mobile, keyOrder, setKeyOrder, modifiers, delayInSeconds, setDelayInSeconds} = props;
+    const {mobile, keyOrder, modifiers, delayInSeconds, paused} = props;
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithFlats = ["Gb"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
     const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
-    const [paused, setPaused] = useState(true);
+    // const [paused, setPaused] = useState(true);
   
     const [currentKey, setCurrentKey] = useState("C");
     const [upcomingKey,setUpcomingKey] = useState("D");
