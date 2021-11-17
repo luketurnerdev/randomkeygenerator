@@ -42,6 +42,8 @@ const Randomizer = props => {
       /> 
       <SettingsBar
         delayInSeconds={delayInSeconds}
+        modifiers={modifiers}
+        setModifiers={setModifiers}
       />
 
       <VolumeSection />

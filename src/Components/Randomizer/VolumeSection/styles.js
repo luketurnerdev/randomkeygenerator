@@ -1,6 +1,7 @@
 const styles = {
     container: {
         marginTop: '20px',
+        maxWidth: '90vw'
     },
     slider: {
         width: '248px',

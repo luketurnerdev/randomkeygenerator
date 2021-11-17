@@ -10,8 +10,8 @@ function App() {
   const [mobile, setMobile] = useState(window.matchMedia("(max-width: 768px)").matches)
   const [clock, setClock] = useState({
     paused: true,
-    secondsLeft: 15,
-    delayInSeconds: 15
+    secondsLeft: 3,
+    delayInSeconds: 3
   });
 
 

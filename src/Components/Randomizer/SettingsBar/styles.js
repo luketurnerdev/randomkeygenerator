@@ -3,14 +3,22 @@ const styles = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        width: '65%',
-        marginTop: '20px'
+        maxWidth: '90vw',
+        marginTop: '20px',
+        // border: '2px solid'
     },
-    chip: {
+    chipSelected: {
+        backgroundColor: '#5641E6',
+        color: '#5641E6',
+        fontSize: '14px',
+        margin: '0 7.5px'
+    },  
+    chipDeselected: {
         backgroundColor: '#F0EEFF',
         color: '#5641E6',
         fontSize: '14px',
-    },
+        margin: '0 7.5px'
+    },  
     delayInner: {
         display: 'flex',
         fontSize: '14px',
