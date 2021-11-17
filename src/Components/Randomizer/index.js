@@ -1,4 +1,5 @@
 import {useState, useEffect, useContext} from 'react';
+import ClockContext from "../../Contexts/ClockContext"
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import VolumeSection from "./VolumeSection";
@@ -9,18 +10,19 @@ import ReactGA from 'react-ga';
 
 
 const Randomizer = props => {
-  const {mobile} = props;
-
-  useEffect(() => {
-    ReactGA.pageview(window.location.pathname);
-
-  });
+  const [clock, setClock] = useContext(ClockContext);
 
   // Default state 
 
   const [keyOrder, setKeyOrder] = useState("Random")
-  const [delayInSeconds, setDelayInSeconds] = useState(5);
+  const [delayInSeconds, setDelayInSeconds] = useState(clock.delayInSeconds);
   const [modifiers, setModifiers] = useState(["Major"])
+  const {mobile} = props;
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname);
+  });
+
 
 
 

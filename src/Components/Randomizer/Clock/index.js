@@ -5,7 +5,6 @@ import Countdown from 'react-countdown'
 
 const Clock = props => {
     const [clock, setClock] = useContext(ClockContext);
-    console.log(clock)
     const {styles, activateChord, delayInSeconds, upcomingChord, updateChordsInRender} = props;
     const clockRef = useRef();
     const handleStart = () => clockRef.current.start();
@@ -16,7 +15,6 @@ const Clock = props => {
 
     // Update paused state based on context change
     useEffect(() => {
-        console.log('context :' + clock.paused)
         if (clock.paused) {
           handlePause();
         }
@@ -26,10 +24,6 @@ const Clock = props => {
         }
     }, [clock.paused])
 
-    // If user changes delay while the app is running:
-    // useEffect(() => {
-    //     setSecondsLeft(delayInSeconds);
-    // }, [delayInSeconds])
 
     const handleTimeLeft = () => {
       // this happens every tick
@@ -42,7 +36,6 @@ const Clock = props => {
 
     
     const handleComplete = () => {
-        console.log(`completed? ${checkIfCompleted()}`);
 
         // if user has not stopped it, loop it again
         if (!clock.paused) {
@@ -73,18 +66,6 @@ const Clock = props => {
         )
       }
   
-      // const pauseOrUnpause = () => {
-      //   console.log(paused)
-      //   console.log(isPaused())
-      //   if (isPaused()) {
-      //     handleStart();
-      //   }
-
-      //   else {
-      //     handlePause();
-      //   }
-      // }
-
     return (
       <div>
         <Countdown 

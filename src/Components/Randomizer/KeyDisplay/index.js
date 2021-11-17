@@ -3,12 +3,15 @@ import { Paper, Grid, CircularProgress, Box, Typography} from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import TimerIcon from '@mui/icons-material/Timer';
 import {activateChord} from "../../../utils/playSounds";
+import ClockContext from "../../../Contexts/ClockContext"
 import styles from "./styles"
 import {decideUpcomingKey} from "../../../utils/keyChanges";
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 
 
 const KeyDisplay = props => {
+    const [clock, setClock] = useContext(ClockContext);
+
     const {mobile, keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithFlats = ["Gb"];
@@ -47,9 +50,15 @@ const KeyDisplay = props => {
     }
     
     const InnerCircle = () => {
+
       return (
         <>
-        <CircularProgress thickness={2} style={styles.progress} variant="determinate" value={80} />
+        <CircularProgress 
+          thickness={2} 
+          style={styles.progress} 
+          variant="determinate"
+          value={(100 / clock.delayInSeconds) * clock.secondsLeft} 
+        />
         <Box
           sx={{
             top: 0,

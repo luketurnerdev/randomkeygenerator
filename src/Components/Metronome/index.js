@@ -23,7 +23,6 @@ const Metronome = () => {
         }
 
         else {
-            console.log('clearing')
             clearInterval(intervalFunction);
             setIntervalFunction(null)
         };

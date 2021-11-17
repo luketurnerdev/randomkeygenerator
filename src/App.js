@@ -10,16 +10,10 @@ function App() {
   const [mobile, setMobile] = useState(window.matchMedia("(max-width: 768px)").matches)
   const [clock, setClock] = useState({
     paused: true,
-    secondsLeft: 5,
-    // delayInSeconds: 5
+    secondsLeft: 15,
+    delayInSeconds: 15
   });
-  // ReactGA.initialize('UA-210928692-2', {
-  //   debug: true,
-  //   titleCase: false,
-  //   gaOptions: {
-  //     userId: 123
-  //   }
-  // });
+
 
 
   return (
