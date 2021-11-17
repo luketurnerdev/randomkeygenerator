@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import VolumeSection from "./VolumeSection";
@@ -21,7 +21,6 @@ const Randomizer = props => {
   const [keyOrder, setKeyOrder] = useState("Random")
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
-  const [paused, setPaused] = useState(true);
 
 
 
@@ -32,7 +31,6 @@ const Randomizer = props => {
           setKeyOrder={setKeyOrder}
         />
       <KeyDisplay
-        paused={paused} 
         mobile={mobile}
         keyOrder={keyOrder}
         setKeyOrder={setKeyOrder}
@@ -47,8 +45,7 @@ const Randomizer = props => {
       <VolumeSection />
 
       <PlayButton
-        paused={paused}
-        setPaused={setPaused}
+    
       />
     </div>
 

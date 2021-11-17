@@ -19,7 +19,6 @@ const Metronome = () => {
     }
     useEffect(() => {
         if (isPlaying) {
-            console.log('setting')
             setIntervalFunction(setInterval(playClick, (60 / bpm) * 1000));
         }
 

@@ -1,7 +1,6 @@
-import React from 'react'
+import {createContext} from 'react'
 
-let defaultContext = {
-  paused: true
-}
-  
-export const ClockContext = React.createContext(defaultContext);
+
+const ClockContext = createContext();
+
+export default ClockContext;

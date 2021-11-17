@@ -9,7 +9,7 @@ import {useState, useEffect} from 'react';
 
 
 const KeyDisplay = props => {
-    const {mobile, keyOrder, modifiers, delayInSeconds, paused} = props;
+    const {mobile, keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithFlats = ["Gb"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
@@ -77,6 +77,7 @@ const KeyDisplay = props => {
               <Clock
                 styles={styles}
                 paused={paused}
+                setPaused={setPaused}
                 currentChord={`${currentKey} ${currentMod}`}
                 upcomingChord={`${upcomingKey}${upcomingMod}`}
                 activateChord={activateChord}

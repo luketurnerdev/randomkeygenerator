@@ -43,7 +43,6 @@ const AudioControls = props => {
 
       // if we are PLAYING
       if (paused) {
-        console.log('playing')
         // activateChord("C Major")
       }
 
@@ -53,7 +52,6 @@ const AudioControls = props => {
 
     const changeVolume = amount => {
       let existing = Howler.volume()
-      console.log('existing ' + existing)
       
       existing = Math.round(existing * 10) / 10;
       amount = Math.round(amount * 10) / 10;

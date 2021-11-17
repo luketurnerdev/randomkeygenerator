@@ -70,6 +70,5 @@ export const resumeSynth = () => {
 
 
 export const stopSynth = () => {
-    console.log('stop func')
     synth.triggerRelease(Tone.now());
   }
