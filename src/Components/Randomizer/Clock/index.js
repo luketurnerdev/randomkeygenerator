@@ -1,17 +1,18 @@
-import {useRef, useEffect, useState, useContext} from 'react';
+import {useRef, useEffect, useCallback, useContext} from 'react';
 import ClockContext from '../../../Contexts/ClockContext';
-
 import Countdown from 'react-countdown'
 
 const Clock = props => {
     const [clock, setClock] = useContext(ClockContext);
-    const {styles, activateChord, delayInSeconds, upcomingChord, updateChordsInRender} = props;
     const clockRef = useRef();
+    const {styles, activateChord, upcomingChord, updateChordsInRender} = props;
     const handleStart = () => clockRef.current.start();
     const checkIfCompleted = () => clockRef.current.isCompleted();
     const isPaused = () => clockRef.current.isPaused();
     const handlePause = () => clockRef.current.pause();
     const handleStop = () => clockRef.current.stop();
+
+    console.log('render clock')
 
     // Update paused state based on context change
     useEffect(() => {
@@ -46,7 +47,7 @@ const Clock = props => {
           activateChord(upcomingChord);
           updateChordsInRender();
           // Reset timer  
-          setClock({...clock, secondsLeft: delayInSeconds });
+          setClock({...clock, secondsLeft: clock.delayInSeconds });
 
           // Start clock
           handleStart();

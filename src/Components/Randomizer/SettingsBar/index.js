@@ -4,10 +4,12 @@ import SettingsLine from "../../SettingsLine";
 import PlusButton from "../../PlusButton";
 import MinusButton from "../../MinusButton";
 import styles from "./styles";
-import {useState} from 'react';
-import ControlPointIcon from '@mui/icons-material/ControlPoint';
+import {useState, useContext} from 'react';
+import ClockContext from "../../../Contexts/ClockContext";
+
 
 const SettingsBar = props => {
+    const [clock, setClock] = useContext(ClockContext);
     const [modalOpen, setModalOpen] = useState(false);
     const {modifiers, setModifiers, delayInSeconds, setDelayInSeconds} = props;
 
@@ -34,13 +36,13 @@ const SettingsBar = props => {
         return (
           <div style ={styles.delayInner}>
             <TimerIcon style={styles.timer} />
-            {delayInSeconds}s delay
+            {clock.delayInSeconds}s delay
           </div>
         )
       }
 
     const DelayModal = () => {
-      const [delayNumber, setDelayNumber] = useState(delayInSeconds);
+      const [delayNumber, setDelayNumber] = useState(clock.delayInSeconds);
 
       const handleClick = newNumber => {
         if (newNumber >= 1 &&  newNumber <= 999) {
@@ -49,7 +51,8 @@ const SettingsBar = props => {
       }
 
       const handleSetDelay = () => {
-        setDelayInSeconds(delayNumber)
+        setClock({...clock, delayInSeconds: delayNumber})
+
         setModalOpen(false);
       }
       return (
