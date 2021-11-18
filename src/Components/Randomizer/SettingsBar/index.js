@@ -1,12 +1,15 @@
-import {Chip} from "@mui/material"
+import {Chip, Modal, Box, Button} from "@mui/material"
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsLine from "../../SettingsLine";
+import PlusButton from "../../PlusButton";
+import MinusButton from "../../MinusButton";
 import styles from "./styles";
 import {useState} from 'react';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 
 const SettingsBar = props => {
     const [modalOpen, setModalOpen] = useState(false);
-    const {modifiers, setModifiers, delayInSeconds} = props;
+    const {modifiers, setModifiers, delayInSeconds, setDelayInSeconds} = props;
 
 
     const addOrRemoveMod = modString => { 
@@ -35,6 +38,55 @@ const SettingsBar = props => {
           </div>
         )
       }
+
+    const DelayModal = () => {
+      const [delayNumber, setDelayNumber] = useState(delayInSeconds);
+
+      const handleClick = newNumber => {
+        if (newNumber >= 1 &&  newNumber <= 999) {
+          setDelayNumber(newNumber)
+        }
+      }
+
+      const handleSetDelay = () => {
+        setDelayInSeconds(delayNumber)
+        setModalOpen(false);
+      }
+      return (
+        <Modal open={modalOpen}>
+
+          <Box style={styles.modalContainer}>
+            <Box style={styles.delayText} >
+              Delay (in seconds)
+            </Box>
+            <Box style={styles.controls}>
+              <Button onClick={() => handleClick(delayNumber-1) } >
+                <Box style={styles.button}>
+                    <MinusButton />
+                  </Box>
+              </Button>
+
+              <Box style={styles.delayCircle}>
+                {delayNumber}
+              </Box>
+              
+              <Button onClick={() => handleClick(delayNumber+1) } >
+                <Box style={styles.button}>
+                    <PlusButton />
+                  </Box>
+              </Button>
+            </Box>
+
+            <Box style={styles.buttons} >
+              <Button style={styles.cancel} onClick={() => setModalOpen(false)}> Cancel</Button>
+              <Button style={styles.setDelay} onClick={handleSetDelay}>Set Delay</Button>
+            </Box>
+
+
+          </Box>
+        </Modal>
+      )
+    }
     return (
         <div style= {styles.settingsBar}>
             <Chip onClick={toggleDelayModal} style={styles.chipDeselected} label={delayInner()} />
@@ -50,7 +102,7 @@ const SettingsBar = props => {
               label={"Minor"} 
             />
 
-            {modalOpen && <h5>modalOpenbro</h5>}
+            <DelayModal />      
         </div>
     )
 }
