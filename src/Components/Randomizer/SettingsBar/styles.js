@@ -8,7 +8,7 @@ const styles = {
     },
     chipSelected: {
         backgroundColor: '#5641E6',
-        color: '#5641E6',
+        color: '#F0EEFF',
         fontSize: '14px',
         margin: '0 7.5px'
     },  
