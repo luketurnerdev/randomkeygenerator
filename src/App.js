@@ -8,19 +8,14 @@ import {useState} from 'react';
 
 function App() {
   const [mobile, setMobile] = useState(window.matchMedia("(max-width: 768px)").matches)
-  const [clock, setClock] = useState({
-    paused: true,
-    secondsLeft: 3,
-    delayInSeconds: 3
-  });
+
 
 
 
   return (
-  <ClockContext.Provider value={[clock, setClock]} >
+  <ClockContext.Provider >
     <ThemeProvider theme={theme}>
       <Randomizer mobile={mobile} />
-      {/* <Metronome /> */}
     </ThemeProvider>
   </ClockContext.Provider>
   );

@@ -6,15 +6,15 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 
 const PlayButton = props => {
-    const [clock, setClock] = useContext(ClockContext);
+    // const [clock, setClock] = useContext(ClockContext);
     const handleClick = () => {
-        setClock({...clock, paused: !clock.paused})
+    //     setClock({...clock, paused: !clock.paused})
     }
 
     return (
         <Button style={styles.button} onClick={handleClick}>
-            {clock.paused ? <PlayArrowIcon style={styles.icon} /> : <PauseIcon style={styles.icon} />}
-            <h5 style={styles.text}>{clock.paused ? "Play" : "Pause"} </h5>
+            {/* {clock.paused ? <PlayArrowIcon style={styles.icon} /> : <PauseIcon style={styles.icon} />}
+            <h5 style={styles.text}>{clock.paused ? "Play" : "Pause"} </h5> */}
         </Button>
     ) 
 }
