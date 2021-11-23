@@ -3,7 +3,7 @@ import ClockContext from "../../Contexts/ClockContext"
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import VolumeSection from "./VolumeSection";
-// import SettingsBar from "./SettingsBar";
+import SettingsBar from "./SettingsBar";
 import PlayButton from "../PlayButton";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ReactGA from 'react-ga';
@@ -41,12 +41,12 @@ const Randomizer = props => {
         delayInSeconds={delayInSeconds}
         setDelayInSeconds={setDelayInSeconds}
       /> 
-      {/* <SettingsBar
+      <SettingsBar
         delayInSeconds={delayInSeconds}
         setDelayInSeconds={setDelayInSeconds}
         modifiers={modifiers}
         setModifiers={setModifiers}
-      /> */}
+      />
 
       <VolumeSection />
 
