@@ -7,9 +7,6 @@ const Clock = props => {
     const handleStart = () => clockRef.current.start();
     const handlePause = () => clockRef.current.pause();
 
-    console.log('render clock')
-    console.log(clock)
-
     // Update paused state based on context change
     useEffect(() => {
         if (paused) {
@@ -25,8 +22,8 @@ const Clock = props => {
     const handleTimeLeft = () => {
       // this happens every tick
         console.log('tick')
-      if (timeLeft > 1 ) {
-          setTimeLeft(timeLeft-1)
+      if (timeLeft >=0 ) {
+          setTimeLeft(timeLeft-0.01)
       }
 
       else {
@@ -58,9 +55,8 @@ const Clock = props => {
 
         // Render a countdown
         return (
-          <div style={styles.countdown} >
-              
-            <h4>{(hours > 0) && `${seconds} Hours`} {(minutes > 0) && `${minutes} Mins`}  {timeLeft}</h4>
+          <div style={styles.countdown}>             
+            <h4>{(hours > 0) && `${seconds} Hours`} {(minutes > 0) && `${minutes} Mins`}  {Math.ceil(timeLeft)}</h4>
           </div>
         )
       }
@@ -70,9 +66,11 @@ const Clock = props => {
         <Countdown 
           date={Date.now() + delayInSeconds * 1000}
           ref={clockRef}
-          autoStart={true}
+          autoStart={false}
           renderer={clockRenderer}
           onTick={handleTimeLeft}
+          intervalDelay={10}
+          precision={3}
         />
       </div>
     )

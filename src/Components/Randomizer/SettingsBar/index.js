@@ -51,7 +51,7 @@ const SettingsBar = props => {
 
       const handleSetDelay = () => {
         setDelayInSeconds(delayNumber)
-
+        // setTimeLeft(delayNumber)
         setModalOpen(false);
       }
       return (

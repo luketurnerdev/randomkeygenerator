@@ -18,7 +18,6 @@ const KeyDisplay = props => {
     });
 
 
-    console.log('re render KD')
     
     const {keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
     const [timeLeft, setTimeLeft] = useState(delayInSeconds)
@@ -37,7 +36,13 @@ const KeyDisplay = props => {
     // If keyOrder prop has changed, change upcoming instantly
     useEffect(() => {
       changeChordBasedOnKeyOrder()
+    
     }, [keyOrder])
+    
+    // When user changes delay while app running, reset timer
+    useEffect(() => {
+      setTimeLeft(delayInSeconds);
+    }, [delayInSeconds])
 
     const changeChordBasedOnKeyOrder = () => {
       setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));

@@ -11,7 +11,6 @@ import ReactGA from 'react-ga';
 
 const Randomizer = props => {
   // const [clock, setClock] = useContext(ClockContext);
-  console.log('re render Randomizer')
 
   // Default state 
 
