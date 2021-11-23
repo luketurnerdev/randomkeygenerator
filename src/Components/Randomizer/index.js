@@ -18,14 +18,12 @@ const Randomizer = props => {
   const [keyOrder, setKeyOrder] = useState("Random")
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
+  const [paused, setPaused] = useState(true);
   const {mobile} = props;
 
   useEffect(() => {
     ReactGA.pageview(window.location.pathname);
   });
-
-
-
 
   return (
     <div style={styles.mainContainer}>
@@ -34,6 +32,7 @@ const Randomizer = props => {
           setKeyOrder={setKeyOrder}
         />
       <KeyDisplay
+        paused={paused}
         mobile={mobile}
         keyOrder={keyOrder}
         setKeyOrder={setKeyOrder}
@@ -51,7 +50,8 @@ const Randomizer = props => {
       <VolumeSection />
 
       <PlayButton
-        
+        paused={paused}
+        setPaused={setPaused}
       />
     </div>
 

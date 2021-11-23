@@ -5,7 +5,6 @@ import PlusButton from "../../PlusButton";
 import MinusButton from "../../MinusButton";
 import styles from "./styles";
 import {useState, useContext} from 'react';
-import ClockContext from "../../../Contexts/ClockContext";
 
 
 const SettingsBar = props => {

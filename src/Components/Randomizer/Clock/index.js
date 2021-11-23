@@ -1,29 +1,25 @@
 import {useRef, useEffect, useCallback, useContext} from 'react';
-import ClockContext from '../../../Contexts/ClockContext';
 import Countdown from 'react-countdown'
 
 const Clock = props => {
     const clockRef = useRef();
-    const {delayInSeconds, styles, activateChord, upcomingChord, updateChordsInRender, clock, setClock, timeLeft, setTimeLeft} = props;
+    const {paused, delayInSeconds, styles, activateChord, upcomingChord, updateChordsInRender, clock, timeLeft, setTimeLeft} = props;
     const handleStart = () => clockRef.current.start();
-    const checkIfCompleted = () => clockRef.current.isCompleted();
-    const isPaused = () => clockRef.current.isPaused();
     const handlePause = () => clockRef.current.pause();
-    const handleStop = () => clockRef.current.stop();
 
     console.log('render clock')
     console.log(clock)
 
     // Update paused state based on context change
     useEffect(() => {
-        if (clock.paused) {
+        if (paused) {
           handlePause();
         }
 
         else {
           handleStart();
         }
-    }, [clock.paused])
+    }, [paused])
 
 
     const handleTimeLeft = () => {
@@ -43,9 +39,7 @@ const Clock = props => {
     const handleComplete = () => {
         console.log('comp')
         // if user has not stopped it, loop it again
-        if (!clock.paused) {
-          // Stop clock
-          handleStop();
+        if (!paused) {
 
           // Play new sound
           activateChord(upcomingChord);
@@ -74,11 +68,10 @@ const Clock = props => {
     return (
       <div>
         <Countdown 
-          date={Date.now() + clock.secondsLeft * 1000}
+          date={Date.now() + delayInSeconds * 1000}
           ref={clockRef}
           autoStart={true}
           renderer={clockRenderer}
-        //   onComplete={handleComplete}
           onTick={handleTimeLeft}
         />
       </div>

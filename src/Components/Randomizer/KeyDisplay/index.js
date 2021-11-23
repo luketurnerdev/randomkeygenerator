@@ -20,7 +20,7 @@ const KeyDisplay = props => {
 
     console.log('re render KD')
     
-    const {mobile, keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
+    const {keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
     const [timeLeft, setTimeLeft] = useState(delayInSeconds)
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithFlats = ["Gb"];
@@ -34,11 +34,6 @@ const KeyDisplay = props => {
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
   
-    const playNewChord = () => {
-      let chord = chords[`${upcomingKey}${upcomingMod}`];
-      chord.play();
-    }
-    
     // If keyOrder prop has changed, change upcoming instantly
     useEffect(() => {
       changeChordBasedOnKeyOrder()
