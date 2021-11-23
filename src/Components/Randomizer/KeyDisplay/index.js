@@ -1,4 +1,4 @@
-// import Clock from "../Clock"
+import Clock from "../Clock"
 import { Paper, Grid, CircularProgress, Box, Typography} from '@mui/material';
 import {chords} from "../../../utils/musicImports";
 import TimerIcon from '@mui/icons-material/Timer';
@@ -12,13 +12,16 @@ import {useState, useEffect, useContext} from 'react';
 const KeyDisplay = props => {
     // const [clock, setClock] = useContext(ClockContext);
     const [clock, setClock] = useState({
-      paused: true,
+      paused: false,
       secondsLeft: 3,
       delayInSeconds: 3
     });
-    console.log('re render KD')
 
+
+    console.log('re render KD')
+    
     const {mobile, keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
+    const [timeLeft, setTimeLeft] = useState(delayInSeconds)
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithFlats = ["Gb"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
@@ -63,7 +66,7 @@ const KeyDisplay = props => {
           thickness={2} 
           style={styles.progress} 
           variant="determinate"
-          value={(100 / clock.delayInSeconds) * clock.secondsLeft} 
+          value={(100 / delayInSeconds) * timeLeft} 
         />
         <Box
           sx={{
@@ -89,7 +92,11 @@ const KeyDisplay = props => {
             </div>
             <div style={styles.timerContainer}>
               <TimerIcon style={styles.timer} /> 
-              {/* <Clock
+              <Clock
+                timeLeft={timeLeft}
+                setTimeLeft={setTimeLeft}
+                clock={clock}
+                setClock={setClock}
                 styles={styles}
                 paused={paused}
                 setPaused={setPaused}
@@ -98,7 +105,7 @@ const KeyDisplay = props => {
                 activateChord={activateChord}
                 updateChordsInRender={updateChordsInRender}
                 delayInSeconds={delayInSeconds}
-              /> */}
+              />
             </div>
           </Box>
         </Box>

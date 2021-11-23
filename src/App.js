@@ -13,11 +13,11 @@ function App() {
 
 
   return (
-  <ClockContext.Provider >
+  // <ClockContext.Provider >
     <ThemeProvider theme={theme}>
       <Randomizer mobile={mobile} />
     </ThemeProvider>
-  </ClockContext.Provider>
+  // </ClockContext.Provider>
   );
 }
 
