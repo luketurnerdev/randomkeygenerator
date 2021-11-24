@@ -3,6 +3,7 @@ import VolumeUpOutlinedIcon from '@mui/icons-material/VolumeUpOutlined';
 import VolumeDownOutlinedIcon from '@mui/icons-material/VolumeDownOutlined';
 import styles from "./styles"
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import {setVolume} from "../../../utils/playSounds"
 
   const CustomSlider = withStyles(theme => ({
     disabled: {
@@ -16,6 +17,11 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
     }
   }))(Slider);
 
+  const handleSetVolume = e => {
+    console.log(e.target.value);
+    setVolume(e.target.value);
+  }
+
   
 
 const VolumeSection = () => {
@@ -23,7 +29,7 @@ const VolumeSection = () => {
         <div>
             <Stack style={styles.container} spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                 <VolumeDownOutlinedIcon style={styles.icon}/>
-                    <CustomSlider style={{width: '248px'}}  />
+                    <CustomSlider defaultValue={50} style={{width: '248px'}} onChange={e => handleSetVolume(e)} />
                 <VolumeUpOutlinedIcon style={styles.icon}/>
             </Stack>
         </div>

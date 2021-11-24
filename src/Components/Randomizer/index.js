@@ -1,5 +1,4 @@
 import {useState, useEffect, useContext} from 'react';
-import ClockContext from "../../Contexts/ClockContext"
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import VolumeSection from "./VolumeSection";

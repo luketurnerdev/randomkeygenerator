@@ -1,14 +1,23 @@
 import {Button} from "@mui/material";
 import styles from "./styles"
-import {useContext} from 'react'
-import ClockContext from "../../Contexts/ClockContext";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
+import {pauseSynth, resumeSynth} from "../../utils/playSounds"
+import { useState } from "react";
 
 const PlayButton = props => {
     const {paused, setPaused} = props;
+    // const [currentChord, setCurrentChord] = useState("");
     const handleClick = () => {
         setPaused(!paused)
+        if (!paused) {
+            pauseSynth();
+        }
+
+        else {
+            // ?
+            resumeSynth();
+        }
     }
 
     return (

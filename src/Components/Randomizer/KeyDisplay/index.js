@@ -95,8 +95,6 @@ const KeyDisplay = props => {
               <Clock
                 timeLeft={timeLeft}
                 setTimeLeft={setTimeLeft}
-                clock={clock}
-                setClock={setClock}
                 styles={styles}
                 paused={paused}
                 setPaused={setPaused}

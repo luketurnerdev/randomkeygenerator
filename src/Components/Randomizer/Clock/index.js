@@ -3,7 +3,7 @@ import Countdown from 'react-countdown'
 
 const Clock = props => {
     const clockRef = useRef();
-    const {paused, delayInSeconds, styles, activateChord, upcomingChord, updateChordsInRender, clock, timeLeft, setTimeLeft} = props;
+    const {paused, delayInSeconds, styles, activateChord, upcomingChord, updateChordsInRender, timeLeft, setTimeLeft} = props;
     const handleStart = () => clockRef.current.start();
     const handlePause = () => clockRef.current.pause();
 
