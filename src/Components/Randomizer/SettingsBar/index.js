@@ -2,6 +2,7 @@ import {Chip, Modal, Box, Button} from "@mui/material"
 import TimerIcon from '@mui/icons-material/Timer';
 import SettingsLine from "../../SettingsLine";
 import PlusButton from "../../PlusButton";
+import DoneIcon from '@mui/icons-material/Done';
 import MinusButton from "../../MinusButton";
 import styles from "./styles";
 import {useState, useContext} from 'react';
@@ -18,12 +19,6 @@ const SettingsBar = props => {
 
       // Either add or remove it from list
       prev.includes(modString) ? modifiers.length >1 && setModifiers(prev.filter((e) => {return e != modString})) : setModifiers([...prev, modString])
-  }
-
-  const setColor = modString => {
-    // is the arg in the modifier list?
-    return modifiers.includes(modString) ? styles.chipSelected : styles.chipDeselected;
-
   }
 
     const toggleDelayModal = () => {
@@ -89,20 +84,29 @@ const SettingsBar = props => {
         </Modal>
       )
     }
+    const label = text => {
+      return (
+        <Box style={styles.chipBox}>
+          {modifiers.includes(text) && <DoneIcon style={styles.tick}/>}
+          <span>{text}</span>
+        </Box>
+      )
+    }
     return (
         <div style= {styles.settingsBar}>
-            <Chip onClick={toggleDelayModal} style={styles.chipDeselected} label={delayInner()} />
+            <Chip onClick={toggleDelayModal} style={styles.chip} label={delayInner()} />
             <SettingsLine />
             <Chip
-              onClick={() => addOrRemoveMod("Major")}
-              style={setColor("Major")}
-              label={"Major"} 
-            />
+                onClick={() => addOrRemoveMod("Major")}
+                style={styles.chip}
+                label={label("Major")} 
+              />
             <Chip
               onClick={() => addOrRemoveMod("Minor")}
-              style={setColor("Minor")}
-              label={"Minor"} 
-            />
+              style={styles.chip}
+              label={label("Minor")} 
+              />
+            
 
             <DelayModal />      
         </div>

@@ -4,10 +4,11 @@ import * as Tone from 'tone';
 const verb = new Tone.Reverb(1);
 
 const synth = new Tone.PolySynth().toDestination().connect(verb);
+
 // implement pitch A,B,C, (d)
 // seperate 'synth settings page' where user can change each
 
-let pitch = 3;
+let pitches = [2,3,3,3];
 
 // in dB
 synth.volume.value = -20;
@@ -71,7 +72,7 @@ export const activateChord = (chord) => {
     // "C Major" ==> ["C4", "G4", "E4"] etc.
 
     synth.releaseAll(Tone.now())
-    let chordNotes = chords[chord].map(key => key + pitch);
+    let chordNotes = chords[chord].map((key, i) => key + pitches[i]);
 
     synth.triggerAttackRelease(chordNotes, 999, 1);
   

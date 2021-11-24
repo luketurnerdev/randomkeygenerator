@@ -6,18 +6,22 @@ const styles = {
         maxWidth: '90vw',
         marginTop: '20px',
     },
-    chipSelected: {
-        backgroundColor: '#5641E6',
-        color: '#F0EEFF',
-        fontSize: '14px',
-        margin: '0 7.5px'
-    },  
-    chipDeselected: {
+    chipBox: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    chip: {
         backgroundColor: '#F0EEFF',
         color: '#5641E6',
         fontSize: '14px',
-        margin: '0 7.5px'
+        margin: '0 5px'
     },  
+    tick: {
+        margin: '0 7.5px',
+        fontSize: '18px'
+    },
     delayInner: {
         display: 'flex',
         fontSize: '14px',
