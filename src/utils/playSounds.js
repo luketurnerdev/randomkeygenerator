@@ -10,22 +10,16 @@ const synth = new Tone.PolySynth().toDestination().connect(verb);
 let pitch = 3;
 
 // in dB
-synth.volume.value = -7;
+synth.volume.value = -20;
 
-function makeNegative(num) {
-    if(num <= 0){
-      return num;
-    }else{
-      return -Math.abs(num);
-    }
-  }
 
 const convertSliderVolToDecibels = sliderVol => {
 
     // -7 dB = MAX
     // -36 dB = min (without being muted)
-    console.log(sliderVol * 0.30303030 )
-    return makeNegative((sliderVol * -0.30303030 ))
+    console.log(sliderVol * 0.30303030 - 37 )
+    return sliderVol === 0 ? -10000 : (sliderVol * 0.30303030 - 37 )
+    // return makeNegative((sliderVol * -0.30303030 ))
 }
 
 const chords = {
@@ -70,14 +64,7 @@ const chords = {
 }
 
 export const setVolume = value => {
-    console.log(value);
-    let converted = (convertSliderVolToDecibels(value));
-    // let neg = converted / -1
-    console.log(converted)
-
-    // value = 50
-    // desired value = -6
-    // synth.volume.value = (negativeVal * -1);
+    synth.volume.value = (convertSliderVolToDecibels(value));
 }
 export const activateChord = (chord) => {
     // chord is a string eg "C Major"
