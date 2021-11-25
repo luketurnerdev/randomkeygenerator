@@ -23,6 +23,10 @@ const ChangeOrderDisplay = props => {
 
 
     const styles = {
+      tick: {
+        width: '30px',
+        height: '30px'
+      },
       buttonSelected: {
         textTransform: 'none',
         backgroundColor: 'green'
@@ -87,9 +91,9 @@ const ChangeOrderDisplay = props => {
         <Button
           style={styles.menuButton}
           id="basic-button"
-          aria-controls="basic-menu"
+          // aria-controls="basic-menu"
           aria-haspopup="true"
-          aria-expanded={menuOpen ? 'true' : undefined}
+          // aria-expanded={menuOpen ? 'true' : undefined}
           onClick={handleClick}
         >
           <MyChip />
@@ -101,14 +105,17 @@ const ChangeOrderDisplay = props => {
           anchorEl={anchorEl}
           open={menuOpen}
           onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
+          // MenuListProps={{
+          //   'aria-labelledby': 'basic-button',
+          // }}
       >
           <MenuItem style={styles.menuItem} 
             onClick={() => handleMenuClick("Random")}
           >
-           {keyOrder === "Random" && <DoneIcon />}
+          <div style={styles.tick}>
+            {keyOrder === "Random" && <DoneIcon />}
+          </div>
+
            <div style={styles.menuText}>
                 Random
           </div>
@@ -118,18 +125,26 @@ const ChangeOrderDisplay = props => {
           <MenuItem style={styles.menuItem} 
             onClick={() => handleMenuClick("Sequential")}
           >
-                  {keyOrder === "Sequential" && <DoneIcon />}
-                  <div style={styles.menuText}>
-                    Sequential
-                  </div>
+
+          <div style={styles.tick}>
+            {keyOrder === "Sequential" && <DoneIcon />}
+          </div>
+
+          <div style={styles.menuText}>
+            Sequential
+          </div>
             
           </MenuItem>
 
           <MenuItem style={styles.menuItem} 
             onClick={() => handleMenuClick("Fifths")}
           >
-             {keyOrder === "Fifths" && <DoneIcon />}
-             <div style={styles.menuText}>
+
+          <div style={styles.tick}>
+            {keyOrder === "Fifths" && <DoneIcon />}
+          </div>
+
+          <div style={styles.menuText}>
                 Fifths
           </div>
           </MenuItem>

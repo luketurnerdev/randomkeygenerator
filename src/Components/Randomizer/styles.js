@@ -1,10 +1,12 @@
 const styles = {
   mainContainer: {
+    border: '1px solid black',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       height: '100vh',
-      justifyContent: 'center'
+      width: '100vw',
+      justifyContent: 'center',
     },
     infoBox: {
       display: 'flex'
