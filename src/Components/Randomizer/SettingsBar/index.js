@@ -54,7 +54,7 @@ const SettingsBar = props => {
 
           <Box style={styles.modalContainer}>
             <Box style={styles.delayText} >
-              Delay (in seconds)
+              Delay (in seconds):
             </Box>
             <Box style={styles.controls}>
               <Button onClick={() => handleClick(delayNumber-1) } >

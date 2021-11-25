@@ -3,7 +3,6 @@ import styles from "./styles"
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import PauseIcon from '@mui/icons-material/Pause';
 import {pauseSynth, resumeSynth} from "../../utils/playSounds"
-import { useState } from "react";
 
 const PlayButton = props => {
     const {paused, setPaused} = props;
@@ -15,7 +14,6 @@ const PlayButton = props => {
         }
 
         else {
-            // ?
             resumeSynth();
         }
     }

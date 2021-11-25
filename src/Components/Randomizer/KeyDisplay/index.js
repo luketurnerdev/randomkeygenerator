@@ -1,12 +1,10 @@
 import Clock from "../Clock"
-import { Paper, Grid, CircularProgress, Box, Typography} from '@mui/material';
-import {chords} from "../../../utils/musicImports";
+import {CircularProgress, Box} from '@mui/material';
 import TimerIcon from '@mui/icons-material/Timer';
 import {activateChord} from "../../../utils/playSounds";
-import ClockContext from "../../../Contexts/ClockContext"
 import styles from "./styles"
 import {decideUpcomingKey} from "../../../utils/keyChanges";
-import {useState, useEffect, useContext} from 'react';
+import {useState, useEffect} from 'react';
 
 
 const KeyDisplay = props => {

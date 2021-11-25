@@ -1,11 +1,13 @@
-import {useRef, useEffect, useCallback, useContext} from 'react';
+import {useRef, useEffect, useState, useContext} from 'react';
 import Countdown from 'react-countdown'
 
 const Clock = props => {
     const clockRef = useRef();
+    const [first, setFirst] = useState(true);
     const {paused, delayInSeconds, styles, activateChord, upcomingChord, updateChordsInRender, timeLeft, setTimeLeft} = props;
     const handleStart = () => clockRef.current.start();
     const handlePause = () => clockRef.current.pause();
+    
 
     // Update paused state based on context change
     useEffect(() => {
@@ -21,7 +23,9 @@ const Clock = props => {
 
     const handleTimeLeft = () => {
       // this happens every tick
-        console.log('tick')
+      if (timeLeft === delayInSeconds) {
+        activateChord(upcomingChord)
+      }
       if (timeLeft >=0 ) {
           setTimeLeft(timeLeft-0.01)
       }
@@ -34,13 +38,13 @@ const Clock = props => {
 
     
     const handleComplete = () => {
-        console.log('comp')
         // if user has not stopped it, loop it again
         if (!paused) {
 
           // Play new sound
-          activateChord(upcomingChord);
+          // activateChord(upcomingChord);
           updateChordsInRender();
+
           // Reset timer  
           setTimeLeft(delayInSeconds)
 

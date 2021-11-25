@@ -1,14 +1,28 @@
 import {Howler} from "howler"
 import * as Tone from 'tone';
 
-const verb = new Tone.Reverb(1);
+const verb = new Tone.Reverb(2);
+const chorus = new Tone.Chorus(2,4,1);
+let currentChord = ""
+// const filter = new Tone.AutoFilter("8n").toDestination().start();
 
 const synth = new Tone.PolySynth().toDestination().connect(verb);
+
+synth.set
+    ({
+        volume: "-20",
+        oscillator: {
+            type: "sine"
+        },
+        envelope: {
+            attack: "1.5"
+        }
+    })
 
 // implement pitch A,B,C, (d)
 // seperate 'synth settings page' where user can change each
 
-let pitches = [2,3,3,3];
+let pitches = [3,3,3,3];
 
 // in dB
 synth.volume.value = -20;
@@ -71,6 +85,10 @@ export const activateChord = (chord) => {
     // chord is a string eg "C Major"
     // "C Major" ==> ["C4", "G4", "E4"] etc.
 
+    // save it locally
+
+    currentChord = chord;
+
     synth.releaseAll(Tone.now())
     let chordNotes = chords[chord].map((key, i) => key + pitches[i]);
 
@@ -82,7 +100,13 @@ export const pauseSynth = () => {
         synth.releaseAll(Tone.now())
 }
 export const resumeSynth = () => {
-        // synth.releaseAll(Tone.now())
+    if (currentChord) {
+
+        let chordNotes = chords[currentChord].map((key, i) => key + pitches[i]);
+
+        synth.triggerAttackRelease(chordNotes, 999, 1);
+    }
+
 }
 
 
