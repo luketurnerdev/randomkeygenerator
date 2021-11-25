@@ -3,9 +3,11 @@ const styles = {
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
-      border: '2px solid red',
       height: '100vh',
       justifyContent: 'center'
+    },
+    infoBox: {
+      display: 'flex'
     },
 
     component: {

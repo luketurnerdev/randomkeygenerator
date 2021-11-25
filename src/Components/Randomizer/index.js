@@ -4,8 +4,10 @@ import KeyDisplay from "./KeyDisplay";
 import VolumeSection from "./VolumeSection";
 import SettingsBar from "./SettingsBar";
 import PlayButton from "../PlayButton";
+import InfoBox from "../InfoBox";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ReactGA from 'react-ga';
+
 
 
 const Randomizer = props => {
@@ -25,10 +27,14 @@ const Randomizer = props => {
 
   return (
     <div style={styles.mainContainer}>
-      <ChangeOrderDisplay
-          keyOrder={keyOrder}
-          setKeyOrder={setKeyOrder}
-        />
+        <ChangeOrderDisplay
+            keyOrder={keyOrder}
+            setKeyOrder={setKeyOrder}
+          />
+
+        <InfoBox style={styles.infoBox} />   
+
+      
       <KeyDisplay
         paused={paused}
         mobile={mobile}
