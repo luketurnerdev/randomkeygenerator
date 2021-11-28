@@ -1,7 +1,6 @@
 const Footer = () => {
     const styles = {
         footer: {
-          border: '2px solid',
           textAlign: 'center',
         },
         link: {

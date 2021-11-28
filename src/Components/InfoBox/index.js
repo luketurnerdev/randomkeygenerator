@@ -17,10 +17,10 @@ const InfoBox = () => {
                 <ClearOutlinedIcon style={styles.button} onClick={() => setOpen(false)} />
                 <Box style={styles.textBox}>
                     <Box style={styles.mainText}>
-                        <h2>Music Key Generator</h2>
+                        <h2>harmony.me</h2>
                     </Box>
                     <Box style={styles.subText}>
-                        <h5>By <a target="_blank" style={styles.link} href="http://www.lukedturner.com">lukedturner.com</a></h5>
+                        <h5>Developed by Luke Turner: <a target="_blank" style={styles.link} href="http://www.lukedturner.com">lukedturner.com</a></h5>
                     </Box>
                 </Box>
             </Box>

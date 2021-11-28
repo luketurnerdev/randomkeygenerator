@@ -1,7 +1,9 @@
 const styles = {
   mainContainer: {
-    border: '1px solid black',
+    // border: '1px solid black',
       display: 'flex',
+      margin: 0,
+      padding: 0,
       flexDirection: 'column',
       alignItems: 'center',
       height: '100vh',

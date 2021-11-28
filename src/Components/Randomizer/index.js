@@ -7,6 +7,7 @@ import PlayButton from "../PlayButton";
 import InfoBox from "../InfoBox";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ReactGA from 'react-ga';
+import HarmoniseLogo from '../HarmoniseLogo';
 
 
 
@@ -15,7 +16,7 @@ const Randomizer = props => {
 
   // Default state 
 
-  const [keyOrder, setKeyOrder] = useState("Random")
+  const [keyOrder, setKeyOrder] = useState("Fifths")
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
   const [paused, setPaused] = useState(true);
@@ -27,6 +28,7 @@ const Randomizer = props => {
 
   return (
     <div style={styles.mainContainer}>
+        <HarmoniseLogo />
         <ChangeOrderDisplay
             keyOrder={keyOrder}
             setKeyOrder={setKeyOrder}

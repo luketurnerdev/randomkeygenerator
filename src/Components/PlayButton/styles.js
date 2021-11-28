@@ -4,7 +4,7 @@ const styles = {
         width: '328px',
         maxWidth: '90vw',
         height: '36px',
-        border: '1px solid',
+        // border: '1px solid',
         borderRadius: '100px',
         padding: '6px 6px 6px 8px',
         backgroundColor: '#5641E6',
