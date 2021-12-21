@@ -5,7 +5,6 @@ const HarmoniseLogo = () => {
 
     const styles = {
         box: {
-            // border: '1px solid',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',

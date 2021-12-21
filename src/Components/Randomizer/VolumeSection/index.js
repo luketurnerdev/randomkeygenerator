@@ -18,7 +18,6 @@ import {setVolume} from "../../../utils/playSounds"
   }))(Slider);
 
   const handleSetVolume = e => {
-    console.log(e.target.value);
     setVolume(e.target.value);
   }
 
@@ -29,7 +28,7 @@ const VolumeSection = () => {
         <div>
             <Stack style={styles.container} spacing={2} direction="row" sx={{ mb: 1 }} alignItems="center">
                 <VolumeDownOutlinedIcon style={styles.icon}/>
-                    <CustomSlider defaultValue={50} style={{width: '248px'}} onChange={e => handleSetVolume(e)} />
+                    <CustomSlider defaultValue={75} style={{width: '248px'}} onChange={e => handleSetVolume(e)} />
                 <VolumeUpOutlinedIcon style={styles.icon}/>
             </Stack>
         </div>

@@ -1,40 +1,39 @@
 import {Howler} from "howler"
 import * as Tone from 'tone';
 
-const verb = new Tone.Reverb(2);
+const verb = new Tone.Reverb(1);
 const chorus = new Tone.Chorus(2,4,1);
 let currentChord = ""
 // const filter = new Tone.AutoFilter("8n").toDestination().start();
-
-const synth = new Tone.PolySynth().toDestination().connect(verb);
+const filter = new Tone.Filter(1500, "highpass").toDestination();
+const synth = new Tone.PolySynth().toDestination().connect(verb).connect(filter);
 
 synth.set
     ({
-        volume: "-20",
+        volume: "-13",
         oscillator: {
             type: "sine"
         },
         envelope: {
-            attack: "1.5"
+            attack: "2"
         }
     })
 
 // implement pitch A,B,C, (d)
 // seperate 'synth settings page' where user can change each
 
-let pitches = [3,3,3,3];
+let pitches = [3,4,4,3];
 
 // in dB
-synth.volume.value = -20;
+synth.volume.value = -13;
 
 
 const convertSliderVolToDecibels = sliderVol => {
-
+    let logModifier = 0.35303030
     // -7 dB = MAX
     // -36 dB = min (without being muted)
-    console.log(sliderVol * 0.30303030 - 37 )
-    return sliderVol === 0 ? -10000 : (sliderVol * 0.30303030 - 37 )
-    // return makeNegative((sliderVol * -0.30303030 ))
+    console.log(sliderVol * logModifier - 37 )
+    return sliderVol === 0 ? -10000 : (sliderVol * logModifier - 37 )
 }
 
 const chords = {

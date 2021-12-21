@@ -8,14 +8,6 @@ import {useState, useEffect} from 'react';
 
 
 const KeyDisplay = props => {
-    // const [clock, setClock] = useContext(ClockContext);
-    const [clock, setClock] = useState({
-      paused: false,
-      secondsLeft: 3,
-      delayInSeconds: 3
-    });
-
-
     
     const {keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
     const [timeLeft, setTimeLeft] = useState(delayInSeconds)
@@ -24,7 +16,6 @@ const KeyDisplay = props => {
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
     const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
-    // const [paused, setPaused] = useState(true);
   
     const [currentKey, setCurrentKey] = useState("C");
     const [upcomingKey,setUpcomingKey] = useState("D");
@@ -36,6 +27,12 @@ const KeyDisplay = props => {
       changeChordBasedOnKeyOrder()
     
     }, [keyOrder])
+
+    useEffect(() => {
+      changeChordBasedOnKeyOrder()
+      console.log('mod changed')
+    
+    }, [modifiers])
     
     // When user changes delay while app running, reset timer
     useEffect(() => {
@@ -43,6 +40,7 @@ const KeyDisplay = props => {
     }, [delayInSeconds])
 
     const changeChordBasedOnKeyOrder = () => {
+      // Set the new chord in render state
       setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));
     }
 
@@ -125,52 +123,7 @@ const KeyDisplay = props => {
 <Box style={styles.circleBox} sx={{ position: 'relative', display: 'inline-flex' }}>
   <InnerCircle />
   <OuterCircle />
-    </Box>
-
-      {/* <Paper elevation={4} style={styles.keyContainer}>
-        <Grid container  direction="column" style={mobile ? styles.gridMobile : styles.gridMobile}>
-          <Grid item xs={10} style={styles.currentKey}>
-            <h5 style={styles.key}>{currentKey} {currentMod}</h5> 
-          </Grid>
-          <Grid item xs={2} style={styles.nextKey}>  
-              <div>
-                  <h5 style={styles.gridItemText}>Next:</h5> 
-                  <h5 style={styles.gridItemText}>{upcomingKey} {upcomingMod}</h5> 
-              </div>
-
-            <div style={styles.clockSection}>
-              <TimerIcon style={styles.timerIcon} />  
-              <Clock
-                styles={styles}
-                paused={paused}
-                currentChord={`${currentKey} ${currentMod}`}
-                upcomingChord={`${upcomingKey}${upcomingMod}`}
-                activateChord={activateChord}
-                updateChordsInRender={updateChordsInRender}
-                delayInSeconds={delayInSeconds}
-              />
-
-         </div>
-          </Grid>
-
-          
-
-         </Grid> 
-
-         <DelayDisplay 
-              delayInSeconds={delayInSeconds}
-              setDelayInSeconds={setDelayInSeconds}
-          />
-
-      </Paper>
-
-      <AudioControls
-        currentChord={chords[`${currentKey}${currentMod}`]}
-        setPaused={setPaused}
-        paused={paused}
-        delayInSeconds={delayInSeconds}
-    /> */}
-
+</Box>
 </>
 
       

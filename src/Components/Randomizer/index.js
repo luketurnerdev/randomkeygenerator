@@ -28,7 +28,6 @@ const Randomizer = props => {
 
   return (
     <div style={styles.mainContainer}>
-        <HarmoniseLogo />
         <ChangeOrderDisplay
             keyOrder={keyOrder}
             setKeyOrder={setKeyOrder}
