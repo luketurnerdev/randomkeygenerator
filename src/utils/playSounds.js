@@ -6,30 +6,48 @@ const chorus = new Tone.Chorus(2,4,1);
 let currentChord = ""
 // const filter = new Tone.AutoFilter("8n").toDestination().start();
 const filter = new Tone.Filter(1500, "highpass").toDestination();
-const synth = new Tone.PolySynth().toDestination().connect(verb).connect(filter);
+const limiter = new Tone.Limiter(-10).toDestination();
+const synth = new Tone.PolySynth().toDestination().connect(limiter);
 
 synth.set
     ({
-        volume: "-13",
-        oscillator: {
-            type: "sine"
+        "harmonicity": 2,
+        "oscillator": {
+            "type": "amsine2",
+              "modulationType" : "sine",
+              "harmonicity": 1.01
         },
-        envelope: {
-            attack: "2"
+        "envelope": {
+            "attack": 0.006,
+            "decay": 4,
+            "sustain": 0.6,
+            "release": 1.2
+        },
+        "modulation" : {
+            //   "volume" : 0,
+              "type": "amsine2",
+              "modulationType" : "sine",
+              "harmonicity": 12
+        },
+        "modulationEnvelope" : {
+            "attack": 0.006,
+            "decay": 0.2,
+            "sustain": 0.2,
+            "release": 0.4
         }
     })
 
 // implement pitch A,B,C, (d)
 // seperate 'synth settings page' where user can change each
 
-let pitches = [3,4,4,3];
+let pitches = [4,4,4,4];
 
 // in dB
 synth.volume.value = -13;
 
 
 const convertSliderVolToDecibels = sliderVol => {
-    let logModifier = 0.35303030
+    let logModifier = 0.25303030
     // -7 dB = MAX
     // -36 dB = min (without being muted)
     console.log(sliderVol * logModifier - 37 )
