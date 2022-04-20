@@ -53,10 +53,14 @@ const styles = {
     },
     subText: {
         height: '50px',
+        textAlign: 'center',
     },  
     link: {
         textDecoration: 'underline',
         color: '#FFFFFF'
+    },
+    text: {
+        textAlign: 'center'
     }
 }
 

@@ -9,7 +9,6 @@ import {useState, useContext} from 'react';
 
 
 const SettingsBar = props => {
-    // const [clock, setClock] = useContext(ClockContext);
     const [modalOpen, setModalOpen] = useState(false);
     const {modifiers, setModifiers, delayInSeconds, setDelayInSeconds} = props;
 
