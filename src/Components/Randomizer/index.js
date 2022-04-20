@@ -7,7 +7,7 @@ import PlayButton from "../PlayButton";
 import InfoBox from "../InfoBox";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ReactGA from 'react-ga';
-import HarmoniseLogo from '../HarmoniseLogo';
+import { pauseSynth, resumeSynth, setVolume } from '../../utils/playSounds';
 
 
 
@@ -23,8 +23,25 @@ const Randomizer = props => {
   const {mobile} = props;
 
   useEffect(() => {
+    // Add GA on pageload
     ReactGA.pageview(window.location.pathname);
-  });
+
+    // Add event listener for pause
+    document.addEventListener("keyup", pauseIfSpacePressed);
+    console.log('added listnere');
+  }, []);
+
+  const pauseIfSpacePressed = (event) => {
+    if (event.code === "Space" && !event.repeat) {
+      if (paused) {
+        pauseSynth();
+      }
+
+      else {
+        resumeSynth();
+      }
+    }  
+  }
 
   return (
     <div style={styles.mainContainer}>
