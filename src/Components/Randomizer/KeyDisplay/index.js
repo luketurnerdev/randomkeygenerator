@@ -12,18 +12,20 @@ const KeyDisplay = props => {
     const {keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
     const [timeLeft, setTimeLeft] = useState(delayInSeconds)
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
+    // const keysWithFlats = ["C", "E", "G"];
     // const keysWithFlats = ["Gb"];
     // const keysWithSharps = ["A","A#","B","C","C#","D","D#","E","F","F#","G", "G#"];
   
     const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
   
     const [currentKey, setCurrentKey] = useState("C");
-    const [upcomingKey,setUpcomingKey] = useState("D");
+    const [upcomingKey,setUpcomingKey] = useState("G");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
   
     // If keyOrder prop has changed, change upcoming instantly
     useEffect(() => {
+      console.log('key order has changed to ' +keyOrder)
       changeChordBasedOnKeyOrder()
     
     }, [keyOrder])
@@ -47,6 +49,8 @@ const KeyDisplay = props => {
 
     const updateChordsInRender = () => {
 
+      // C# becomes current (+1 to each semitone)
+      // D becomes upcoming (+1 to each semitone)
       setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));
       setCurrentKey(upcomingKey);
 

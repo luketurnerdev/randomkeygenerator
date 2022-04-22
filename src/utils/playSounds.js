@@ -4,6 +4,7 @@ import * as Tone from 'tone';
 const verb = new Tone.Reverb(1);
 const chorus = new Tone.Chorus(2,4,1);
 let currentChord = ""
+let chordNotes = [];
 // const filter = new Tone.AutoFilter("8n").toDestination().start();
 const filter = new Tone.Filter(1500, "highpass").toDestination();
 const limiter = new Tone.Limiter(-10).toDestination();
@@ -40,7 +41,8 @@ synth.set
 // implement pitch A,B,C, (d)
 // seperate 'synth settings page' where user can change each
 
-let pitches = [4,4,4,4];
+let pitches = [3,4,4,4];
+// let pitches = [4];
 
 // in dB
 synth.volume.value = -13;
@@ -58,7 +60,6 @@ const chords = {
     // Major
     "CMajor" : ["C", "E", "G"],
     "DbMajor" : ["Db", "F", "Ab"],
-
     "DMajor" : ["D", "Gb", "A"],
 
     "EbMajor" : ["Eb", "G", "Bb"],
@@ -99,15 +100,17 @@ export const setVolume = value => {
     synth.volume.value = (convertSliderVolToDecibels(value));
 }
 export const activateChord = (chord) => {
+    
+    // save it locally
+    
+    currentChord = chord;
+    
+    // Stops the current chord
+    synth.releaseAll(Tone.now())
+
     // chord is a string eg "C Major"
     // "C Major" ==> ["C4", "G4", "E4"] etc.
-
-    // save it locally
-
-    currentChord = chord;
-
-    synth.releaseAll(Tone.now())
-    let chordNotes = chords[chord].map((key, i) => key + pitches[i]);
+    chordNotes = chords[chord].map((key, i) => key + pitches[i]);
 
     synth.triggerAttackRelease(chordNotes, 999, 1);
   

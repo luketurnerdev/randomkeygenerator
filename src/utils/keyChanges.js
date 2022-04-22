@@ -28,6 +28,8 @@ export const generateFourthsKey = (currentKey, currentKeyset) => {
 }
 
 export const decideUpcomingKey = (keyOrder, upcomingKey, currentKeyset) => {
+  console.log('deciding upcoming based on key order of ', keyOrder);
+  console.log('upcoming key is');
   switch (keyOrder) {
     case "Random": 
       return (generateRandomKey(currentKeyset));

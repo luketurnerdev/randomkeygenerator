@@ -16,6 +16,10 @@ const Randomizer = props => {
 
   // Default state 
 
+  // App starts - C Major is playing.
+  // Next chord is set to C# Major.
+  // After timer runs out, we jump up all the notes X amount of semitones (eg 1), and play the new chord.
+
   const [keyOrder, setKeyOrder] = useState("Fifths")
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
@@ -50,9 +54,7 @@ const Randomizer = props => {
             setKeyOrder={setKeyOrder}
           />
 
-        <InfoBox style={styles.infoBox} />   
-
-      
+        <InfoBox style={styles.infoBox} />    
       <KeyDisplay
         paused={paused}
         mobile={mobile}
@@ -76,9 +78,6 @@ const Randomizer = props => {
         setPaused={setPaused}
       />
     </div>
-
-
-
   );
 }
 
