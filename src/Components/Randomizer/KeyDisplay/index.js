@@ -96,7 +96,7 @@ const KeyDisplay = props => {
                 styles={styles}
                 paused={paused}
                 setPaused={setPaused}
-                currentChord={`${currentKey} ${currentMod}`}
+                currentChord={`${currentKey}${currentMod}`}
                 upcomingChord={`${upcomingKey}${upcomingMod}`}
                 activateChord={activateChord}
                 updateChordsInRender={updateChordsInRender}

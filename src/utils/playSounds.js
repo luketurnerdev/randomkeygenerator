@@ -120,6 +120,9 @@ export const pauseSynth = () => {
         synth.releaseAll(Tone.now())
 }
 export const resumeSynth = () => {
+    // if (timeLeft === delayInSeconds) {
+        // activateChord(upcomingChord)
+    // }
     if (currentChord) {
 
         let chordNotes = chords[currentChord].map((key, i) => key + pitches[i]);

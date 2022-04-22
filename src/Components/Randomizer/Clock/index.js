@@ -4,7 +4,8 @@ import Countdown from 'react-countdown'
 const Clock = props => {
     const clockRef = useRef();
     // Determine if first time playing
-    const {paused, delayInSeconds, styles, activateChord, upcomingChord, updateChordsInRender, timeLeft, setTimeLeft} = props;
+    const [firstPlay, setFirstPlay] = useState(true);
+    const {paused, delayInSeconds, styles, activateChord, currentChord, upcomingChord, updateChordsInRender, timeLeft, setTimeLeft} = props;
     const handleStart = () => clockRef.current.start();
     const handlePause = () => clockRef.current.pause();
     
@@ -16,30 +17,33 @@ const Clock = props => {
         }
 
         else {
+          if (timeLeft === delayInSeconds && firstPlay) {
+            activateChord(currentChord);
+            setFirstPlay(false);
+          }
           handleStart();
         }
     }, [paused])
 
+    useEffect(() => {
+
+    }, [])
+
 
     const handleTimeLeft = () => {
       // this happens every tick
-      
-      // timeleft starts as 5
-      // delay starts as 5.
-      // activates immediately (plays upcomingChord)
-      if (timeLeft === delayInSeconds) {
-        console.log('chord activated because timer reset')
-       
+
+      if ((timeLeft === delayInSeconds) && firstPlay) {
+        console.log('first time');
       }
-      if (timeLeft >=0 ) {
+      console.log(timeLeft)
+      if (timeLeft >0 ) {
           setTimeLeft(timeLeft-0.01)
       }
 
-
-      // else {
-      //       handleComplete();
-      // }
-
+      if (timeLeft <=0) {
+        handleComplete();
+      }
     }
 
     
@@ -83,8 +87,8 @@ const Clock = props => {
           renderer={clockRenderer}
           onTick={handleTimeLeft}
           intervalDelay={10}
-          precision={3}
-          onComplete={handleComplete}
+          precision={1}
+          // onComplete={handleComplete}
         />
       </div>
     )
