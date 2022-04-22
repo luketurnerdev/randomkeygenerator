@@ -16,10 +16,10 @@ const Randomizer = props => {
 
   // Default state 
 
-  // App starts - C Major is playing.
+  // App starts - C Major is playing. (the array ["C", "E", "G"]) is stored.
   // Next chord is set to C# Major.
   // After timer runs out, we jump up all the notes X amount of semitones (eg 1), and play the new chord.
-
+  // Still keep the chord mappings as strings so that we can display this to the user.
   const [keyOrder, setKeyOrder] = useState("Fifths")
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
@@ -32,7 +32,6 @@ const Randomizer = props => {
 
     // Add event listener for pause
     document.addEventListener("keyup", pauseIfSpacePressed);
-    console.log('added listnere');
   }, []);
 
   const pauseIfSpacePressed = (event) => {

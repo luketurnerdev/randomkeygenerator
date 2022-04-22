@@ -1,9 +1,9 @@
-import {useRef, useEffect, useState, useContext} from 'react';
+import {useRef, useEffect, useState} from 'react';
 import Countdown from 'react-countdown'
 
 const Clock = props => {
     const clockRef = useRef();
-    const [first, setFirst] = useState(true);
+    // Determine if first time playing
     const {paused, delayInSeconds, styles, activateChord, upcomingChord, updateChordsInRender, timeLeft, setTimeLeft} = props;
     const handleStart = () => clockRef.current.start();
     const handlePause = () => clockRef.current.pause();
@@ -23,39 +23,48 @@ const Clock = props => {
 
     const handleTimeLeft = () => {
       // this happens every tick
+      
+      // timeleft starts as 5
+      // delay starts as 5.
+      // activates immediately (plays upcomingChord)
       if (timeLeft === delayInSeconds) {
-        activateChord(upcomingChord)
+        console.log('chord activated because timer reset')
+       
       }
       if (timeLeft >=0 ) {
           setTimeLeft(timeLeft-0.01)
       }
 
-      else {
-            handleComplete();
-      }
+
+      // else {
+      //       handleComplete();
+      // }
 
     }
 
     
     const handleComplete = () => {
+       console.log('completo')
         // if user has not stopped it, loop it again
         if (!paused) {
-
+          console.log('updating chords in render')
           // Play new sound
           // activateChord(upcomingChord);
           updateChordsInRender();
 
           // Reset timer  
-          setTimeLeft(delayInSeconds)
+          // setTimeLeft(delayInSeconds)
 
           // Start clock
           handleStart();
+          activateChord(upcomingChord);
+          setTimeLeft(delayInSeconds);
         }
 
 
     }
 
-    const clockRenderer = ({ hours, minutes, seconds, completed, api}) => {
+    const clockRenderer = ({ hours, minutes, seconds}) => {
 
         // Render a countdown
         return (
@@ -70,11 +79,12 @@ const Clock = props => {
         <Countdown 
           date={Date.now() + delayInSeconds * 1000}
           ref={clockRef}
-          autoStart={false}
+          // autoStart={true}
           renderer={clockRenderer}
           onTick={handleTimeLeft}
           intervalDelay={10}
           precision={3}
+          onComplete={handleComplete}
         />
       </div>
     )

@@ -100,7 +100,7 @@ export const setVolume = value => {
     synth.volume.value = (convertSliderVolToDecibels(value));
 }
 export const activateChord = (chord) => {
-    
+    console.log('received request to activate upcoming chord of ' + chord)
     // save it locally
     
     currentChord = chord;

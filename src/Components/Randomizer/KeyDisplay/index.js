@@ -19,7 +19,7 @@ const KeyDisplay = props => {
     const [currentKeyset, setCurrentKeyset] = useState(keysWithFlats);
   
     const [currentKey, setCurrentKey] = useState("C");
-    const [upcomingKey,setUpcomingKey] = useState("G");
+    const [upcomingKey,setUpcomingKey] = useState("C");
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
   
@@ -49,8 +49,6 @@ const KeyDisplay = props => {
 
     const updateChordsInRender = () => {
 
-      // C# becomes current (+1 to each semitone)
-      // D becomes upcoming (+1 to each semitone)
       setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));
       setCurrentKey(upcomingKey);
 
