@@ -8,7 +8,7 @@ import InfoBox from "../InfoBox";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ReactGA from 'react-ga';
 import { pauseSynth, resumeSynth, setVolume } from '../../utils/playSounds';
-
+import * as Tone from 'tone';
 
 
 const Randomizer = props => {
@@ -32,6 +32,7 @@ const Randomizer = props => {
 
     // Add event listener for pause
     document.addEventListener("keyup", pauseIfSpacePressed);
+
   }, []);
 
   const pauseIfSpacePressed = (event) => {

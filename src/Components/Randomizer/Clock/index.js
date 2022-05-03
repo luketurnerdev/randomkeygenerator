@@ -36,7 +36,6 @@ const Clock = props => {
       if ((timeLeft === delayInSeconds) && firstPlay) {
         console.log('first time');
       }
-      console.log(timeLeft)
       if (timeLeft >0 ) {
           setTimeLeft(timeLeft-0.01)
       }

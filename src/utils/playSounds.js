@@ -1,12 +1,8 @@
-import {Howler} from "howler"
 import * as Tone from 'tone';
 
-const verb = new Tone.Reverb(1);
-const chorus = new Tone.Chorus(2,4,1);
 let currentChord = ""
 let chordNotes = [];
-// const filter = new Tone.AutoFilter("8n").toDestination().start();
-const filter = new Tone.Filter(1500, "highpass").toDestination();
+
 const limiter = new Tone.Limiter(-10).toDestination();
 const synth = new Tone.PolySynth().toDestination().connect(limiter);
 
@@ -42,7 +38,6 @@ synth.set
 // seperate 'synth settings page' where user can change each
 
 let pitches = [3,4,4,4];
-// let pitches = [4];
 
 // in dB
 synth.volume.value = -13;
@@ -52,7 +47,6 @@ const convertSliderVolToDecibels = sliderVol => {
     let logModifier = 0.25303030
     // -7 dB = MAX
     // -36 dB = min (without being muted)
-    console.log(sliderVol * logModifier - 37 )
     return sliderVol === 0 ? -10000 : (sliderVol * logModifier - 37 )
 }
 
@@ -100,7 +94,6 @@ export const setVolume = value => {
     synth.volume.value = (convertSliderVolToDecibels(value));
 }
 export const activateChord = (chord) => {
-    console.log('received request to activate upcoming chord of ' + chord)
     // save it locally
     
     currentChord = chord;
@@ -120,15 +113,20 @@ export const pauseSynth = () => {
         synth.releaseAll(Tone.now())
 }
 export const resumeSynth = () => {
-    // if (timeLeft === delayInSeconds) {
-        // activateChord(upcomingChord)
-    // }
-    if (currentChord) {
+        Tone.context.resume().then(() =>{ 
+            console.log('tone state after? ', Tone.context.state); 
 
-        let chordNotes = chords[currentChord].map((key, i) => key + pitches[i]);
+            console.log()
+            if (currentChord) {
 
-        synth.triggerAttackRelease(chordNotes, 999, 1);
-    }
+                let chordNotes = chords[currentChord].map((key, i) => key + pitches[i]);
+        
+                synth.triggerAttackRelease(chordNotes, 999, 1);
+            }
+        })
+
+
+    
 
 }
 

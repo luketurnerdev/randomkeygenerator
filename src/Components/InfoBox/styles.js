@@ -4,21 +4,21 @@ const styles = {
     iconBackground: {
         backgroundColor: '#5641E6',
         position: 'absolute',
-        top: '-22.5px',
-        right: '-22.5px',
+        top: '20px',
+        right: '20px',
         borderRadius: '200px',
-        height: '92px',
-        width: '92px',
+        height: '44px',
+        width: '44px',
         display: 'flex',
-        // justifyContent: 'space-around',
-        // alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     icon: {
         // color: 'red'
         color: 'white',
-        position: 'relative',
-        left: '20px',
-        top: '45px',
+        // position: 'relative',
+        // left: '30px',
+        // top: '30px',
         fontSize: '24px'
         // margin: '10px'
     },
