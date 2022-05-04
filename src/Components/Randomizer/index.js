@@ -9,6 +9,7 @@ import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ReactGA from 'react-ga';
 import { pauseSynth, resumeSynth, setVolume } from '../../utils/playSounds';
 import * as Tone from 'tone';
+import useAnalyticsEventTracker from "../../utils/useAnalyticsEventTracker";
 
 
 const Randomizer = props => {
@@ -26,9 +27,12 @@ const Randomizer = props => {
   const [paused, setPaused] = useState(true);
   const {mobile} = props;
 
+  const gaEventTracker = useAnalyticsEventTracker('Contact us');
+
   useEffect(() => {
     // Add GA on pageload
     ReactGA.pageview(window.location.pathname);
+    gaEventTracker("Homepage");
 
     // Add event listener for pause
     document.addEventListener("keyup", pauseIfSpacePressed);

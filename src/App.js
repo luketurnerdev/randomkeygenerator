@@ -1,6 +1,6 @@
 import Randomizer from "./Components/Randomizer";
 import { ThemeProvider } from '@material-ui/core'
-import ClockContext from "./Contexts/ClockContext";
+import ReactGA from 'react-ga';
 import theme from "./theme";
 import {useState} from 'react';
 import { initializeApp } from 'firebase/app';
@@ -16,10 +16,15 @@ const firebaseConfig = {
   measurementId: "G-7PY2ZBZTLT"
 };
 
+const trackingId = "UA-226802790-1";
+ReactGA.initialize(trackingId);
+
 const app = initializeApp(firebaseConfig);
 
 // Initialize Analytics and get a reference to the service
 const analytics = getAnalytics(app);
+
+
 
 function App() {
   const [mobile, setMobile] = useState(window.matchMedia("(max-width: 768px)").matches)
