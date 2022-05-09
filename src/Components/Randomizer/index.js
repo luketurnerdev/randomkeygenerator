@@ -22,7 +22,8 @@ const Randomizer = props => {
   // Next chord is set to C# Major.
   // After timer runs out, we jump up all the notes X amount of semitones (eg 1), and play the new chord.
   // Still keep the chord mappings as strings so that we can display this to the user.
-  const [keyOrder, setKeyOrder] = useState("Fifths")
+  const [chordMovement, setChordMovement] = useState("Fifths")
+  const [key, setKey] = useState("C")
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
   const [paused, setPaused] = useState(true);
@@ -55,20 +56,20 @@ const Randomizer = props => {
   return (
     <div style={styles.mainContainer}>
         <ChangeOrderDisplay
-            keyOrder={keyOrder}
-            setKeyOrder={setKeyOrder}
+            chordMovement={chordMovement}
+            setChordMovement={setChordMovement}
           />
         <ChangeKeyDisplay
-            keyOrder={keyOrder}
-            setKeyOrder={setKeyOrder}
+            key={key}
+            setKey={setKey}
           />
 
         <InfoBox style={styles.infoBox} />    
       <KeyDisplay
         paused={paused}
         mobile={mobile}
-        keyOrder={keyOrder}
-        setKeyOrder={setKeyOrder}
+        chordMovement={chordMovement}
+        setChordMovement={setChordMovement}
         modifiers={modifiers}
         delayInSeconds={delayInSeconds}
         setDelayInSeconds={setDelayInSeconds}

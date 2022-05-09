@@ -7,11 +7,11 @@ const ChangeOrderDisplay = props => {
     const [anchorEl, setAnchorEl] = useState(null);
     const menuOpen = Boolean(anchorEl);
 
-    const {keyOrder, setKeyOrder} = props;
+    const {chordMovement, setChordMovement} = props;
 
     const handleMenuClick = orderString => {
       handleClose();
-      setKeyOrder(orderString);
+      setChordMovement(orderString);
     }
 
     const handleClick = (event) => {
@@ -70,7 +70,7 @@ const ChangeOrderDisplay = props => {
       const order = () => {
         return (
           <div style ={styles.chipInner}>
-            {keyOrder}
+            {chordMovement}
             <KeyboardArrowDownIcon />
           </div>
         )
@@ -113,7 +113,7 @@ const ChangeOrderDisplay = props => {
             onClick={() => handleMenuClick("Random")}
           >
           <div style={styles.tick}>
-            {keyOrder === "Random" && <DoneIcon />}
+            {chordMovement === "Random" && <DoneIcon />}
           </div>
 
            <div style={styles.menuText}>
@@ -127,7 +127,7 @@ const ChangeOrderDisplay = props => {
           >
 
           <div style={styles.tick}>
-            {keyOrder === "Sequential" && <DoneIcon />}
+            {chordMovement === "Sequential" && <DoneIcon />}
           </div>
 
           <div style={styles.menuText}>
@@ -141,7 +141,7 @@ const ChangeOrderDisplay = props => {
           >
 
           <div style={styles.tick}>
-            {keyOrder === "Fifths" && <DoneIcon />}
+            {chordMovement === "Fifths" && <DoneIcon />}
           </div>
 
           <div style={styles.menuText}>
