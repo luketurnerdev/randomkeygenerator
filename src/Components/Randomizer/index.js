@@ -9,7 +9,6 @@ import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ChangeKeyDisplay from "./ChangeKeyDisplay";
 import ReactGA from 'react-ga';
 import { pauseSynth, resumeSynth, setVolume } from '../../utils/playSounds';
-import * as Tone from 'tone';
 import useAnalyticsEventTracker from "../../utils/useAnalyticsEventTracker";
 
 
@@ -23,7 +22,7 @@ const Randomizer = props => {
   // After timer runs out, we jump up all the notes X amount of semitones (eg 1), and play the new chord.
   // Still keep the chord mappings as strings so that we can display this to the user.
   const [chordMovement, setChordMovement] = useState("Fifths")
-  const [key, setKey] = useState("C")
+  const [keySelected, setKeySelected] = useState("C");
   const [delayInSeconds, setDelayInSeconds] = useState(5);
   const [modifiers, setModifiers] = useState(["Major"])
   const [paused, setPaused] = useState(true);
@@ -60,8 +59,8 @@ const Randomizer = props => {
             setChordMovement={setChordMovement}
           />
         <ChangeKeyDisplay
-            key={key}
-            setKey={setKey}
+            keySelected={keySelected}
+            setKeySelected={setKeySelected}
           />
 
         <InfoBox style={styles.infoBox} />    
