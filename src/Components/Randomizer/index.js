@@ -6,6 +6,7 @@ import SettingsBar from "./SettingsBar";
 import PlayButton from "../PlayButton";
 import InfoBox from "../InfoBox";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
+import ChangeKeyDisplay from "./ChangeKeyDisplay";
 import ReactGA from 'react-ga';
 import { pauseSynth, resumeSynth, setVolume } from '../../utils/playSounds';
 import * as Tone from 'tone';
@@ -54,6 +55,10 @@ const Randomizer = props => {
   return (
     <div style={styles.mainContainer}>
         <ChangeOrderDisplay
+            keyOrder={keyOrder}
+            setKeyOrder={setKeyOrder}
+          />
+        <ChangeKeyDisplay
             keyOrder={keyOrder}
             setKeyOrder={setKeyOrder}
           />

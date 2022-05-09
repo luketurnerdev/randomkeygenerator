@@ -9,7 +9,7 @@ import {useState, useEffect} from 'react';
 
 const KeyDisplay = props => {
     
-    const {keyOrder, modifiers, delayInSeconds, paused, setPaused} = props;
+    const {chordMovement, modifiers, delayInSeconds, paused, setPaused} = props;
     const [timeLeft, setTimeLeft] = useState(delayInSeconds)
     const keysWithFlats = ["Ab","A","Bb","B","C","Db","D","Eb","E","F","Gb","G"];
     // const keysWithFlats = ["C", "E", "G"];
@@ -23,15 +23,15 @@ const KeyDisplay = props => {
     const [currentMod, setCurrentMod] = useState("Major");
     const [upcomingMod,setUpcomingMod] = useState("Major");
   
-    // If keyOrder prop has changed, change upcoming instantly
+    // If chordMovement prop has changed, change upcoming instantly
     useEffect(() => {
-      console.log('key order has changed to ' +keyOrder)
-      changeChordBasedOnKeyOrder()
+      console.log('key order has changed to ' +chordMovement)
+      changeChordBasedOnChordMovement()
     
-    }, [keyOrder])
+    }, [chordMovement])
 
     useEffect(() => {
-      changeChordBasedOnKeyOrder()
+      changeChordBasedOnChordMovement()
       console.log('mod changed')
     
     }, [modifiers])
@@ -41,15 +41,15 @@ const KeyDisplay = props => {
       setTimeLeft(delayInSeconds);
     }, [delayInSeconds])
 
-    const changeChordBasedOnKeyOrder = () => {
+    const changeChordBasedOnChordMovement = () => {
       // Set the new chord in render state
-      setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));
+      setUpcomingKey(decideUpcomingKey(chordMovement, upcomingKey, currentKeyset));
     }
 
 
     const updateChordsInRender = () => {
 
-      setUpcomingKey(decideUpcomingKey(keyOrder, upcomingKey, currentKeyset));
+      setUpcomingKey(decideUpcomingKey(chordMovement, upcomingKey, currentKeyset));
       setCurrentKey(upcomingKey);
 
       setUpcomingMod(modifiers[Math.floor(Math.random() * modifiers.length)]);

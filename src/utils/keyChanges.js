@@ -27,10 +27,10 @@ export const generateFourthsKey = (currentKey, currentKeyset) => {
   return currentKeyset[newPos]
 }
 
-export const decideUpcomingKey = (keyOrder, upcomingKey, currentKeyset) => {
-  console.log('deciding upcoming based on key order of ', keyOrder);
+export const decideUpcomingKey = (chordMovement, upcomingKey, currentKeyset) => {
+  console.log('deciding upcoming based on key order of ', chordMovement);
   console.log('upcoming key is');
-  switch (keyOrder) {
+  switch (chordMovement) {
     case "Random": 
       return (generateRandomKey(currentKeyset));
     case "Sequential":
