@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react';
+import {useState, useEffect} from 'react';
 import styles from "./styles";
 import KeyDisplay from "./KeyDisplay";
 import VolumeSection from "./VolumeSection";
@@ -8,12 +8,11 @@ import InfoBox from "../InfoBox";
 import ChangeOrderDisplay from "./ChangeOrderDisplay";
 import ChangeKeyDisplay from "./ChangeKeyDisplay";
 import ReactGA from 'react-ga';
-import { pauseSynth, resumeSynth, setVolume } from '../../utils/playSounds';
+import { pauseSynth, resumeSynth } from '../../utils/playSounds';
 import useAnalyticsEventTracker from "../../utils/useAnalyticsEventTracker";
 
 
 const Randomizer = props => {
-  // const [clock, setClock] = useContext(ClockContext);
 
   // Default state 
 
@@ -21,6 +20,7 @@ const Randomizer = props => {
   // Next chord is set to C# Major.
   // After timer runs out, we jump up all the notes X amount of semitones (eg 1), and play the new chord.
   // Still keep the chord mappings as strings so that we can display this to the user.
+  
   const [chordMovement, setChordMovement] = useState("Fifths")
   const [keySelected, setKeySelected] = useState("C");
   const [delayInSeconds, setDelayInSeconds] = useState(5);

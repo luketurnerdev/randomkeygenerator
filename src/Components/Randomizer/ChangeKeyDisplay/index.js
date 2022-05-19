@@ -1,8 +1,6 @@
-import {Button, Modal, Box, Chip, Typography, Menu, MenuItem} from '@mui/material'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import DoneIcon from '@mui/icons-material/Done';
+import {Button, Modal, Box, Chip, Typography, Grid} from '@mui/material'
+
 import {useState} from 'react';
-import { keys } from '@mui/system';
 
 const ChangeKeyDisplay = props => {
    console.log(props);
@@ -100,8 +98,8 @@ const ChangeKeyDisplay = props => {
           top: '50%'
       },
       controls: {
-          display: 'flex',
-          alignItems: 'center',
+          // display: 'flex',
+          // alignItems: 'center',
       },
       cancel: {
           color: "#5641E6"
@@ -138,7 +136,16 @@ const ChangeKeyDisplay = props => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'     
-      },     
+      },
+      gridContainer: {
+        display: 'flex',
+        justifyContent: 'center'
+      },
+      gridItem: {
+        display: 'flex',
+        justifyContent: 'center',
+        margin: '5px',
+      }
   }
   const toggleKeyModal = () => {
     setModalOpen(true);
@@ -147,7 +154,7 @@ const ChangeKeyDisplay = props => {
   const KeyModal = () => {
 
 
-    const handleSetDelay = () => {
+    const handleChangeKey = () => {
       
     }
     return (
@@ -155,29 +162,30 @@ const ChangeKeyDisplay = props => {
 
       <Box style={styles.modalContainer}>
         <Box style={styles.delayText} >
-          Delay (in seconds):
+          Key:wer
         </Box>
         <Box style={styles.controls}>
-          <Button >
-            <Box style={styles.button}>
-                button
-              </Box>
-          </Button>
-
-          <Box style={styles.delayCircle}>
-            fuck u
-          </Box>
-          
-          <Button >
-            <Box style={styles.button}>
-                butthole
-              </Box>
-          </Button>
+          <Grid style={styles.gridContainer} container spacing={1}>
+            <Grid item style={styles.gridItem} xs={12}>
+              <Chip>hi</Chip>
+              <Chip>hi</Chip>
+              <Chip>hi</Chip>
+            </Grid>
+            <Grid item style={styles.gridItem} xs={12}>
+              <Chip>hi</Chip>
+              <Chip>hi</Chip>
+              <Chip>hi</Chip>
+            </Grid>
+            <Grid item style={styles.gridItem} xs={12}>
+              <Chip>hi</Chip>
+              <Chip>hi</Chip>
+              <Chip>hi</Chip>
+            </Grid>
+          </Grid>
         </Box>
 
         <Box style={styles.buttons} >
-          <Button style={styles.cancel} onClick={() => setModalOpen(false)}> Cancel</Button>
-          <Button style={styles.setDelay} onClick={handleSetDelay}>Set Delay</Button>
+          <Button style={styles.setDelay} onClick={handleChangeKey}>Set Delay</Button>
         </Box>
 
 
